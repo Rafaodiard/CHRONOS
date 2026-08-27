@@ -3,45 +3,110 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - EscapeRoom</title>
+    <title>@ViewData["Title"] - CHRONOS</title>
     <script type="importmap"></script>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EscapeRoom.styles.css" asp-append-version="true" />
 </head>
-<body>
-    <header>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
-            <div class="container-fluid">
-                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">EscapeRoom</a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
-                        aria-expanded="false" aria-label="Toggle navigation">
+@{
+    var controller = (ViewContext.RouteData.Values["controller"]?.ToString() ?? string.Empty);
+    var action = (ViewContext.RouteData.Values["action"]?.ToString() ?? string.Empty);
+    var isMainMenu = controller.Equals("Home", StringComparison.OrdinalIgnoreCase)
+                     && action.Equals("Index", StringComparison.OrdinalIgnoreCase);
+}
+<body class="@(isMainMenu ? "main-menu-page" : "")">
+    @if (!isMainMenu)
+    {
+    <header class="chronos-header">
+        <nav class="navbar navbar-expand-lg navbar-dark chronos-nav">
+            <div class="container-fluid chronos-nav-inner">
+                <a class="navbar-brand chronos-brand" asp-area="" asp-controller="Home" asp-action="Index">
+                    <span class="chronos-brand-mark">⏳</span>
+                    <span>
+                        <strong>CHRONOS</strong>
+                        <small>El viaje que salió mal</small>
+                    </span>
+                </a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#chronosMenu"
+                        aria-controls="chronosMenu" aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
-                    <ul class="navbar-nav flex-grow-1">
+                <div class="collapse navbar-collapse" id="chronosMenu">
+                    <ul class="navbar-nav ms-auto chronos-links">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Index">Inicio</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Index">Acceder</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Account" asp-action="Register">Registro</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Privacy">Cronología</a>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
-    </header>
-    <div class="container">
-        <main role="main" class="pb-3">
-            @RenderBody()
-        </main>
-    </div>
 
-    <footer class="border-top footer text-muted">
+        <section class="chronos-hero">
+            <div class="container">
+                <div class="chronos-hero-card">
+                    <p class="chronos-kicker">Aventura temporal cooperativa</p>
+                    <h1>Repara la máquina y regresa al presente</h1>
+                    <p>
+                        Recorre épocas perdidas, recupera los fragmentos temporales y descubre quién sabotearon
+                        el salto que dejó a los viajeros atrapados en la historia.
+                    </p>
+                </div>
+            </div>
+        </section>
+    </header>
+    }
+
+    <main role="main" class="@(isMainMenu ? "main-menu-shell" : "container chronos-main")">
+        <div class="@(isMainMenu ? "main-menu-content" : "")">
+            @RenderBody()
+        </div>
+    </main>
+
+    @if (!isMainMenu)
+    {
+    <footer class="chronos-footer">
         <div class="container">
-            &copy; 2026 - EscapeRoom - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            <div class="chronos-footer-grid">
+                <div>
+                    <h5>CHRONOS</h5>
+                    <p>
+                        Una máquina del tiempo en fuga. Seis épocas, cinco fragmentos y un único objetivo:
+                        volver a casa antes de que la energía se agote.
+                    </p>
+                </div>
+                <div>
+                    <h6>Épocas</h6>
+                    <ul>
+                        <li>Antigua Grecia</li>
+                        <li>Antigua Roma</li>
+                        <li>Edad Media</li>
+                        <li>Renacimiento</li>
+                        <li>Segunda Guerra Mundial</li>
+                        <li>Futuro</li>
+                    </ul>
+                </div>
+                <div>
+                    <h6>Objetivo</h6>
+                    <p>Recolectar todos los fragmentos, reparar Chronos y regresar a 2026.</p>
+                </div>
+            </div>
+            <div class="chronos-footer-bottom">
+                <span>&copy; 2026 - CHRONOS</span>
+                <a asp-area="" asp-controller="Home" asp-action="Privacy">Cronología</a>
+            </div>
         </div>
     </footer>
+    }
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

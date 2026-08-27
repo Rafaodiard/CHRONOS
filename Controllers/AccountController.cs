@@ -1,7 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
-using TP04Prog.Models;
+using EscapeRoom.Models;
 
-namespace TP04Prog.Controllers;
+namespace EscapeRoom.Controllers;
 
 public class AccountController : Controller
 {
@@ -30,7 +30,7 @@ public class AccountController : Controller
     [HttpPost]
     public IActionResult Login(LogInViewModel l)
     {
-        Usuario? u = DB.Login(l);
+        Usuarios? u = DB.Login(l);
 
         if (u != null)
         {
@@ -44,7 +44,7 @@ public class AccountController : Controller
     }
 
     [HttpPost]
-    public IActionResult Register(Usuario u, string password2)
+    public IActionResult Register(Usuarios u, string password2)
     {
         if (DB.UsuarioExiste(u.Usuario))
         {
@@ -66,7 +66,7 @@ public class AccountController : Controller
             password = u.Password
         };
 
-        Usuario? usuario = DB.Login(login);
+        Usuarios? usuario = DB.Login(login);
 
         if (usuario != null)
         {
@@ -89,7 +89,7 @@ public class AccountController : Controller
             return RedirectToAction("Index", "Account");
         }
 
-        Usuario? usuario = DB.GetUsuarioById(usuarioId.Value);
+        Usuarios? usuario = DB.GetUsuarioById(usuarioId.Value);
 
         if (usuario == null)
         {

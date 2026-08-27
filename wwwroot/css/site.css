@@ -18,7 +18,976 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+  margin-bottom: 0;
+  background:
+    radial-gradient(circle at top, rgba(120, 90, 255, 0.18), transparent 35%),
+    linear-gradient(180deg, #080b18 0%, #11152a 45%, #090b12 100%);
+  color: #eef2ff;
+}
+
+body.main-menu-page {
+  overflow: hidden;
+}
+
+a {
+  color: #9ecbff;
+}
+
+a:hover {
+  color: #d7e7ff;
+}
+
+.chronos-header {
+  background: linear-gradient(180deg, rgba(6, 9, 20, 0.98), rgba(13, 18, 39, 0.92));
+  border-bottom: 1px solid rgba(158, 203, 255, 0.15);
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.3);
+}
+
+.chronos-nav {
+  padding: 1rem 0;
+}
+
+.chronos-nav-inner {
+  padding-inline: 1.25rem;
+}
+
+.chronos-brand {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  color: #fff !important;
+  text-decoration: none;
+}
+
+.chronos-brand small {
+  display: block;
+  color: #a7b5dd;
+  font-size: 0.78rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.chronos-brand-mark {
+  width: 2.75rem;
+  height: 2.75rem;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 999px;
+  background: linear-gradient(135deg, #7c5cff, #41d0ff);
+  box-shadow: 0 0 24px rgba(124, 92, 255, 0.45);
+  font-size: 1.2rem;
+}
+
+.chronos-links .nav-link {
+  color: #dbe7ff !important;
+  font-weight: 500;
+  padding-inline: 0.9rem !important;
+}
+
+.chronos-links .nav-link:hover,
+.chronos-links .nav-link:focus {
+  color: #7de0ff !important;
+}
+
+.chronos-hero {
+  padding: 2rem 0 1.5rem;
+}
+
+.chronos-hero-card {
+  padding: 2rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(135deg, rgba(25, 31, 60, 0.94), rgba(10, 13, 27, 0.92));
+  border: 1px solid rgba(158, 203, 255, 0.14);
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+}
+
+.chronos-kicker {
+  margin-bottom: 0.5rem;
+  color: #7de0ff;
+  font-size: 0.85rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.chronos-hero-card h1 {
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+
+.chronos-hero-card p {
+  max-width: 58rem;
+  color: #c8d3f0;
+}
+
+.chronos-main {
+  padding-top: 0.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.chronos-footer {
+  margin-top: auto;
+  padding: 2rem 0 1rem;
+  background: linear-gradient(180deg, rgba(8, 11, 24, 0.55), rgba(4, 6, 14, 0.95));
+  border-top: 1px solid rgba(158, 203, 255, 0.12);
+  color: #c8d3f0;
+}
+
+.chronos-footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.chronos-footer h5,
+.chronos-footer h6 {
+  color: #ffffff;
+  margin-bottom: 0.75rem;
+}
+
+.chronos-footer ul {
+  margin: 0;
+  padding-left: 1.1rem;
+}
+
+.chronos-footer-bottom {
+  margin-top: 1.5rem;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(158, 203, 255, 0.12);
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.chronos-footer-bottom a {
+  color: #7de0ff;
+  text-decoration: none;
+}
+
+.chronos-footer-bottom a:hover {
+  text-decoration: underline;
+}
+
+.chronos-home {
+  padding: 1rem 0 2rem;
+}
+
+.main-menu-shell {
+  min-height: 100vh;
+  display: block;
+}
+
+.main-menu-content {
+  min-height: 100vh;
+}
+
+.chronos-mainmenu {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+}
+
+.menu-screen {
+  position: relative;
+  min-height: 100vh;
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: minmax(0, 1.05fr) minmax(380px, 0.95fr);
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+}
+
+.menu-screen::before,
+.menu-screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.menu-screen::before {
+  background:
+    radial-gradient(circle at 20% 20%, rgba(124, 92, 255, 0.22), transparent 20%),
+    radial-gradient(circle at 80% 30%, rgba(65, 208, 255, 0.18), transparent 24%),
+    radial-gradient(circle at bottom, rgba(125, 224, 255, 0.08), transparent 30%);
+}
+
+.menu-screen::after {
+  background-image:
+    linear-gradient(rgba(125, 224, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 224, 255, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.75), transparent 90%);
+  opacity: 0.35;
+}
+
+.menu-left,
+.menu-right {
+  position: relative;
+  z-index: 1;
+}
+
+.menu-left {
+  max-width: 640px;
+  justify-self: end;
+}
+
+.menu-left > p:first-of-type {
+  color: #7de0ff;
+  letter-spacing: 0.24em;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.menu-left > h1 {
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  line-height: 0.95;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.menu-left > p:nth-of-type(2) {
+  color: #c8d3f0;
+  font-size: 1.08rem;
+  max-width: 60ch;
+}
+
+.menu-actions {
+  margin-top: 1.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 220px));
+  gap: 0.85rem;
+}
+
+.menu-actions a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.3rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ecf5ff;
+  border: 1px solid rgba(125, 224, 255, 0.22);
+  background: rgba(10, 14, 28, 0.75);
+  backdrop-filter: blur(12px);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.menu-actions a:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+  border-color: rgba(125, 224, 255, 0.55);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.menu-actions a:first-child {
+  background: linear-gradient(135deg, #7c5cff, #41d0ff);
+  color: #08101f;
+  border-color: transparent;
+}
+
+.menu-actions a:last-child {
+  border-color: rgba(255, 120, 120, 0.35);
+  color: #ffcccc;
+}
+
+.menu-stats {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: #9fe6ff;
+  font-size: 0.95rem;
+}
+
+.menu-right {
+  display: grid;
+  place-items: center;
+  justify-self: center;
+  min-height: 1px;
+}
+
+.menu-card {
+  position: relative;
+  width: min(100%, 560px);
+  padding-bottom: 1.1rem;
+  border-radius: 1.5rem;
+  background: rgba(7, 10, 21, 0.92);
+  border: 1px solid rgba(125, 224, 255, 0.18);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.menu-dots {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1rem 0;
+}
+
+.menu-dots span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #7de0ff;
+}
+
+.menu-orbit {
+  position: relative;
+  min-height: 330px;
+  padding: 1.2rem;
+  margin: 0 1.2rem 1rem;
+  border-radius: 1.25rem;
+  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+  border: 1px solid rgba(125, 224, 255, 0.08);
+}
+
+.menu-core {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 110px;
+  height: 110px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: radial-gradient(circle, #7de0ff 0%, #7c5cff 65%, rgba(124, 92, 255, 0.05) 100%);
+  box-shadow: 0 0 45px rgba(125, 224, 255, 0.35);
+  color: #04101b;
+  font-size: 2.2rem;
+}
+
+.time-ring {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  border-radius: 50%;
+  border: 1px solid rgba(125, 224, 255, 0.16);
+}
+
+.ring-1 {
+  width: 180px;
+  height: 180px;
+  animation: chronos-spin 24s linear infinite;
+}
+
+.ring-2 {
+  width: 250px;
+  height: 250px;
+  animation: chronos-spin 34s linear infinite reverse;
+}
+
+.ring-3 {
+  width: 320px;
+  height: 320px;
+  animation: chronos-spin 48s linear infinite;
+}
+
+.energy-box {
+  margin: 0 1.2rem 1rem;
+  padding: 1rem 1.1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(125, 224, 255, 0.12);
+  text-align: left;
+}
+
+.energy-box p {
+  margin-bottom: 0.1rem;
+  color: #7de0ff;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+}
+
+.energy-box strong {
+  display: block;
+  font-size: 2.15rem;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.energy-bar {
+  margin-top: 0.6rem;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.energy-bar span {
+  display: block;
+  width: 24%;
+  height: 100%;
+  background: linear-gradient(90deg, #7c5cff, #41d0ff);
+}
+
+.mission-log {
+  margin: 0 1.2rem;
+  list-style: none;
+  padding: 1rem 1rem 1rem 1.1rem;
+  width: auto;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(125, 224, 255, 0.12);
+  color: #c8d3f0;
+}
+
+.mission-log li {
+  margin-bottom: 0.45rem;
+}
+
+.mission-log li:last-child {
+  margin-bottom: 0;
+}
+
+.chronos-mainmenu-bg {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(circle at 20% 20%, rgba(124, 92, 255, 0.22), transparent 20%),
+    radial-gradient(circle at 80% 30%, rgba(65, 208, 255, 0.18), transparent 24%),
+    radial-gradient(circle at bottom, rgba(125, 224, 255, 0.08), transparent 30%);
+}
+
+.chronos-mainmenu-gridline {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(125, 224, 255, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(125, 224, 255, 0.06) 1px, transparent 1px);
+  background-size: 72px 72px;
+  mask-image: linear-gradient(180deg, rgba(0,0,0,0.75), transparent 90%);
+  opacity: 0.35;
+}
+
+.chronos-mainmenu-ui {
+  position: relative;
+  z-index: 1;
+  width: min(1200px, 100%);
+  display: grid;
+  grid-template-columns: 1.1fr 0.9fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.chronos-mainmenu-left {
+  max-width: 640px;
+}
+
+.chronos-mainmenu-label {
+  color: #7de0ff;
+  letter-spacing: 0.24em;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+}
+
+.chronos-mainmenu-left h1 {
+  font-size: clamp(2.8rem, 6vw, 5.8rem);
+  line-height: 0.95;
+  font-weight: 900;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.chronos-mainmenu-text {
+  color: #c8d3f0;
+  font-size: 1.08rem;
+  max-width: 60ch;
+}
+
+.chronos-mainmenu-buttons {
+  margin-top: 1.75rem;
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 220px));
+  gap: 0.85rem;
+}
+
+.chronos-menu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 3.3rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  color: #ecf5ff;
+  border: 1px solid rgba(125, 224, 255, 0.22);
+  background: rgba(10, 14, 28, 0.75);
+  backdrop-filter: blur(12px);
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.chronos-menu-btn:hover {
+  color: #ffffff;
+  transform: translateY(-1px);
+  border-color: rgba(125, 224, 255, 0.55);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.28);
+}
+
+.chronos-menu-btn.primary {
+  background: linear-gradient(135deg, #7c5cff, #41d0ff);
+  color: #08101f;
+  border-color: transparent;
+}
+
+.chronos-menu-btn.danger {
+  border-color: rgba(255, 120, 120, 0.35);
+  color: #ffcccc;
+}
+
+.chronos-mainmenu-footerinfo {
+  margin-top: 1.5rem;
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+  color: #9fe6ff;
+  font-size: 0.95rem;
+}
+
+.chronos-mainmenu-right {
+  display: grid;
+  place-items: center;
+}
+
+.chronos-mainmenu-monitor {
+  width: min(100%, 520px);
+  border-radius: 1.5rem;
+  background: rgba(7, 10, 21, 0.92);
+  border: 1px solid rgba(125, 224, 255, 0.18);
+  box-shadow: 0 32px 80px rgba(0, 0, 0, 0.5);
+  overflow: hidden;
+}
+
+.chronos-mainmenu-monitor-top {
+  display: flex;
+  gap: 0.5rem;
+  padding: 1rem 1rem 0;
+}
+
+.chronos-mainmenu-monitor-top span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #7de0ff;
+}
+
+.chronos-mainmenu-monitor-body {
+  position: relative;
+  min-height: 520px;
+  padding: 1.2rem 1.2rem 1.4rem;
+}
+
+.chronos-mainmenu-orbit {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+
+.chronos-mainmenu-core {
+  width: 110px;
+  height: 110px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: radial-gradient(circle, #7de0ff 0%, #7c5cff 65%, rgba(124, 92, 255, 0.05) 100%);
+  box-shadow: 0 0 45px rgba(125, 224, 255, 0.35);
+  color: #04101b;
+  font-size: 2.2rem;
+}
+
+.chronos-mainmenu-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(125, 224, 255, 0.16);
+}
+
+.chronos-mainmenu-ring.ring-a {
+  width: 220px;
+  height: 220px;
+  animation: chronos-spin 24s linear infinite;
+}
+
+.chronos-mainmenu-ring.ring-b {
+  width: 320px;
+  height: 320px;
+  animation: chronos-spin 34s linear infinite reverse;
+}
+
+.chronos-mainmenu-ring.ring-c {
+  width: 420px;
+  height: 420px;
+  animation: chronos-spin 48s linear infinite;
+}
+
+.chronos-mainmenu-status {
+  position: absolute;
+  top: 1.3rem;
+  right: 1.3rem;
+  width: 140px;
+  padding: 0.9rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(125, 224, 255, 0.12);
+  text-align: right;
+}
+
+.chronos-mainmenu-status p {
+  margin-bottom: 0.1rem;
+  color: #7de0ff;
+  font-size: 0.78rem;
+  letter-spacing: 0.2em;
+}
+
+.chronos-mainmenu-status strong {
+  display: block;
+  font-size: 2rem;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.chronos-mainmenu-bar {
+  margin-top: 0.6rem;
+  height: 10px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.08);
+  overflow: hidden;
+}
+
+.chronos-mainmenu-bar span {
+  display: block;
+  width: 24%;
+  height: 100%;
+  background: linear-gradient(90deg, #7c5cff, #41d0ff);
+}
+
+.chronos-mainmenu-log {
+  position: absolute;
+  left: 1.2rem;
+  bottom: 1.2rem;
+  list-style: none;
+  margin: 0;
+  padding: 1rem 1rem 1rem 1.1rem;
+  width: min(100%, 280px);
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(125, 224, 255, 0.12);
+  color: #c8d3f0;
+}
+
+.chronos-mainmenu-log li {
+  margin-bottom: 0.45rem;
+}
+
+.chronos-mainmenu-log li:last-child {
+  margin-bottom: 0;
+}
+
+.chronos-home-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.9fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.chronos-home-copy h2 {
+  font-size: clamp(2.2rem, 4vw, 4.2rem);
+  line-height: 1.03;
+  color: #ffffff;
+  margin-bottom: 1rem;
+}
+
+.chronos-home-eyebrow {
+  color: #7de0ff;
+  text-transform: uppercase;
+  letter-spacing: 0.22em;
+  font-size: 0.8rem;
+  margin-bottom: 0.75rem;
+}
+
+.chronos-home-lead {
+  font-size: 1.08rem;
+  color: #c8d3f0;
+  max-width: 60ch;
+}
+
+.chronos-home-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin: 1.5rem 0 1.75rem;
+}
+
+.chronos-btn-primary,
+.chronos-btn-secondary {
+  border-radius: 999px;
+  padding: 0.85rem 1.25rem;
+  font-weight: 700;
+}
+
+.chronos-btn-primary {
+  background: linear-gradient(135deg, #7c5cff, #41d0ff);
+  border: none;
+  color: #08101f;
+}
+
+.chronos-btn-primary:hover {
+  color: #08101f;
+  filter: brightness(1.05);
+}
+
+.chronos-btn-secondary {
+  background: transparent;
+  border: 1px solid rgba(125, 224, 255, 0.35);
+  color: #eaf4ff;
+}
+
+.chronos-btn-secondary:hover {
+  color: #ffffff;
+  border-color: rgba(125, 224, 255, 0.65);
+}
+
+.chronos-home-stats {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.chronos-home-stats div {
+  padding: 1rem;
+  border-radius: 1rem;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(158, 203, 255, 0.12);
+  backdrop-filter: blur(10px);
+}
+
+.chronos-home-stats strong {
+  display: block;
+  font-size: 1.8rem;
+  color: #ffffff;
+}
+
+.chronos-home-stats span {
+  color: #c8d3f0;
+  font-size: 0.95rem;
+}
+
+.chronos-home-panel {
+  position: relative;
+  min-height: 420px;
+  display: grid;
+  place-items: center;
+}
+
+.chronos-terminal {
+  width: 100%;
+  max-width: 420px;
+  padding: 1rem;
+  border-radius: 1.25rem;
+  background: rgba(6, 10, 22, 0.92);
+  border: 1px solid rgba(125, 224, 255, 0.18);
+  box-shadow: 0 30px 60px rgba(0, 0, 0, 0.45);
+  z-index: 2;
+}
+
+.chronos-terminal-bar {
+  display: flex;
+  gap: 0.45rem;
+  margin-bottom: 1rem;
+}
+
+.chronos-terminal-bar span {
+  width: 0.7rem;
+  height: 0.7rem;
+  border-radius: 999px;
+  background: #41d0ff;
+  opacity: 0.85;
+}
+
+.chronos-terminal pre {
+  margin: 0;
+  color: #9fe6ff;
+  font-family: inherit;
+  white-space: pre-wrap;
+  line-height: 1.6;
+}
+
+.chronos-orbit {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+  pointer-events: none;
+  opacity: 0.75;
+}
+
+.chronos-core {
+  width: 92px;
+  height: 92px;
+  display: grid;
+  place-items: center;
+  border-radius: 999px;
+  background: radial-gradient(circle, #7de0ff 0%, #7c5cff 55%, rgba(124, 92, 255, 0.05) 72%);
+  box-shadow: 0 0 40px rgba(125, 224, 255, 0.35);
+  color: #04101b;
+  font-size: 2rem;
+}
+
+.chronos-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(125, 224, 255, 0.18);
+}
+
+.chronos-ring-one {
+  width: 240px;
+  height: 240px;
+  animation: chronos-spin 22s linear infinite;
+}
+
+.chronos-ring-two {
+  width: 320px;
+  height: 320px;
+  animation: chronos-spin 30s linear infinite reverse;
+}
+
+.chronos-ring-three {
+  width: 400px;
+  height: 400px;
+  animation: chronos-spin 38s linear infinite;
+}
+
+.chronos-eras {
+  margin-top: 2.5rem;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.chronos-eras article {
+  padding: 1.25rem;
+  border-radius: 1rem;
+  background: linear-gradient(180deg, rgba(16, 22, 42, 0.92), rgba(8, 11, 24, 0.92));
+  border: 1px solid rgba(158, 203, 255, 0.1);
+}
+
+.chronos-eras span {
+  display: inline-block;
+  color: #7de0ff;
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  margin-bottom: 0.5rem;
+}
+
+.chronos-eras h3 {
+  color: #ffffff;
+  font-size: 1.15rem;
+}
+
+.chronos-eras p {
+  margin-bottom: 0;
+  color: #c8d3f0;
+}
+
+@keyframes chronos-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@media (max-width: 768px) {
+  .chronos-footer-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .chronos-hero-card {
+    padding: 1.5rem;
+  }
+
+  .chronos-home-grid,
+  .chronos-eras,
+  .chronos-home-stats {
+    grid-template-columns: 1fr;
+  }
+
+  .chronos-home-panel {
+    min-height: 340px;
+  }
+
+  .chronos-ring-one {
+    width: 200px;
+    height: 200px;
+  }
+
+  .chronos-ring-two {
+    width: 270px;
+    height: 270px;
+  }
+
+  .chronos-ring-three {
+    width: 340px;
+    height: 340px;
+  }
+
+  .chronos-mainmenu-ui {
+    grid-template-columns: 1fr;
+  }
+
+  .chronos-mainmenu-buttons {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-screen {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-left,
+  .menu-right {
+    justify-self: stretch;
+  }
+
+  .menu-actions {
+    grid-template-columns: 1fr;
+  }
+
+  .menu-orbit {
+    min-height: 260px;
+  }
+
+  .ring-1 {
+    width: 140px;
+    height: 140px;
+  }
+
+  .ring-2 {
+    width: 200px;
+    height: 200px;
+  }
+
+  .ring-3 {
+    width: 260px;
+    height: 260px;
+  }
+
+  .energy-box {
+    margin: 0 1rem 1rem;
+  }
+
+  .mission-log {
+    margin: 0 1rem;
+  }
 }
 
 .form-floating > .form-control-plaintext::placeholder, .form-floating > .form-control::placeholder {
