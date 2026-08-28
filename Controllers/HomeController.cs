@@ -22,6 +22,31 @@ public class HomeController : Controller
     {
         return View();
     }
+    public IActionResult NewGame()
+    {
+        int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+        if (usuarioId == null)
+        {
+            return RedirectToAction("Index", "Account");
+        }
+
+        return RedirectToAction("Introduccion", "Sala");
+    }
+    public IActionResult Login()
+    {
+        int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+        int? IdUsuario = HttpContext.Session.GetInt32("UsuarioId");
+
+
+        if (usuarioId == null)
+        {
+            return RedirectToAction("Index", "Account");
+        }
+        else
+        {
+            return RedirectToAction("Profile", "Account");
+        }
+    }
 
     [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
     public IActionResult Error()

@@ -2,20 +2,23 @@
     ViewData["Title"] = "Menú principal";
 }
 
-<section class="menu-screen">
-    <section class="menu-left">
-        <h1>El viaje que salió mal</h1>
+<section class="chronos-home-screen">
 
 
-        <nav class="menu-actions">
-            <a asp-controller="Account" asp-action="Register">Nuevo juego</a>
-            <a asp-controller="Account" asp-action="Index">Comenzar</a>
-            <a asp-controller="Home" asp-action="Privacy">Settings</a>
-            <a asp-controller="Account" asp-action="Logout">Salir</a>
-        </nav>
+    <div class="layout">
+        <section class="copy">
+            <div>
+                <p>Escape room temporal</p>
+                <h1>CHRONOS</h1>
+                <p>EL VIAJE QUE SALIÓ MAL</p>
+            </div>
 
-
-    </section>
-
-    <section class="menu-right"></section>
+            <nav class="actions">
+                <a class="primary" href="@Url.Action("NewGame","Home")">Nuevo Juego</a>
+                <a class="secondary" href="">CONTINUAR</a>
+                <a class="secondary" href="@Url.Action("LogIn","Home")">OPCIONES</a>
+                <a class="secondary danger" href="@Url.Action("Logout","Account")">SALIR</a> 
+            </nav>
+        </section>
+    </div>
 </section>

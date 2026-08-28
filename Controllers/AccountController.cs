@@ -9,7 +9,17 @@ public class AccountController : Controller
     {
         return View("LogIn");
     }
-
+    public IActionResult Profile()
+    {
+        int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+            if (usuarioId == null)
+            {
+                return RedirectToAction("Index");
+            }
+            
+            ViewBag.usuario = DB.GetUsuarioById(usuarioId.Value);
+            return View();
+    }
     public IActionResult Register()
     {
         return View();
@@ -36,7 +46,7 @@ public class AccountController : Controller
         {
             HttpContext.Session.SetInt32("UsuarioId", u.ID);
 
-            return RedirectToAction("Index", "Sala");
+            return RedirectToAction("Index", "Home");
         }
 
         ViewBag.Error = "Usuario o contraseña incorrectos";
