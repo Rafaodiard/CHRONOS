@@ -2,7 +2,7 @@
 document.addEventListener('DOMContentLoaded', () => {
 	const host = document.body;
 
-	if (!host || host.querySelector('.chronos-particles')) {
+	if (!host || !host.classList.contains('home-page') || host.querySelector('.chronos-particles')) {
 		return;
 	}
 

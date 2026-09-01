@@ -32,6 +32,11 @@ public class HomeController : Controller
 
         return RedirectToAction("Introduccion", "Sala");
     }
+    public IActionResult NewGamePrueba()
+    {
+
+        return RedirectToAction("Introduccion", "Juego");
+    }
     public IActionResult Login()
     {
         int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");

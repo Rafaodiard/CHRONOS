@@ -22,6 +22,11 @@ body {
   position: relative;
   isolation: isolate;
   overflow-x: hidden;
+  background: #040814;
+  color: #eef2ff;
+}
+
+.home-page {
   background:
     radial-gradient(circle at 50% 42%, rgba(124, 92, 255, 0.18), transparent 18%),
     radial-gradient(circle at 82% 18%, rgba(65, 208, 255, 0.14), transparent 16%),
@@ -29,15 +34,15 @@ body {
   color: #eef2ff;
 }
 
-body::before,
-body::after {
+.home-page::before,
+.home-page::after {
   content: "";
   position: fixed;
   inset: -12%;
   pointer-events: none;
 }
 
-body::before {
+.home-page::before {
   z-index: 0;
   background-image:
     radial-gradient(circle at 12% 18%, rgba(255, 255, 255, 0.9) 0 1px, transparent 1.6px),
@@ -53,7 +58,7 @@ body::before {
   animation: chronos-bg-drift 42s linear infinite;
 }
 
-body::after {
+.home-page::after {
   z-index: 0;
   inset: -20%;
   background:
@@ -72,14 +77,14 @@ body > footer {
   z-index: 1;
 }
 
-body > .chronos-particles {
+.home-page > .chronos-particles {
   position: fixed;
   inset: 0;
   z-index: 0;
   pointer-events: none;
 }
 
-.chronos-particle {
+.home-page .chronos-particle {
   position: absolute;
   left: var(--x);
   top: var(--y);

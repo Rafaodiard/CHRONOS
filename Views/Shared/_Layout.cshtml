@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/EscapeRoom.styles.css" asp-append-version="true" />
 </head>
-<body class="main-menu-page">
+<body class="@(ViewContext.RouteData.Values["controller"]?.ToString() == "Home" && ViewContext.RouteData.Values["action"]?.ToString() == "Index" ? "main-menu-page home-page" : "main-menu-page")">
     <main role="main" class="main-menu-shell">
         <div class="main-menu-content">
             @RenderBody()

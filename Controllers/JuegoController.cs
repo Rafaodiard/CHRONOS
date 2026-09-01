@@ -3,7 +3,7 @@ using EscapeRoom.Models;
 
 namespace EscapeRoom.Controllers;
 
-public class SalaController : Controller
+public class JuegoController : Controller
 {
    public IActionResult Introduccion()
     {
@@ -41,6 +41,6 @@ public class SalaController : Controller
 
             }
         };
-        return View("Dialogo");
+        return View("Juego");
     }
 }
