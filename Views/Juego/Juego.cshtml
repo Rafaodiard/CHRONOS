@@ -1,10 +1,18 @@
 @{
     ViewData["Title"] = "Juego";
 }
-
+<link rel="stylesheet" href="~/css/juego.css" />
 <h1>Juego</h1>
 <canvas id="juego" style="background-color: green;"></canvas>
- 
+ <div id="dialogo">
+    <div id="imagenPersonaje">
+    </div>
+
+    <div id="textoDialogo">
+        <h3 id="nombrePersonaje"></h3>
+        <p id="texto"></p>
+    </div>
+</div>
 @section Scripts {
     <script src="~/js/juego.js"></script>
 }
