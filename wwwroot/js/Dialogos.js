@@ -3,10 +3,6 @@ const dialogos =
 //Grecia
 npcPrueba:
 [
-    
-const dialogos = {
-
-    npcPrueba: [
         {
             tipo: "dialogo",
             personaje: "Anciano",
@@ -34,5 +30,4 @@ const dialogos = {
     ]
 
 };
-]
-}
+
