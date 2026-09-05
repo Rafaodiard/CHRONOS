@@ -27,20 +27,10 @@
 // ============================================================
 
 const tamañoTile = 32;
-
-// Escala visual.
-// El mapa original utiliza tiles de 32x32.
-// En pantalla los mostramos a 64x64.
-
 const escala = 2;
-
-const tamañoTilePantalla =
-    tamañoTile * escala;
+const tamañoTilePantalla = tamañoTile * escala;
 
 
-// ============================================================
-// 2. CANVAS
-// ============================================================
 
 const canvas =
     document.getElementById("juego");
@@ -62,19 +52,13 @@ let frameAnimacion = 0;
 let tiempoAnimacion = 0;
 const velocidadAnimacion = 8;
 const jugador = {
-
-    x: 100,
-    y: 100,
-
+    x: 944,
+    y: 944,
     ancho: 84,
     alto: 84,
-
-    velocidad: 1,
+    velocidad: 3,
     direccion: "abajo",
     moviendose: false
-
-    
-
 };
 const imagenJugador = new Image();
 
@@ -352,6 +336,7 @@ function cerrarDialogo() {
 // ============================================================
 
 let mapa = null;
+let colisiones = [];
 
 let imagenesTilesets = {};
 
@@ -391,7 +376,7 @@ function cargarMapa() {
         .then(datos => {
 
             mapa = datos;
-
+            cargarColisiones();
 
             console.log(
                 "MAPA CARGADO:",
@@ -631,8 +616,65 @@ function obtenerTileset(gid) {
     };
 
 }
+function cargarColisiones() {
+
+    const capaColisiones = mapa.layers.find(
+        capa => capa.name === "Colisiones"
+    );
+
+    if (!capaColisiones) {
+        console.error("No se encontró la capa Colisiones");
+        return;
+    }
+
+    colisiones = capaColisiones.objects;
+
+    console.log(
+        "Colisiones cargadas:",
+        colisiones.length
+    );
+}
+function hayColision(x, y) {
+
+    const jugadorIzquierda = x;
+    const jugadorDerecha =
+        x + jugador.ancho / escala;
+
+    const jugadorArriba = y;
+    const jugadorAbajo =
+        y + jugador.alto / escala;
 
 
+    for (const colision of colisiones) {
+
+        const colisionIzquierda =
+            colision.x;
+
+        const colisionDerecha =
+            colision.x + colision.width;
+
+        const colisionArriba =
+            colision.y;
+
+        const colisionAbajo =
+            colision.y + colision.height;
+
+
+        if (
+            jugadorIzquierda < colisionDerecha &&
+            jugadorDerecha > colisionIzquierda &&
+            jugadorArriba < colisionAbajo &&
+            jugadorAbajo > colisionArriba
+        ) {
+
+            return true;
+
+        }
+
+    }
+
+    return false;
+}
 // ============================================================
 // 10. MOVIMIENTO
 // ============================================================
@@ -679,11 +721,26 @@ function moverJugador() {
 
     }
 
-    jugador.x += movimientoX;
-    jugador.y += movimientoY;
+    const nuevaX =
+        jugador.x + movimientoX;
+
+    const nuevaY =
+        jugador.y + movimientoY;
+
+
+    if (!hayColision(nuevaX, jugador.y)) {
+        jugador.x = nuevaX;
+    }
+
+
+    if (!hayColision(jugador.x, nuevaY)) {
+        jugador.y = nuevaY;
+    }
+
 
     limitarJugador();
-}
+        limitarJugador();
+    }
 
 
 // ------------------------------------------------------------
@@ -1198,37 +1255,24 @@ function dibujarCapa(capa) {
 // ------------------------------------------------------------
 // Dibujar mapa completo
 // ------------------------------------------------------------
-
 function dibujarMapa() {
 
     if (!mapa) {
-
         return;
-
     }
 
+    mapa.layers.forEach(function (capa) {
 
-    // ========================================================
-    // TODAS LAS CAPAS DE TILED
-    // ========================================================
-
-    mapa.layers.forEach(
-        function (capa) {
-
-            if (
-                capa.type ===
-                "tilelayer"
-            ) {
-
-                dibujarCapa(capa);
-
-            }
-
+        if (
+            capa.type === "tilelayer" &&
+            capa.name !== "EdificiosDelante" &&
+            capa.name !== "ArbolesDelante"
+        ) {
+            dibujarCapa(capa);
         }
-    );
 
+    });
 }
-
 
 // ------------------------------------------------------------
 // Dibujar jugador
@@ -1252,14 +1296,17 @@ function dibujarJugador() {
     if (jugador.moviendose) {
         tiempoAnimacion++;
 
-        if (tiempoAnimacion >= velocidadAnimacion) {
-            tiempoAnimacion = 0;
-            frameAnimacion++;
+    const velocidadAnimacionActual =
+        Math.max(4, 16 - jugador.velocidad * 2);
 
-            if (frameAnimacion >= 4) {
-                frameAnimacion = 0;
-            }
+    if (tiempoAnimacion >= velocidadAnimacionActual) {
+        tiempoAnimacion = 0;
+        frameAnimacion++;
+
+        if (frameAnimacion >= 4) {
+            frameAnimacion = 0;
         }
+    }
     } else {
         // Quieto = primer frame
         frameAnimacion = 0;
@@ -1386,20 +1433,25 @@ function loop() {
 
     dibujarMapa();
 
+dibujarNPC();
 
-    // ========================================================
-    // NPC
-    // ========================================================
+dibujarJugador();
 
-    dibujarNPC();
+const edificiosDelante = mapa.layers.find(
+    capa => capa.name === "EdificiosDelante"
+);
 
+if (edificiosDelante) {
+    dibujarCapa(edificiosDelante);
+}
 
-    // ========================================================
-    // JUGADOR
-    // ========================================================
+const arbolesDelante = mapa.layers.find(
+    capa => capa.name === "ArbolesDelante"
+);
 
-    dibujarJugador();
-
+if (arbolesDelante) {
+    dibujarCapa(arbolesDelante);
+}
 
     // ========================================================
     // SIGUIENTE FRAME
