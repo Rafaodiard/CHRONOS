@@ -58,18 +58,27 @@ canvas.height =
 // ============================================================
 // 3. JUGADOR
 // ============================================================
-
+let frameAnimacion = 0;
+let tiempoAnimacion = 0;
+const velocidadAnimacion = 8;
 const jugador = {
 
     x: 100,
     y: 100,
 
-    ancho: 64,
-    alto: 64,
+    ancho: 84,
+    alto: 84,
 
-    velocidad: 4
+    velocidad: 1,
+    direccion: "abajo",
+    moviendose: false
+
+    
 
 };
+const imagenJugador = new Image();
+
+imagenJugador.src = "/sprites/Player.png";
 
 
 // ============================================================
@@ -92,6 +101,7 @@ const npc = {
 // ============================================================
 // 5. TECLAS
 // ============================================================
+
 
 const teclas = {};
 
@@ -478,7 +488,7 @@ function cargarTilesets() {
             else if (indice === 2) {
 
                 ruta =
-                    "/Maps/mapasJson/ship_big_128x256.png";
+                    "/Maps/ship_big_128x256.png";
 
             }
 
@@ -626,108 +636,53 @@ function obtenerTileset(gid) {
 // ============================================================
 // 10. MOVIMIENTO
 // ============================================================
-
 function moverJugador() {
 
     let movimientoX = 0;
-
     let movimientoY = 0;
 
+    jugador.moviendose = false;
 
-    // W
-    if (teclas["w"]) {
+    // ARRIBA
+    if (teclas["w"] || teclas["arrowup"]) {
 
-        movimientoY -=
-            jugador.velocidad;
-
-    }
-
-
-    // S
-    if (teclas["s"]) {
-
-        movimientoY +=
-            jugador.velocidad;
+        movimientoY = -jugador.velocidad;
+        jugador.direccion = "arriba";
+        jugador.moviendose = true;
 
     }
 
+    // ABAJO
+    else if (teclas["s"] || teclas["arrowdown"]) {
 
-    // A
-    if (teclas["a"]) {
-
-        movimientoX -=
-            jugador.velocidad;
-
-    }
-
-
-    // D
-    if (teclas["d"]) {
-
-        movimientoX +=
-            jugador.velocidad;
+        movimientoY = jugador.velocidad;
+        jugador.direccion = "abajo";
+        jugador.moviendose = true;
 
     }
 
+    // IZQUIERDA
+    else if (teclas["a"] || teclas["arrowleft"]) {
 
-    // Flecha arriba
-    if (teclas["arrowup"]) {
-
-        movimientoY -=
-            jugador.velocidad;
-
-    }
-
-
-    // Flecha abajo
-    if (teclas["arrowdown"]) {
-
-        movimientoY +=
-            jugador.velocidad;
+        movimientoX = -jugador.velocidad;
+        jugador.direccion = "izquierda";
+        jugador.moviendose = true;
 
     }
 
+    // DERECHA
+    else if (teclas["d"] || teclas["arrowright"]) {
 
-    // Flecha izquierda
-    if (teclas["arrowleft"]) {
-
-        movimientoX -=
-            jugador.velocidad;
-
-    }
-
-
-    // Flecha derecha
-    if (teclas["arrowright"]) {
-
-        movimientoX +=
-            jugador.velocidad;
+        movimientoX = jugador.velocidad;
+        jugador.direccion = "derecha";
+        jugador.moviendose = true;
 
     }
 
-
-    // Movimiento diagonal
-    if (
-        movimientoX !== 0 &&
-        movimientoY !== 0
-    ) {
-
-        movimientoX *= 0.707;
-
-        movimientoY *= 0.707;
-
-    }
-
-
-    jugador.x +=
-        movimientoX;
-
-    jugador.y +=
-        movimientoY;
-
+    jugador.x += movimientoX;
+    jugador.y += movimientoY;
 
     limitarJugador();
-
 }
 
 
@@ -1281,35 +1236,49 @@ function dibujarMapa() {
 
 function dibujarJugador() {
 
-    const pantallaX =
-        jugador.x *
-        escala -
-        camara.x;
+    const filas = {
+        abajo: 0,
+        arriba: 1,
+        derecha: 3,
+        izquierda: 2
+    };
 
+    const fila = filas[jugador.direccion];
 
-    const pantallaY =
-        jugador.y *
-        escala -
-        camara.y;
+    const pantallaX = jugador.x * escala - camara.x;
+    const pantallaY = jugador.y * escala - camara.y;
 
+    // Si está caminando, avanzamos la animación
+    if (jugador.moviendose) {
+        tiempoAnimacion++;
 
-    // TEMPORAL
-    // Más adelante ponemos el sprite real.
+        if (tiempoAnimacion >= velocidadAnimacion) {
+            tiempoAnimacion = 0;
+            frameAnimacion++;
 
-    ctx.fillStyle =
-        "blue";
+            if (frameAnimacion >= 4) {
+                frameAnimacion = 0;
+            }
+        }
+    } else {
+        // Quieto = primer frame
+        frameAnimacion = 0;
+        tiempoAnimacion = 0;
+    }
 
+    ctx.drawImage(
+        imagenJugador,
 
-    ctx.fillRect(
+        frameAnimacion * 16,
+        fila * 16 + 1 ,
+        16,
+        15,
 
         pantallaX,
         pantallaY,
-
         jugador.ancho,
         jugador.alto
-
     );
-
 }
 
 
