@@ -3,9 +3,9 @@
  <editorsettings>
   <export target="AncientGreek.tmj" format="json"/>
  </editorsettings>
- <tileset firstgid="1" source="../../../tilesets/ancient_greeks_tileset/ancientGreekTerrain.tsx"/>
- <tileset firstgid="375" source="../../../tilesets/ancient_greeks_tileset/ancientGreekBuilding.tsx"/>
- <tileset firstgid="3078" source="../../../tilesets/ship_medium/ship_big_128x256.tsx"/>
+ <tileset firstgid="1" source="../../tilesets/ancient_greeks_tileset/ancientGreekTerrain.tsx"/>
+ <tileset firstgid="375" source="../../tilesets/ancient_greeks_tileset/ancientGreekBuilding.tsx"/>
+ <tileset firstgid="3078" source="../../tilesets/ship_medium/ship_big_128x256.tsx"/>
  <layer id="1" name="Suelo" width="59" height="59">
   <data encoding="csv">
 137,137,137,137,137,137,137,137,137,137,137,137,137,137,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,53,
