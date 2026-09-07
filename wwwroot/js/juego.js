@@ -1,6 +1,7 @@
 const tamañoTile = 32;
 const escala = 2;
 const tamañoTilePantalla = tamañoTile * escala;
+let dialogoActivo = false;
 
 
 const canvas =
@@ -64,12 +65,10 @@ function loop() {
     );
 
 
-    if (!dialogoAbierto) {
-
-        moverJugador();
-
-        comprobarNPC();
-
+if (!dialogoActivo) {
+    moverJugador();
+    comprobarNPC();
+    actualizarInteraccion();
     }
 
 
@@ -82,6 +81,9 @@ function loop() {
 
     dibujarJugador();
     dibujarEstructurasDelante();
+    dibujarIndicadorInteraccion();
+    dibujarFade();
+
 
 
 
@@ -115,19 +117,8 @@ function iniciarJuego() {
     }
 
     juegoIniciado = true;
-
     requestAnimationFrame(loop);
 }
 
 cargarMapa("/Maps/mapasJson/AncientGreek.tmj");
 
-
-setTimeout(function () {
-
-    cambiarMapa(
-        "/Maps/mapasJson/TemploGrecia.tmj",
-        336,
-        672
-    );
-
-}, 5000);

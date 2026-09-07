@@ -249,7 +249,7 @@
                  "y":66.75
                 }, 
                 {
-                 "height":57.1477272727273,
+                 "height":57.1477,
                  "id":6,
                  "name":"",
                  "opacity":1,
@@ -258,7 +258,7 @@
                  "visible":true,
                  "width":95.5,
                  "x":415.875,
-                 "y":64.1022727272727
+                 "y":64.1023
                 }, 
                 {
                  "height":29.25,
@@ -393,7 +393,7 @@
                  "y":449.273
                 }, 
                 {
-                 "height":31.2424333333333,
+                 "height":31.2424,
                  "id":18,
                  "name":"",
                  "opacity":1,
@@ -402,7 +402,7 @@
                  "visible":true,
                  "width":34,
                  "x":191.455,
-                 "y":351.848666666667
+                 "y":351.849
                 }, 
                 {
                  "height":31.6364,
@@ -417,7 +417,7 @@
                  "y":351.273
                 }, 
                 {
-                 "height":30.4242333333333,
+                 "height":30.4242,
                  "id":21,
                  "name":"",
                  "opacity":1,
@@ -426,7 +426,7 @@
                  "visible":true,
                  "width":32.1818,
                  "x":448,
-                 "y":224.121666666667
+                 "y":224.122
                 }, 
                 {
                  "height":29.9091,
@@ -538,7 +538,7 @@
                  "y":640.5
                 }, 
                 {
-                 "height":32.3333333333334,
+                 "height":32.3333,
                  "id":33,
                  "name":"",
                  "opacity":1,
@@ -547,7 +547,7 @@
                  "visible":true,
                  "width":31.25,
                  "x":257,
-                 "y":640.916666666667
+                 "y":640.917
                 }, 
                 {
                  "height":63.5,
@@ -711,9 +711,48 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":8,
+         "name":"Transiciones",
+         "objects":[
+                {
+                 "height":31.6666666666666,
+                 "id":47,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"MapaDestino",
+                         "type":"string",
+                         "value":"\/Maps\/mapasJson\/AncientGreek.tmj"
+                        }, 
+                        {
+                         "name":"SpawnX",
+                         "type":"float",
+                         "value":1048
+                        }, 
+                        {
+                         "name":"SpawnY",
+                         "type":"float",
+                         "value":430
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":95,
+                 "x":288.666666666667,
+                 "y":703
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":8,
- "nextobjectid":47,
+ "nextlayerid":9,
+ "nextobjectid":48,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",

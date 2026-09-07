@@ -24,8 +24,9 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         console.log("Capas:", mapa.layers);
         console.log("Tilesets:", mapa.tilesets);
         console.log("Tamaño:", mapa.width, "x", mapa.height);
-
+        console.log("BUSCANDO TRANSICIONES...");
         cargarColisiones();
+        cargarTransiciones();
         cargarTilesets();
 
     } catch (error) {

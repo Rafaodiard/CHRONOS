@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="21" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="47">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="21" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="48">
+ <editorsettings>
+  <export target="../mapasJson/TemploGrecia.tmj" format="json"/>
+ </editorsettings>
  <tileset firstgid="1" source="../../tilesets/ancient_greeks_tileset/LPC_Ancient_Greece_Architecture.tsx"/>
  <tileset firstgid="401" source="../../tilesets/ancient_greeks_tileset/ancientGreekBuilding.tsx"/>
  <layer id="1" name="Suelo" width="21" height="25">
@@ -193,5 +196,14 @@
   <object id="44" x="671.75" y="223" width="95" height="376.5"/>
   <object id="45" x="-140.667" y="162.667" width="140" height="409.333"/>
   <object id="46" x="930.667" y="348" height="2.66667"/>
+ </objectgroup>
+ <objectgroup id="8" name="Transiciones">
+  <object id="47" x="288.667" y="703" width="95" height="31.6667">
+   <properties>
+    <property name="MapaDestino" value="/Maps/mapasJson/AncientGreek.tmj"/>
+    <property name="SpawnX" type="float" value="1048"/>
+    <property name="SpawnY" type="float" value="430"/>
+   </properties>
+  </object>
  </objectgroup>
 </map>
