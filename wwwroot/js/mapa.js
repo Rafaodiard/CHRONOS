@@ -27,6 +27,7 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         console.log("BUSCANDO TRANSICIONES...");
         cargarColisiones();
         cargarTransiciones();
+        cargarNPCs();
         cargarTilesets();
 
     } catch (error) {

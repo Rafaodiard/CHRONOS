@@ -1,7 +1,6 @@
 const tamañoTile = 32;
 const escala = 2;
 const tamañoTilePantalla = tamañoTile * escala;
-let dialogoActivo = false;
 
 
 const canvas =
@@ -21,8 +20,13 @@ const teclas = {};
 
 
 document.addEventListener("keydown", function (e) {
+    const tecla = e.key.toLowerCase();
 
-    teclas[e.key.toLowerCase()] = true;
+    if (dialogoAbierto && tecla === "e") {
+        return;
+    }
+
+    teclas[tecla] = true;
 
     if (
         e.key === "ArrowUp" ||
@@ -30,20 +34,18 @@ document.addEventListener("keydown", function (e) {
         e.key === "ArrowLeft" ||
         e.key === "ArrowRight"
     ) {
-
         e.preventDefault();
-
     }
-
 });
 
 
 document.addEventListener("keyup", function (e) {
+    const tecla = e.key.toLowerCase();
 
-    teclas[e.key.toLowerCase()] = false;
+    teclas[tecla] = false;
+
 
 });
-
 
 function loop() {
 
@@ -65,33 +67,27 @@ function loop() {
     );
 
 
-if (!dialogoActivo) {
-    moverJugador();
-    comprobarNPC();
-    actualizarInteraccion();
+    if (!dialogoAbierto) {
+        moverJugador();
+        comprobarNPC();
+        actualizarInteraccion();
+        actualizarIndicadorNPC();
     }
-
-
     actualizarCamara();
-
-
     dibujarMapa();
-
-    dibujarNPC();
-
+    dibujarNPCs();
     dibujarJugador();
     dibujarEstructurasDelante();
-    dibujarIndicadorInteraccion();
+    dibujarIndicadorE();
     dibujarFade();
 
 
 
 
 
+        requestAnimationFrame(loop);
 
-    requestAnimationFrame(loop);
-
-}
+    }
 
 
 window.addEventListener(

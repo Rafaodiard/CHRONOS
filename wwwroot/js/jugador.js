@@ -19,11 +19,12 @@ const jugador = {
 
     alto: 84,
 
-    velocidad: 5,
+    velocidad: 10,
 
     direccion: "abajo",
 
     moviendose: false
+    
 
 };
 
@@ -267,4 +268,53 @@ function dibujarJugador() {
 
     );
 
+}
+function mirarNPC(npc) {
+
+    const diferenciaX =
+        npc.x - jugador.x;
+
+    const diferenciaY =
+        npc.y - jugador.y;
+
+
+    if (
+        Math.abs(diferenciaX) >
+        Math.abs(diferenciaY)
+    ) {
+
+        if (diferenciaX > 0) {
+
+            jugador.direccion =
+                "derecha";
+
+        } else {
+
+            jugador.direccion =
+                "izquierda";
+
+        }
+
+    } else {
+
+        if (diferenciaY > 0) {
+
+            jugador.direccion =
+                "abajo";
+
+        } else {
+
+            jugador.direccion =
+                "arriba";
+
+        }
+
+    }
+
+
+    jugador.moviendose = false;
+
+    frameAnimacion = 0;
+
+    tiempoAnimacion = 0;
 }

@@ -1,7 +1,7 @@
 const dialogos = 
 {
-npcPrueba:
-[
+    Anciano:
+    [
         {
             tipo: "dialogo",
             personaje: "Anciano",
@@ -27,220 +27,128 @@ npcPrueba:
             imagen: "anciano.png"
         }
     ]
-
 };
 
 let dialogoAbierto = false;
-
 let dialogoActual = null;
-
 let indiceDialogo = 0;
-
+let bloquearE = false;
 
 function abrirDialogo(nombre) {
+        console.log("ABRIENDO DIALOGO");
 
-    if (
-        typeof dialogos ===
-        "undefined"
-    ) {
+    if (typeof dialogos === "undefined") {
 
-        console.error(
-            "No existe dialogos.js"
-        );
-
+        console.error("No existe dialogos.js");
         return;
 
     }
 
+    if (!dialogos[nombre]) {
 
-    if (
-        !dialogos[nombre]
-    ) {
-
-        console.error(
-            "No existe el diálogo:",
-            nombre
-        );
-
+        console.error("No existe el diálogo:", nombre);
         return;
 
     }
 
-
-    dialogoActual =
-        dialogos[nombre];
-
-
+    dialogoActual = dialogos[nombre];
     indiceDialogo = 0;
-
-
     dialogoAbierto = true;
 
-
     mostrarDialogo();
-
 }
-
 
 function mostrarDialogo() {
 
-    if (!dialogoActual) {
-
+    if (!dialogoAbierto || !dialogoActual) {
         return;
-
     }
 
-
-    if (
-        indiceDialogo >=
-        dialogoActual.length
-    ) {
+    if (indiceDialogo >= dialogoActual.length) {
 
         cerrarDialogo();
-
         return;
 
     }
-
 
     const dialogo =
-        dialogoActual[
-            indiceDialogo
-        ];
-
+        dialogoActual[indiceDialogo];
 
     const caja =
-        document.getElementById(
-            "dialogo"
-        );
-
+        document.getElementById("dialogo");
 
     const nombre =
-        document.getElementById(
-            "nombrePersonaje"
-        );
-
+        document.getElementById("nombrePersonaje");
 
     const texto =
-        document.getElementById(
-            "texto"
-        );
-
+        document.getElementById("texto");
 
     const imagen =
-        document.getElementById(
-            "imagenPersonaje"
-        );
+        document.getElementById("imagenPersonaje");
 
-
-    if (
-        !caja ||
-        !nombre ||
-        !texto
-    ) {
-
+    if (!caja || !nombre || !texto) {
         return;
-
     }
 
-
-    caja.style.display =
-        "flex";
-
+    caja.style.display = "flex";
 
     nombre.textContent =
         dialogo.personaje;
 
-
     texto.textContent =
         dialogo.texto;
 
-
-    if (
-        imagen &&
-        dialogo.imagen
-    ) {
+    if (imagen && dialogo.imagen) {
 
         imagen.style.backgroundImage =
             `url('/img/personajes/${dialogo.imagen}')`;
 
-
         imagen.style.backgroundSize =
             "contain";
-
 
         imagen.style.backgroundRepeat =
             "no-repeat";
 
-
         imagen.style.backgroundPosition =
             "center";
 
-
-        imagen.textContent =
-            "";
+        imagen.textContent = "";
 
     }
-
 }
 
-
-document.addEventListener(
-    "keydown",
-    function (e) {
-
-        if (!dialogoAbierto) {
-
-            return;
-
-        }
-
-
-        if (
-
-            e.key === "Enter" ||
-
-            e.key === " " ||
-
-            e.key.toLowerCase() === "e"
-
-        ) {
-
-            indiceDialogo++;
-
-            mostrarDialogo();
-
-        }
-
+document.addEventListener("keydown", function (e) {
+    if (!dialogoAbierto) {
+        return;
     }
-);
 
+    const tecla = e.key.toLowerCase();
+
+    if (
+        e.key === "Enter" ||
+        e.key === " " ||
+        tecla === "e"
+    ) {
+        e.preventDefault();
+        e.stopPropagation();
+
+        indiceDialogo++;
+        mostrarDialogo();
+    }
+});
 
 function cerrarDialogo() {
+    dialogoAbierto = false;
+    dialogoActual = null;
+    indiceDialogo = 0;
 
-    dialogoAbierto =
-        false;
-
-
-    dialogoActual =
-        null;
-
-
-    indiceDialogo =
-        0;
-
-
-    const caja =
-        document.getElementById(
-            "dialogo"
-        );
-
+    const caja = document.getElementById("dialogo");
 
     if (caja) {
-
-        caja.style.display =
-            "none";
-
+        caja.style.display = "none";
     }
 
+    setTimeout(function () {
+        puedeHablar = true;
+    }, 500);
 }
