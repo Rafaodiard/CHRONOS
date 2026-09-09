@@ -151,7 +151,7 @@
 </data>
  </layer>
  <objectgroup id="7" name="Colisiones">
-  <object id="1" x="159.667" y="75.6667" width="94.3333" height="43.6667"/>
+  <object id="1" x="159.667" y="75.6667" width="94.3333" height="52"/>
   <object id="2" x="296.667" y="107.333" width="79" height="51.3333">
    <capsule/>
   </object>
@@ -163,10 +163,9 @@
   <object id="8" x="548.375" y="102.75" width="23.75" height="33.75"/>
   <object id="9" x="160.5" y="0.25" width="350.25" height="62"/>
   <object id="10" x="96.25" y="63.75" width="62.5" height="63.5"/>
-  <object id="11" x="0.25" y="-1.25" width="96" height="161.5"/>
+  <object id="11" x="0.25" y="-1.25" width="95.8438" height="226.167"/>
   <object id="12" x="95" y="-1.5" width="66.5" height="64.5"/>
-  <object id="13" x="-0.181818" y="158.182" width="95.6364" height="65.4545"/>
-  <object id="14" x="1.81818" y="225.455" width="91.2727" height="30.5455"/>
+  <object id="14" x="1.81818" y="223.58" width="94.179" height="32.4205"/>
   <object id="15" x="3.45455" y="322.545" width="25.4545" height="28.5455"/>
   <object id="16" x="3.45455" y="419.091" width="90.5455" height="26.3636"/>
   <object id="17" x="-1.27273" y="449.273" width="129.273" height="62.9091"/>

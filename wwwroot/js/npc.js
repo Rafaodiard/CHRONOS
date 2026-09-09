@@ -65,14 +65,14 @@ function cargarNPCs() {
                     }
                 ],                   
                 alTerminar: () => {
-                        if (progreso.consiguiJarraAntigua) {
+                        if (progreso.consiguioJarraAntigua) {
                             progreso.habloConComerciante = true;
                         }
                     }
             },
             {
-                x: 650,
-                y: 1350,
+                x: 1350,
+                y: 570,
                 ancho: 64,
                 alto: 64,
                 tamañoVisual: 160,
@@ -82,10 +82,15 @@ function cargarNPCs() {
                 dialogos:
                 [
                     {
-                        condicion: ()=> progreso.habloConComerciante,
-                        dialogo: "ComercianteFinal"
+                        condicion: ()=> progreso.consiguioArcilla,
+                        dialogo: "AlfareroConInformacion"
                     },
-                ],                   
+                ],                  
+                    alTerminar: () => {
+                        if (progreso.consiguioArcilla) {
+                            //agregar jarra Antigua al inventario 
+                        }
+                    } 
 
             }
 

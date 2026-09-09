@@ -2,6 +2,7 @@ const progreso = {
     habloConAnciano: false,
     habloConPescador: false,
     encontroLlaveBronce: false,
+    consiguioArcilla: false,
     consiguioJarraAntigua: false,
     habloConComerciante: false,
     encontroSimboloSol: false,
