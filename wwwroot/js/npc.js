@@ -14,15 +14,35 @@ function cargarNPCs() {
 
         npcs = [
             {
-                x: 700,
-                y: 500,
+                x: 1275,
+                y: 1130,
                 ancho: 64,
                 alto: 64,
                 tamañoVisual: 160,
                 nombre: "Anciano",
                 imagen: "/sprites/npcs/elder.png",
-                dialogo: "Anciano"
-            },
+                dialogoInicial: "Anciano",
+                alTerminar: () => {
+                progreso.habloConAnciano = true;
+    }
+                
+            },{
+                x: 230,
+                y: 1550,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Pescador",
+                imagen: "/sprites/npcs/Pescador.png",
+                dialogoInicial: "PescadorInicial",
+                dialogos:
+                [
+                    {
+                        condicion: () => progreso.habloConAnciano,
+                        dialogo: "PescadorConAnciano"
+                    }
+                ]
+            }
 
         ];
 
@@ -169,7 +189,20 @@ function obtenerNPCCercano() {
     return null;
 }
 
+function obtenerDialogoNPC(npc) {
 
+    if (!npc.dialogos) {
+        return npc.dialogoInicial;
+    }
+
+    for (const dialogo of npc.dialogos) {
+        if (dialogo.condicion()) {
+            return dialogo.dialogo;
+        }
+    }
+
+    return npc.dialogoInicial;
+}
 function comprobarNPC() {
 
     if (
@@ -192,9 +225,10 @@ function comprobarNPC() {
         puedeHablar = false;
 
         mirarNPC(npcCercano);
+        npcDialogoActual = npcCercano;
 
         abrirDialogo(
-            npcCercano.dialogo
+            obtenerDialogoNPC(npcCercano)
         );
     }
 }
