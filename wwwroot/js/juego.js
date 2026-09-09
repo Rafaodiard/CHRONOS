@@ -66,12 +66,14 @@ function loop() {
         canvas.height
     );
 
-
     if (!dialogoAbierto) {
         moverJugador();
         comprobarNPC();
         actualizarInteraccion();
-        actualizarIndicadorNPC();
+
+        actualizarIndicadorE(
+            hayNPCCercano() || jugadorEnTransicionActual()
+        );
     }
     actualizarCamara();
     dibujarMapa();

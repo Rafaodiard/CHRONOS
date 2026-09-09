@@ -1,12 +1,42 @@
 const imagenTeclaE = new Image();
 
-imagenTeclaE.src = "/sprites/ui/SpriteSheet.png";
+imagenTeclaE.src = "/sprites/ui/Teclado.png";
 
 let mostrarIndicadorE = false;
 
+let frameTeclaE = 0;
+let tiempoTeclaE = 0;
+
+const velocidadAnimacionE = 90;
+
 
 function actualizarIndicadorE(mostrar) {
+
     mostrarIndicadorE = mostrar;
+
+}
+
+
+function animarIndicadorE() {
+
+    if (!mostrarIndicadorE) {
+        frameTeclaE = 0;
+        tiempoTeclaE = 0;
+        return;
+    }
+
+    tiempoTeclaE++;
+
+    if (tiempoTeclaE >= velocidadAnimacionE) {
+
+        tiempoTeclaE = 0;
+
+        frameTeclaE++;
+
+        if (frameTeclaE >= 2) {
+            frameTeclaE = 0;
+        }
+    }
 }
 
 
@@ -23,31 +53,47 @@ function dibujarIndicadorE() {
         return;
     }
 
+    animarIndicadorE();
+
     const tamaño = 40;
+    const jugadorPantallaX =
+        jugador.x * escala - camara.x;
+
+    const jugadorPantallaY =
+        jugador.y * escala - camara.y;
 
     const x =
-        canvas.width / 2 -
+        jugadorPantallaX +
+        jugador.ancho / 2 -
         tamaño / 2;
 
     const y =
-        canvas.height / 2 -
-        70;
+        jugadorPantallaY -
+        tamaño -
+        10;
 
-    const teclaPresionada =
-        teclas["e"];
+    let sourceX;
+    let sourceWidth;
+    let sourceHeight;
 
-    const sourceX =
-        teclaPresionada ? 77 : 59;
+    if (frameTeclaE === 0) {
 
-    const sourceY = 68;
+        sourceX = 59.2;
+        sourceWidth = 15.5;
+        sourceHeight = 18;
 
-    const sourceWidth = 18;
-    const sourceHeight = 18;
+    } else {
+
+        sourceX = 75;
+        sourceWidth = 15;
+        sourceHeight = 18;
+
+    }
 
     ctx.drawImage(
         imagenTeclaE,
         sourceX,
-        sourceY,
+        68,
         sourceWidth,
         sourceHeight,
         x,

@@ -58,6 +58,9 @@ function obtenerTransicionActual() {
 
     return null;
 }
+function jugadorEnTransicionActual() {
+    return obtenerTransicionActual() !== null;
+}
 
 function actualizarInteraccion() {
 

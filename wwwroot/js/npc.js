@@ -2,10 +2,8 @@ let npcs = [];
 
 let puedeHablar = true;
 let npcAnimaciones = [];
-let mostrarIndicadorNPC = false;
 
-const imagenTeclaE = new Image();
-imagenTeclaE.src = "/sprites/ui/SpriteSheet.png";
+
 
 
 function cargarNPCs() {
@@ -26,16 +24,6 @@ function cargarNPCs() {
                 dialogo: "Anciano"
             },
 
-            {
-                x: 800,
-                y: 500,
-                ancho: 64,
-                alto: 64,
-                tamañoVisual: 160,
-                nombre: "Soldado",
-                imagen: "/sprites/npcs/soldado.png",
-                dialogo: "soldado"
-            }
         ];
 
     }
@@ -51,7 +39,7 @@ function cargarNPCs() {
                 tamañoVisual: 160,
                 nombre: "Sacerdote",
                 imagen: "/sprites/npcs/elder.png",
-                dialogo: "sacerdote"
+                dialogo: "Sacerdote"
             }
         ];
 
@@ -212,72 +200,7 @@ function comprobarNPC() {
 }
 
 
-function actualizarIndicadorNPC() {
 
-    if (dialogoAbierto) {
-
-        mostrarIndicadorNPC = false;
-
-        return;
-    }
-
-    const npcCercano =
-        obtenerNPCCercano();
-
-    mostrarIndicadorNPC =
-        npcCercano !== null;
-}
-
-
-function dibujarIndicadorNPC() {
-
-    if (!mostrarIndicadorNPC) {
-        return;
-    }
-
-    const tamaño = 40;
-
-    const x =
-        canvas.width / 2 -
-        tamaño / 2;
-
-    const y =
-        canvas.height / 2 -
-        70;
-
-    if (
-        imagenTeclaE.complete &&
-        imagenTeclaE.naturalWidth > 0
-    ) {
-
-        const teclaPresionada =
-            teclas["e"];
-
-        const sourceX =
-            teclaPresionada ? 78 : 56;
-
-        const sourceY = 68;
-
-        const sourceWidth = 21;
-        const sourceHeight = 18;
-
-        ctx.drawImage(
-
-            imagenTeclaE,
-
-            sourceX,
-            sourceY,
-            sourceWidth,
-            sourceHeight,
-
-            x,
-            y,
-
-            tamaño,
-            tamaño
-        );
-    }
-}
 function hayNPCCercano() {
     return obtenerNPCCercano() !== null;
 }

@@ -2,18 +2,26 @@
     ViewData["Title"] = "Juego";
 }
 <link rel="stylesheet" href="~/css/juego.css" />
+<link rel="stylesheet" href="~/css/Inventario.css" />
+
 
 <canvas id="juego" style="background-color: green;"></canvas>
  <div id="dialogo">
-    <div id="imagenPersonaje">
-    </div>
-
     <div id="textoDialogo">
         <h3 id="nombrePersonaje"></h3>
         <p id="texto"></p>
     </div>
 </div>
+
+<div id="inventario" style="display: none;">
+    <h2>Inventario</h2>
+    <div id="inventarioLista"></div>
+</div>
 @section Scripts {
+    <script src="~/js/inventario/objetos.js"></script>
+    <script src="~/js/inventario/inventario.js"></script>
+    <script src="~/js/inventario/inventarioUI.js"></script>
+
     <script src="~/js/dialogos.js"></script>
     <script src="~/js/colisiones.js"></script>
     <script src="~/js/mapa.js"></script>
@@ -21,5 +29,6 @@
     <script src="~/js/npc.js"></script>
     <script src="~/js/camara.js"></script>
     <script src="~/js/interacciones.js"></script>
+    <script src="~/js/indicadores.js"></script>
     <script src="~/js/juego.js"></script>
 }

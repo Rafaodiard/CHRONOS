@@ -26,6 +26,9 @@ const dialogos =
             texto: "Si buscas respuestas, deberías visitar el templo.",
             imagen: "anciano.png"
         }
+    ],
+    Sacerdote:[
+
     ]
 };
 
