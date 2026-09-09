@@ -69,6 +69,24 @@ function cargarNPCs() {
                             progreso.habloConComerciante = true;
                         }
                     }
+            },
+            {
+                x: 650,
+                y: 1350,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Alfarero",
+                imagen: "/sprites/npcs/Alfarero.png",
+                dialogoInicial: "AlfareroInicial",
+                dialogos:
+                [
+                    {
+                        condicion: ()=> progreso.habloConComerciante,
+                        dialogo: "ComercianteFinal"
+                    },
+                ],                   
+
             }
 
         ];
