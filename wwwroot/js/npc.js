@@ -38,10 +38,37 @@ function cargarNPCs() {
                 dialogos:
                 [
                     {
+                        condicion: () => progreso.encontroLlaveBronce,
+                        dialogo: "PescadorConLlave"
+                    },{
                         condicion: () => progreso.habloConAnciano,
                         dialogo: "PescadorConAnciano"
                     }
                 ]
+            },{
+                x: 650,
+                y: 1350,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Comerciante",
+                imagen: "/sprites/npcs/Comerciante.png",
+                dialogoInicial: "ComercianteInicial",
+                dialogos:
+                [
+                    {
+                        condicion: ()=> progreso.habloConComerciante,
+                        dialogo: "ComercianteFinal"
+                    },{
+                        condicion: () => progreso.consiguioJarraAntigua,
+                        dialogo: "ComercianteConJarra"
+                    }
+                ],                   
+                alTerminar: () => {
+                        if (progreso.consiguiJarraAntigua) {
+                            progreso.habloConComerciante = true;
+                        }
+                    }
             }
 
         ];
@@ -59,7 +86,7 @@ function cargarNPCs() {
                 tamañoVisual: 160,
                 nombre: "Sacerdote",
                 imagen: "/sprites/npcs/elder.png",
-                dialogo: "Sacerdote"
+                dialogoInicial: "SacerdoteInicial"
             }
         ];
 
