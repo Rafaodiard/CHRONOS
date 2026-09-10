@@ -38,3 +38,4 @@ function quitarObjeto(idObjeto, cantidad = 1) {
     return true;
 }
 
+agregarObjeto("llave_bronce", 1);

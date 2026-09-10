@@ -31,13 +31,20 @@ const dialogos =
             imagen: "anciano.png"
         }
     ],
-
+    puertaAlmacen:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "",
+            texto: "Está cerrada con llave.",
+        }
+    ],
     PescadorInicial:
     [
         {
             tipo: "dialogo",
             personaje: "Pescador",
-            texto: "¿Qué querés?",
+            texto: "QUE QUERES?",
             imagen: "pescador.png"
         },
         {

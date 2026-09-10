@@ -5,9 +5,28 @@ let imagenesTilesets = {};
 let rutaMapa =
     "/Maps/mapasJson/AncientGreek.tmj";
 
+function normalizarRutaMapa(ruta) {
+
+    if (!ruta) {
+        return ruta;
+    }
+
+    let rutaNormalizada = ruta.replace(/\\/g, "/").trim();
+
+    while (rutaNormalizada.startsWith("./")) {
+        rutaNormalizada = rutaNormalizada.substring(2);
+    }
+
+    if (!rutaNormalizada.startsWith("/")) {
+        rutaNormalizada = "/" + rutaNormalizada;
+    }
+
+    return rutaNormalizada;
+}
+
 
 async function cargarMapa(nuevaRuta = rutaMapa) {
-    rutaMapa = nuevaRuta;
+    rutaMapa = normalizarRutaMapa(nuevaRuta);
 
     try {
         const respuesta = await fetch(rutaMapa);
@@ -679,7 +698,7 @@ function dibujarMapa() {
 
 }
 function cambiarMapa(nuevaRuta, nuevaX, nuevaY) {
-    rutaMapa = nuevaRuta;
+    rutaMapa = normalizarRutaMapa(nuevaRuta);
 
     jugador.x = nuevaX;
     jugador.y = nuevaY;
@@ -688,7 +707,7 @@ function cambiarMapa(nuevaRuta, nuevaX, nuevaY) {
     colisiones = [];
     imagenesTilesets = {};
 
-    cargarMapa();
+    cargarMapa(rutaMapa);
 }
 function dibujarEstructurasDelante() {
 

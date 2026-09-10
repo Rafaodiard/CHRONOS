@@ -85,11 +85,28 @@ document.addEventListener("keydown", function (e) {
 });
 
 function ejecutarTransicion(transicion) {
+    
 
-    if (transicionEnCurso) {
+    if (transicionEnCurso) return;
+
+    const requisito = transicion.properties?.find(
+        propiedad => propiedad.name === "Requisito"
+    );
+
+    if (!puedeUsarTransicion(requisito)) {
+
+        const dialogoBloqueado = transicion.properties?.find(
+            propiedad => propiedad.name === "Dialogo"
+        );
+
+        if (dialogoBloqueado) {
+            abrirDialogo(dialogoBloqueado.value);
+        }
+
         return;
     }
-
+    console.log("REQUISITO:", requisito);
+    console.log("TIENE OBJETO:", requisito ? tieneObjeto(requisito.value) : "sin requisito");
     const mapaDestino = transicion.properties.find(
         propiedad => propiedad.name === "MapaDestino"
     );
@@ -115,7 +132,14 @@ function ejecutarTransicion(transicion) {
         Number(spawnY.value)
     );
 }
+function puedeUsarTransicion(requisito) {
 
+    if (!requisito || requisito.value === "ninguno") {
+        return true;
+    }
+
+    return tieneObjeto(requisito.value);
+}
 function iniciarFadeTransicion(mapaDestino, spawnX, spawnY) {
 
     fadeActivo = true;
