@@ -56,7 +56,6 @@ function loop() {
         canvas.height
     );
 
-
     ctx.fillStyle = "#222";
 
     ctx.fillRect(
@@ -67,30 +66,42 @@ function loop() {
     );
 
     if (!dialogoAbierto) {
+
         moverJugador();
+
         comprobarNPC();
+
+        comprobarObjetos(); 
+        comprobarInteractuables();
         actualizarInteraccion();
 
         actualizarIndicadorE(
-            hayNPCCercano() || jugadorEnTransicionActual()
+            hayNPCCercano() ||
+            jugadorEnTransicionActual() ||
+            mostrarIndicadorObjeto ||     
+            mostrarIndicadorInteractuable
+
         );
     }
+
     actualizarCamara();
+
     dibujarMapa();
+
+    dibujarObjetosMapa();
+
     dibujarNPCs();
+
     dibujarJugador();
+
     dibujarEstructurasDelante();
+
     dibujarIndicadorE();
+
     dibujarFade();
 
-
-
-
-
-        requestAnimationFrame(loop);
-
-    }
-
+    requestAnimationFrame(loop);
+}
 
 window.addEventListener(
     "resize",

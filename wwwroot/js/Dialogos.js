@@ -90,7 +90,7 @@ const dialogos =
         {
             tipo: "dialogo",
             personaje: "Pescador",
-            texto: "También perdí una vieja llave de bronce mientras buscaba por la costa.",
+            texto: "También perdí una vieja llave de bronce cerca de la costa.",
             imagen: "pescador.png"
         }
     ],
@@ -106,7 +106,7 @@ const dialogos =
         {
             tipo: "dialogo",
             personaje: "Pescador",
-            texto: "Es la llave del viejo almacén que está cerca de la costa.",
+            texto: "Es la llave del viejo almacén que está cerca del templo al norte.",
             imagen: "pescador.png"
         },
         {
@@ -133,27 +133,39 @@ const dialogos =
         }
     ],
 
-    AlfareroConInformacion:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Alfarero",
-            texto: "¿Una jarra antigua?",
-            imagen: "alfarero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Alfarero",
-            texto: "Sí, puedo hacer una. Pero me va a llevar un momento.",
-            imagen: "alfarero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Alfarero",
-            texto: "Los comerciantes suelen pagar bastante por las piezas antiguas.",
-            imagen: "alfarero.png"
-        }
-    ],
+AlfareroConVasija:
+[
+    {
+        tipo: "dialogo",
+        personaje: "Alfarero",
+        texto: "¿Dónde encontraste esta vasija?",
+        imagen: "alfarero.png"
+    },
+    {
+        tipo: "dialogo",
+        personaje: "Alfarero",
+        texto: "Es mucho más antigua de lo que parece.",
+        imagen: "alfarero.png"
+    },
+    {
+        tipo: "dialogo",
+        personaje: "Alfarero",
+        texto: "Está bastante dañada, pero todavía puedo restaurarla.",
+        imagen: "alfarero.png"
+    },
+    {
+        tipo: "dialogo",
+        personaje: "Alfarero",
+        texto: "Si querés, puedo arreglarla. Un comerciante podría pagar bastante por una pieza así.",
+        imagen: "alfarero.png"
+    },
+    {
+        tipo: "dialogo",
+        personaje: "Alfarero",
+        texto: "Dame un momento y te prepararé algo que pueda interesarle.",
+        imagen: "alfarero.png"
+    }
+],
 
     ComercianteInicial:
     [
@@ -877,26 +889,41 @@ let indiceDialogo = 0;
 let bloquearE = false;
 let npcDialogoActual = null;
 
-function abrirDialogo(nombre) {
-        console.log("ABRIENDO DIALOGO");
+function abrirDialogo(nombre, npc = null) {
+
+    console.log("ABRIENDO DIALOGO");
 
     if (typeof dialogos === "undefined") {
-
         console.error("No existe dialogos.js");
         return;
-
     }
 
     if (!dialogos[nombre]) {
-
         console.error("No existe el diálogo:", nombre);
         return;
-
     }
 
     dialogoActual = dialogos[nombre];
     indiceDialogo = 0;
     dialogoAbierto = true;
+
+    npcDialogoActual = npc;
+
+    mostrarDialogo();
+}
+
+function abrirDialogoMensaje(texto) {
+
+    dialogoActual = [
+        {
+            personaje: "",
+            texto: texto
+        }
+    ];
+
+    indiceDialogo = 0;
+    dialogoAbierto = true;
+    npcDialogoActual = null;
 
     mostrarDialogo();
 }
@@ -961,6 +988,7 @@ function mostrarDialogo() {
 }
 
 document.addEventListener("keydown", function (e) {
+
     if (!dialogoAbierto) {
         return;
     }
@@ -972,14 +1000,15 @@ document.addEventListener("keydown", function (e) {
         e.key === " " ||
         tecla === "e"
     ) {
+
         e.preventDefault();
-        e.stopPropagation();
+        e.stopImmediatePropagation();
 
         indiceDialogo++;
+
         mostrarDialogo();
     }
 });
-
 function cerrarDialogo() {
 
     if (npcDialogoActual && npcDialogoActual.alTerminar) {

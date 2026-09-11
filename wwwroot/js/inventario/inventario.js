@@ -5,13 +5,40 @@ function agregarObjeto(idObjeto, cantidad = 1) {
 
     if (objeto) {
         objeto.cantidad += cantidad;
+    } else {
+        inventario.push({
+            id: idObjeto,
+            cantidad: cantidad
+        });
+    }
+
+    mostrarMensajeObjetoRecibido(idObjeto);
+}
+
+function mostrarMensajeObjetoRecibido(idObjeto) {
+
+    const objetoDefinido =
+        Object.values(objetos).find(
+            objeto => objeto.id === idObjeto
+        );
+
+    const nombreObjeto =
+        objetoDefinido
+            ? objetoDefinido.nombre
+            : "Objeto desconocido";
+
+    const mostrarMensaje = () => {
+        abrirDialogoMensaje(
+            `Recibiste ${nombreObjeto}`
+        );
+    };
+
+    if (dialogoAbierto) {
+        setTimeout(mostrarMensaje, 0);
         return;
     }
 
-    inventario.push({
-        id: idObjeto,
-        cantidad: cantidad
-    });
+    mostrarMensaje();
 }
 
 function tieneObjeto(idObjeto) {
@@ -38,4 +65,3 @@ function quitarObjeto(idObjeto, cantidad = 1) {
     return true;
 }
 
-agregarObjeto("llave_bronce", 1);

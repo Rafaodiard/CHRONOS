@@ -71,6 +71,9 @@ function actualizarInteraccion() {
 
 document.addEventListener("keydown", function (e) {
 
+    if (dialogoAbierto) {
+        return;
+    }
     if (e.key.toLowerCase() !== "e") {
         return;
     }

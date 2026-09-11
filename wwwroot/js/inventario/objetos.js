@@ -7,10 +7,18 @@ const objetos = {
         usable: false
     },
 
-    jarraAntigua: {
-        id: "jarra_antigua",
-        nombre: "Jarra antigua",
-        descripcion: "Una jarra utilizada por los habitantes de la isla.",
+    vasijaRota: {
+        id: "vasija_rota",
+        nombre: "Vasija rota",
+        descripcion: "Una vasija antigua que necesita ser restaurada.",
+        tipo: "mision",
+        usable: false
+    },
+
+    vasijaAntigua: {
+        id: "vasija_antigua",
+        nombre: "Vasija antigua",
+        descripcion: "Una vasija antigua restaurada por el alfarero.",
         tipo: "mision",
         usable: false
     },

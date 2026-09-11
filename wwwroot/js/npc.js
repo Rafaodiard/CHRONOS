@@ -23,8 +23,7 @@ function cargarNPCs() {
                 imagen: "/sprites/npcs/elder.png",
                 dialogoInicial: "Anciano",
                 alTerminar: () => {
-                progreso.habloConAnciano = true;
-    }
+                progreso.habloConAnciano = true;}
                 
             },{
                 x: 230,
@@ -38,7 +37,7 @@ function cargarNPCs() {
                 dialogos:
                 [
                     {
-                        condicion: () => progreso.encontroLlaveBronce,
+                        condicion: () => tieneObjeto("llave_bronce"),
                         dialogo: "PescadorConLlave"
                     },{
                         condicion: () => progreso.habloConAnciano,
@@ -82,13 +81,19 @@ function cargarNPCs() {
                 dialogos:
                 [
                     {
-                        condicion: ()=> progreso.consiguioArcilla,
-                        dialogo: "AlfareroConInformacion"
+                        condicion: () => tieneObjeto("vasija_rota"),
+                        dialogo: "AlfareroConVasija"
                     },
                 ],                  
                     alTerminar: () => {
-                        if (progreso.consiguioArcilla) {
-                            //agregar jarra Antigua al inventario 
+                        if (
+                            tieneObjeto("vasija_rota") &&
+                            !progreso.consiguioJarraAntigua
+                        ) {
+                            quitarObjeto("vasija_rota");
+                            agregarObjeto("vasija_antigua");
+                            progreso.consiguioVasijaRota = true;
+                            progreso.consiguioJarraAntigua = true;
                         }
                     } 
 
@@ -275,10 +280,10 @@ function comprobarNPC() {
         puedeHablar = false;
 
         mirarNPC(npcCercano);
-        npcDialogoActual = npcCercano;
 
         abrirDialogo(
-            obtenerDialogoNPC(npcCercano)
+            obtenerDialogoNPC(npcCercano),
+            npcCercano
         );
     }
 }
