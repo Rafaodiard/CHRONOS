@@ -37,13 +37,35 @@ function cargarNPCs() {
                 dialogos:
                 [
                     {
-                        condicion: () => tieneObjeto("llave_bronce"),
+                        condicion: () => !progreso.habloConAnciano,
+                        dialogo: "PescadorInicial"
+                    },
+                    {
+                        condicion: () =>
+                            progreso.habloConAnciano &&
+                            tieneObjeto("llave_bronce") &&
+                            !progreso.habloConPescadorDespuesDeAnciano,
+                        dialogo: "PescadorConAncianoYLlave"
+                    },
+                    {
+                        condicion: () =>
+                            progreso.habloConAnciano &&
+                            tieneObjeto("llave_bronce") &&
+                            progreso.habloConPescadorDespuesDeAnciano,
                         dialogo: "PescadorConLlave"
-                    },{
+                    },
+                    {
                         condicion: () => progreso.habloConAnciano,
                         dialogo: "PescadorConAnciano"
                     }
-                ]
+                ],
+                alTerminar: () => {
+                    progreso.habloConPescador = true;
+
+                    if (progreso.habloConAnciano) {
+                        progreso.habloConPescadorDespuesDeAnciano = true;
+                    }
+                }
             },{
                 x: 650,
                 y: 1350,
@@ -59,12 +81,17 @@ function cargarNPCs() {
                         condicion: ()=> progreso.habloConComerciante,
                         dialogo: "ComercianteFinal"
                     },{
-                        condicion: () => progreso.consiguioJarraAntigua,
+                        condicion: () => tieneObjeto("vasija_antigua"),
                         dialogo: "ComercianteConJarra"
                     }
                 ],                   
                 alTerminar: () => {
-                        if (progreso.consiguioJarraAntigua) {
+                        if (
+                            tieneObjeto("vasija_antigua") &&
+                            !tieneObjeto("sello_del_templo")
+                        ) {
+                            quitarObjeto("vasija_antigua");
+                            agregarObjeto("sello_del_templo");
                             progreso.habloConComerciante = true;
                         }
                     }
@@ -114,7 +141,23 @@ function cargarNPCs() {
                 tamañoVisual: 160,
                 nombre: "Sacerdote",
                 imagen: "/sprites/npcs/elder.png",
-                dialogoInicial: "SacerdoteInicial"
+                dialogoInicial: "SacerdoteConInformacion",
+                dialogos:
+                [
+                    {
+                        condicion: () => progreso.puedeEntrarTemplo,
+                        dialogo: "SacerdoteConAcertijo"
+                    }
+                ],
+                alTerminar: () => {
+                    if (
+                        progreso.puedeEntrarTemplo &&
+                        !tieneObjeto("llave_templo")
+                    ) {
+                        agregarObjeto("llave_templo");
+                        progreso.habloConSacerdote = true;
+                    }
+                }
             }
         ];
 

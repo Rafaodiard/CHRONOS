@@ -2789,6 +2789,67 @@
                  "width":21.5,
                  "x":677.5,
                  "y":1357
+                },
+            
+                {
+                 "height":26.9090909090909,
+                 "id":303,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":142.363636363636,
+                 "x":1695.81818181818,
+                 "y":511.636363636364
+                }, 
+                {
+                 "height":266,
+                 "id":304,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":10,
+                 "x":1826.5,
+                 "y":258.5
+                }, 
+                {
+                 "height":3,
+                 "id":305,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":372.5,
+                 "x":1460.5,
+                 "y":257
+                }, 
+                {
+                 "height":273,
+                 "id":306,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15,
+                 "x":1457.66666666667,
+                 "y":260.333333333333
+                }, 
+                {
+                 "height":30.6666666666667,
+                 "id":308,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":131.333333333333,
+                 "x":1471.66666666667,
+                 "y":512.333333333333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2808,6 +2869,11 @@
                  "opacity":1,
                  "properties":[
                         {
+                         "name":"Dialogo",
+                         "type":"string",
+                         "value":"puertaTemplo"
+                        }, 
+                        {
                          "name":"MapaDestino",
                          "type":"string",
                          "value":"\/Maps\/mapasJson\/TemploGrecia.tmj"
@@ -2815,7 +2881,7 @@
                         {
                          "name":"Requisito",
                          "type":"string",
-                         "value":"ninguno"
+                         "value":"sello_del_templo"
                         }, 
                         {
                          "name":"SpawnX",
@@ -2913,7 +2979,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":303,
+ "nextobjectid":309,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",

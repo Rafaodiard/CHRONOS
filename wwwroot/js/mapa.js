@@ -49,6 +49,7 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         cargarNPCs();
         cargarObjetosMapa();
         cargarInteractuablesMapa();
+        cargarAcertijosMapa();
         cargarTilesets();
 
     } catch (error) {

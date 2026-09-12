@@ -23,11 +23,27 @@ const objetos = {
         usable: false
     },
 
-    simboloSol: {
-        id: "simbolo_sol",
-        nombre: "Símbolo del Sol",
-        descripcion: "Un antiguo símbolo relacionado con el Sol.",
-        tipo: "puzzle",
-        usable: true
-    }
+    selloTemplo: {
+        id: "sello_del_templo",
+        nombre: "Sello del templo",
+        descripcion: "Un sello entregado por el comerciante para entrar al templo.",
+        tipo: "mision",
+        usable: false
+    },
+
+    llaveTemplo: {
+        id: "llave_templo",
+        nombre: "Llave del templo",
+        descripcion: "Una llave entregada por el sacerdote después de resolver el acertijo.",
+        tipo: "llave",
+        usable: false
+    },
+
+    fragmentoTemporal1: {
+        id: "fragmento_temporal1",
+        nombre: "Fragmento temporal 1",
+        descripcion: "Un fragmento relacionado con las anomalías temporales.",
+        tipo: "mision",
+        usable: false
+    },
 };

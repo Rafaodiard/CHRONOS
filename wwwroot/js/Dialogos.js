@@ -39,6 +39,22 @@ const dialogos =
             texto: "Está cerrada con llave.",
         }
     ],
+    puertaTemplo:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "",
+            texto: "No tienes permiso para entrar."
+        }
+    ],
+    puertaTemploInterior:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "",
+            texto: "La puerta esta cerrada"
+        }
+    ],
     PescadorInicial:
     [
         {
@@ -91,6 +107,63 @@ const dialogos =
             tipo: "dialogo",
             personaje: "Pescador",
             texto: "También perdí una vieja llave de bronce cerca de la costa.",
+            imagen: "pescador.png"
+        }
+    ],
+    PescadorConAncianoYLlave:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "¿El anciano te mandó?",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "Entonces supongo que puedo ayudarte.",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "Vi algo extraño caer cerca de la costa.",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "Cuando llegué encontré una piedra extraña. Brillaba de una forma que nunca había visto.",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "Se la vendí al comerciante del pueblo.",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "También perdí una vieja llave de bronce cerca de la costa.",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "Espera, ¿ya encontraste la llave?",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "Es la llave del viejo almacén que está cerca del templo al norte.",
+            imagen: "pescador.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Pescador",
+            texto: "Hace años que casi nadie entra ahí.",
             imagen: "pescador.png"
         }
     ],
@@ -194,25 +267,31 @@ AlfareroConVasija:
         {
             tipo: "dialogo",
             personaje: "Comerciante",
-            texto: "Eso sí que me interesa.",
+            texto: "Esto es una pieza bastante interesante.",
             imagen: "comerciante.png"
         },
         {
             tipo: "dialogo",
             personaje: "Comerciante",
-            texto: "Aceptaré la jarra a cambio de información.",
+            texto: "El alfarero hizo un buen trabajo restaurándola.",
             imagen: "comerciante.png"
         },
         {
             tipo: "dialogo",
             personaje: "Comerciante",
-            texto: "La piedra que encontró el pescador fue llevada al templo.",
+            texto: "Puedo darte algo a cambio.",
             imagen: "comerciante.png"
         },
         {
             tipo: "dialogo",
             personaje: "Comerciante",
-            texto: "El sacerdote sabe exactamente qué es.",
+            texto: "Con esto vas a poder entrar al templo.",
+            imagen: "comerciante.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Comerciante",
+            texto: "El sacerdote sabe exactamente qué es la piedra.",
             imagen: "comerciante.png"
         }
     ],
@@ -233,74 +312,71 @@ AlfareroConVasija:
         }
     ],
 
-    SacerdoteInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Sacerdote",
-            texto: "Detente.",
-            imagen: "sacerdote.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Sacerdote",
-            texto: "No puedes entrar al templo.",
-            imagen: "sacerdote.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Sacerdote",
-            texto: "Solo quienes conocen los símbolos sagrados pueden atravesar sus puertas.",
-            imagen: "sacerdote.png"
-        }
-    ],
-
     SacerdoteConInformacion:
     [
         {
             tipo: "dialogo",
             personaje: "Sacerdote",
-            texto: "Así que has venido por la piedra extraña.",
+            texto: "Así que has venido en busca de la pieza que cayó del cielo.",
             imagen: "sacerdote.png"
         },
         {
             tipo: "dialogo",
             personaje: "Sacerdote",
-            texto: "Lo que buscas está dentro del templo.",
+            texto: "Sé exactamente de qué hablas. La pieza está aquí, dentro del templo.",
             imagen: "sacerdote.png"
         },
         {
             tipo: "dialogo",
             personaje: "Sacerdote",
-            texto: "Pero primero debes encontrar los tres símbolos.",
+            texto: "Pero no puedo entregártela simplemente porque la pidas.",
             imagen: "sacerdote.png"
         },
         {
             tipo: "dialogo",
             personaje: "Sacerdote",
-            texto: "El Sol, el Mar y el Tiempo.",
+            texto: "En este templo se encuentra un antiguo acertijo, creado hace siglos por nuestros antepasados.",
+            imagen: "sacerdote.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Sacerdote",
+            texto: "Nadie ha conseguido resolverlo desde entonces.",
+            imagen: "sacerdote.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Sacerdote",
+            texto: "Si realmente quieres esa pieza, tendrás que demostrar que eres digno de encontrarla.",
+            imagen: "sacerdote.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Sacerdote",
+            texto: "Resuelve el acertijo y la pieza será tuya.",
             imagen: "sacerdote.png"
         }
     ],
 
-    SacerdoteConSimbolos:
+        
+        SacerdoteConAcertijo:
     [
         {
             tipo: "dialogo",
             personaje: "Sacerdote",
-            texto: "Has encontrado los tres símbolos.",
+            texto: "Lo has conseguido...",
             imagen: "sacerdote.png"
         },
         {
             tipo: "dialogo",
             personaje: "Sacerdote",
-            texto: "Entonces las puertas del templo se abrirán para ti.",
+            texto: "Después de tantos siglos, finalmente alguien ha resuelto el acertijo.",
             imagen: "sacerdote.png"
         },
         {
             tipo: "dialogo",
             personaje: "Sacerdote",
-            texto: "Pero ten cuidado con lo que encuentres allí.",
+            texto: "Has demostrado que puedes recibir la llave.",
             imagen: "sacerdote.png"
         }
     ],

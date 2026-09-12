@@ -65,3 +65,4 @@ function quitarObjeto(idObjeto, cantidad = 1) {
     return true;
 }
 
+agregarObjeto("sello_del_templo", 1);

@@ -65,7 +65,7 @@ function loop() {
         canvas.height
     );
 
-    if (!dialogoAbierto) {
+    if (!dialogoAbierto && !acertijoAbierto) {
 
         moverJugador();
 
@@ -73,13 +73,15 @@ function loop() {
 
         comprobarObjetos(); 
         comprobarInteractuables();
+        comprobarAcertijos();
         actualizarInteraccion();
 
         actualizarIndicadorE(
             hayNPCCercano() ||
             jugadorEnTransicionActual() ||
             mostrarIndicadorObjeto ||     
-            mostrarIndicadorInteractuable
+            mostrarIndicadorInteractuable ||
+            mostrarIndicadorAcertijo
 
         );
     }

@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="9" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="6" nextobjectid="11">
+ <editorsettings>
+  <export target="../mapasJson/fragtemp1.tmj" format="json"/>
+ </editorsettings>
+ <tileset firstgid="1" source="../../tilesets/ancient_greeks_tileset/LPC_Ancient_Greece_Architecture.tsx"/>
+ <tileset firstgid="401" source="../../tilesets/ancient_greeks_tileset/ancientGreekBuilding.tsx"/>
+ <layer id="1" name="Suelo" width="9" height="10">
+  <data encoding="csv">
+254,254,254,254,254,254,254,254,254,
+254,254,254,254,254,254,254,254,254,
+254,254,254,254,254,254,254,254,254,
+254,254,254,254,254,254,254,254,254,
+254,254,254,254,254,254,254,254,254,
+254,254,254,254,254,254,254,254,254,
+254,254,254,254,254,254,254,254,254,
+254,254,254,254,254,254,254,254,254,
+0,0,0,1124,1125,1126,0,0,0,
+0,0,0,1175,1176,1177,0,0,0
+</data>
+ </layer>
+ <layer id="2" name="paredes" width="9" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,193,194,195,0,0,0,
+0,0,0,213,214,215,0,0,0,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,
+43,43,44,0,0,0,42,43,43,
+63,63,64,0,0,0,62,63,63,
+0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="4" name="Colisiones">
+  <object id="3" x="1" y="193" width="93" height="68.6667"/>
+  <object id="4" x="192.333" y="191.333" width="99.3333" height="63.3333"/>
+  <object id="5" x="-41.6667" y="257" width="137.667" height="106.333"/>
+  <object id="6" x="192.667" y="254.667" width="100" height="66.3333"/>
+  <object id="8" x="123" y="78.3333" width="46.6667" height="32.3333"/>
+ </objectgroup>
+ <objectgroup id="5" name="Transiciones">
+  <object id="10" x="96.1667" y="288.5" width="95" height="31.6667">
+   <properties>
+    <property name="MapaDestino" value="/Maps/mapasJson/temploGrecia.tmj"/>
+    <property name="SpawnX" type="float" value="601"/>
+    <property name="SpawnY" type="float" value="216"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="3" name="Objetos">
+  <object id="2" x="103.75" y="63" width="79.8333" height="56.3333">
+   <properties>
+    <property name="Imagen" value="/sprites/objetos/Fragmento1.png"/>
+    <property name="id" value="fragmento_temporal1"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

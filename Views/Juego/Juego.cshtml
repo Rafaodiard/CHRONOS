@@ -17,6 +17,19 @@
     <h2>Inventario</h2>
     <div id="inventarioLista"></div>
 </div>
+
+<div id="menuAcertijo" class="menu-acertijo" style="display: none;">
+    <div class="caja-acertijo">
+        <div id="tituloAcertijo">ACERTIJO</div>
+        <div id="camposAcertijo"></div>
+        <p id="mensajeAcertijo" class="mensaje-acertijo"></p>
+        <div class="acciones-acertijo">
+            <button id="botonAcertijo" type="button" onclick="comprobarAcertijo()">ACEPTAR</button>
+            <button type="button" onclick="cerrarAcertijo()">CERRAR</button>
+        </div>
+    </div>
+</div>
+
 @section Scripts {
     <script src="~/js/inventario/objetos.js"></script>
     <script src="~/js/inventario/recogibles.js"></script>
@@ -26,6 +39,7 @@
     <script src="~/js/interactuables.js"></script>
     <script src="~/js/progreso.js"></script>
     <script src="~/js/dialogos.js"></script>
+    <script src="~/js/acertijos.js"></script>
     <script src="~/js/colisiones.js"></script>
     <script src="~/js/mapa.js"></script>
     <script src="~/js/jugador.js"></script>

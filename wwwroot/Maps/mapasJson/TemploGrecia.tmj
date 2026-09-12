@@ -152,11 +152,11 @@
             0, 0, 0, 0, 300, 370, 0, 366, 179, 0, 0, 0, 179, 81, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 320, 0, 0, 0, 0, 0, 378, 0, 0, 0, 0, 0, 0, 127, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 179, 147, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 338, 339, 340,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 358, 359, 360,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 387, 0, 0, 0, 0, 0, 338, 339, 340,
+            0, 0, 0, 0, 0, 0, 0, 373, 0, 366, 0, 0, 0, 369, 0, 0, 0, 0, 358, 359, 360,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 177, 0,
-            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 169, 170,
+            0, 0, 0, 0, 0, 0, 0, 0, 375, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 177, 0,
+            0, 0, 0, 0, 0, 0, 0, 376, 0, 374, 0, 376, 0, 0, 0, 0, 0, 0, 0, 169, 170,
             180, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 169, 170,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 169, 170,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -188,7 +188,7 @@
          "name":"Colisiones",
          "objects":[
                 {
-                 "height":52.0000333333333,
+                 "height":52,
                  "id":1,
                  "name":"",
                  "opacity":1,
@@ -309,14 +309,14 @@
                  "y":63.75
                 }, 
                 {
-                 "height":226.166666666667,
+                 "height":226.167,
                  "id":11,
                  "name":"",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":95.84375,
+                 "width":95.8438,
                  "x":0.25,
                  "y":-1.25
                 }, 
@@ -340,7 +340,7 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":94.17895,
+                 "width":94.179,
                  "x":1.81818,
                  "y":223.58
                 }, 
@@ -731,6 +731,98 @@
                  "width":95,
                  "x":288.667,
                  "y":703
+                }, 
+                {
+                 "height":12.9167,
+                 "id":50,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"Dialogo",
+                         "type":"string",
+                         "value":"puertaTemploInterior"
+                        }, 
+                        {
+                         "name":"MapaDestino",
+                         "type":"string",
+                         "value":"\/Maps\/mapasJson\/fragtemp1.tmj"
+                        }, 
+                        {
+                         "name":"Requisito",
+                         "type":"string",
+                         "value":"llave_templo"
+                        }, 
+                        {
+                         "name":"SpawnX",
+                         "type":"float",
+                         "value":100
+                        }, 
+                        {
+                         "name":"SpawnY",
+                         "type":"float",
+                         "value":430
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":41.75,
+                 "x":601.417,
+                 "y":216.583
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":10,
+         "name":"Acertijo",
+         "objects":[
+                {
+                 "height":13.4545,
+                 "id":51,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"Accion",
+                         "type":"string",
+                         "value":"resolverAcertijoTemplo"
+                        }, 
+                        {
+                         "name":"Cantidad",
+                         "type":"float",
+                         "value":4
+                        }, 
+                        {
+                         "name":"Codigo",
+                         "type":"string",
+                         "value":"2231"
+                        }, 
+                        {
+                         "name":"Etiquetas",
+                         "type":"string",
+                         "value":"Leon, Aguila, Espada, Casco"
+                        }, 
+                        {
+                         "name":"Tipo",
+                         "type":"string",
+                         "value":"acertijo"
+                        }, 
+                        {
+                         "name":"Titulo",
+                         "type":"string",
+                         "value":"TEMPLO DE CHRONOS"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":35.8182,
+                 "x":317.273,
+                 "y":159.636
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -738,8 +830,8 @@
          "x":0,
          "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":48,
+ "nextlayerid":11,
+ "nextobjectid":52,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",

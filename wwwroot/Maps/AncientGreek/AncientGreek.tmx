@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="59" height="59" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="303">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="59" height="59" tilewidth="32" tileheight="32" infinite="0" nextlayerid="15" nextobjectid="309">
  <editorsettings>
   <export target="../mapasJson/AncientGreek.tmj" format="json"/>
  </editorsettings>
@@ -755,12 +755,18 @@
   <object id="295" x="328" y="800" width="108.325" height="22.3292"/>
   <object id="296" x="1380.5" y="575" width="23.8333" height="65"/>
   <object id="297" x="677.5" y="1357" width="21.5" height="68"/>
+  <object id="303" x="1695.82" y="511.636" width="142.364" height="26.9091"/>
+  <object id="304" x="1826.5" y="258.5" width="10" height="266"/>
+  <object id="305" x="1460.5" y="257" width="372.5" height="3"/>
+  <object id="306" x="1457.67" y="260.333" width="15" height="273"/>
+  <object id="308" x="1471.67" y="512.333" width="131.333" height="30.6667"/>
  </objectgroup>
  <objectgroup id="13" name="Transiciones">
   <object id="283" x="1048.33" y="449.667" width="46" height="15.3333">
    <properties>
+    <property name="Dialogo" value="puertaTemplo"/>
     <property name="MapaDestino" value="/Maps/mapasJson/TemploGrecia.tmj"/>
-    <property name="Requisito" value="ninguno"/>
+    <property name="Requisito" value="sello_del_templo"/>
     <property name="SpawnX" type="float" value="336"/>
     <property name="SpawnY" type="float" value="672"/>
    </properties>

@@ -1,6 +1,7 @@
 const progreso = {
     habloConAnciano: false,
     habloConPescador: false,
+    habloConPescadorDespuesDeAnciano: false,
     habloConComerciante: false,
     encontroSimboloSol: false,
     encontroSimboloMar: false,

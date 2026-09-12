@@ -65,10 +65,10 @@
  </layer>
  <objectgroup id="4" name="Colisiones">
   <object id="1" x="330.75" y="51" width="10.75" height="43.25"/>
-  <object id="2" x="460.75" y="68.25" width="7" height="23"/>
+  <object id="2" x="465.114" y="68.25" width="2.63636" height="23"/>
   <object id="3" x="331.25" y="127.5" width="10" height="31.25"/>
-  <object id="4" x="426.75" y="159.25" width="9.5" height="30.75"/>
-  <object id="5" x="424.5" y="256.75" width="13.75" height="30"/>
+  <object id="4" x="426.75" y="168" width="9.5" height="19"/>
+  <object id="5" x="429.75" y="256.75" width="3.75" height="30"/>
   <object id="6" x="393.5" y="318.5" width="11.5" height="31.75"/>
   <object id="7" x="332.25" y="329" width="6.75" height="16.5"/>
   <object id="8" x="266" y="256" width="10.25" height="29.75"/>
@@ -97,7 +97,7 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="Objetos"/>
- <objectgroup id="7" name="Interactuables">
+ <objectgroup id="7" name="Interactuables" visible="0">
   <object id="25" x="138.125" y="50.25" width="11.125" height="44.875">
    <properties>
     <property name="Id" value="jarra1"/>
@@ -126,7 +126,7 @@
     <property name="Objeto" value=""/>
    </properties>
   </object>
-  <object id="34" x="453.779" y="63.9943" width="23.8523" height="30.0341">
+  <object id="34" x="451.415" y="63.9943" width="26.2159" height="30.7614">
    <properties>
     <property name="Id" value="jarra5"/>
     <property name="Objeto" value="vasija_rota"/>
