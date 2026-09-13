@@ -55,6 +55,25 @@ const dialogos =
             texto: "La puerta esta cerrada"
         }
     ],
+    maquina1:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "Máquina",
+            texto: "Iniciando viaje temporal...",
+            imagen: "maquina.png"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Máquina",
+            texto: "Error: Iniciando autodiagnóstico...",
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Máquina",
+            texto: "Error: se requiere fragmento temporal para activar el viaje.",
+        }
+    ],
     PescadorInicial:
     [
         {

@@ -19,7 +19,7 @@ const jugador = {
 
     alto: 84,
 
-    velocidad: 10,
+    velocidad: 3,
 
     direccion: "abajo",
 

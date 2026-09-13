@@ -2792,16 +2792,16 @@
                 },
             
                 {
-                 "height":26.9090909090909,
+                 "height":26.9091,
                  "id":303,
                  "name":"",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":142.363636363636,
-                 "x":1695.81818181818,
-                 "y":511.636363636364
+                 "width":142.364,
+                 "x":1695.82,
+                 "y":511.636
                 }, 
                 {
                  "height":266,
@@ -2836,20 +2836,20 @@
                  "type":"",
                  "visible":true,
                  "width":15,
-                 "x":1457.66666666667,
-                 "y":260.333333333333
+                 "x":1457.67,
+                 "y":260.333
                 }, 
                 {
-                 "height":30.6666666666667,
+                 "height":30.6667,
                  "id":308,
                  "name":"",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":131.333333333333,
-                 "x":1471.66666666667,
-                 "y":512.333333333333
+                 "width":131.333,
+                 "x":1471.67,
+                 "y":512.333
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2937,6 +2937,44 @@
                  "width":56,
                  "x":1619.67,
                  "y":494.333
+                }, 
+                {
+                 "height":111.999966666667,
+                 "id":311,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"Dialogo",
+                         "type":"string",
+                         "value":"maquina1"
+                        }, 
+                        {
+                         "name":"MapaDestino",
+                         "type":"string",
+                         "value":"\/Maps\/mapasJson\/castillo edad media .tmj"
+                        }, 
+                        {
+                         "name":"Requisito",
+                         "type":"string",
+                         "value":"fragmento_temporal1"
+                        }, 
+                        {
+                         "name":"SpawnX",
+                         "type":"float",
+                         "value":600
+                        }, 
+                        {
+                         "name":"SpawnY",
+                         "type":"float",
+                         "value":900
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":122,
+                 "x":1027.33333333333,
+                 "y":914.33335
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2979,7 +3017,7 @@
          "y":0
         }],
  "nextlayerid":15,
- "nextobjectid":309,
+ "nextobjectid":312,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",
