@@ -400,582 +400,64 @@ AlfareroConVasija:
         }
     ],
 
-
-    // =========================================================
-    // EDAD MEDIA
-    // =========================================================
-
-    AldeanoInicial:
+    EscribaInicial:
     [
-        {
-            tipo: "dialogo",
-            personaje: "Aldeano",
-            texto: "¿Sos nuevo por acá?",
-            imagen: "aldeano.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Aldeano",
-            texto: "Últimamente están pasando cosas extrañas alrededor de la fortaleza.",
-            imagen: "aldeano.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Aldeano",
-            texto: "Los guardias no dejan que nadie se acerque.",
-            imagen: "aldeano.png"
-        }
+        { tipo: "dialogo", personaje: "Escriba", texto: "¿Buscás algo?" },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Si querés acceder a las habitaciones superiores, necesitás mi autorización." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Pero antes tengo que encontrar un documento que desapareció de mi escritorio." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Si lo encontrás, traémelo." }
     ],
 
-    AldeanoAvanzado:
+    EscribaSinDocumento:
     [
-        {
-            tipo: "dialogo",
-            personaje: "Aldeano",
-            texto: "¿Todavía estás investigando la fortaleza?",
-            imagen: "aldeano.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Aldeano",
-            texto: "Entonces hablá con el escriba. Él sabe más de lo que cuenta.",
-            imagen: "aldeano.png"
-        }
+        { tipo: "dialogo", personaje: "Escriba", texto: "¿Encontraste el documento?" },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Estoy seguro de que lo dejé aquí, pero no aparece por ninguna parte." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Sin ese registro no puedo darte la autorización." }
+    ],
+
+    EscribaConDocumento:
+    [
+        { tipo: "dialogo", personaje: "Escriba", texto: "¿Qué es eso que llevás?" },
+        { tipo: "dialogo", personaje: "Escriba", texto: "¡El registro! Llevaba toda la mañana buscándolo." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Si estabas buscando mi autorización, supongo que esto resuelve el asunto." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Tomá. Mi sello debería ser suficiente para que el guardia te deje pasar." }
+    ],
+
+    EscribaDocumentoEncontrado:
+    [
+        { tipo: "dialogo", personaje: "Escriba", texto: "¿Encontraste el documento?" },
+        { tipo: "dialogo", personaje: "Escriba", texto: "¡Excelente! Pensé que tendría que rehacer todos los registros." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Como prometí, acá tenés mi autorización." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Mostrásela al guardia de la entrada." }
+    ],
+
+    EscribaConPermiso:
+    [
+        { tipo: "dialogo", personaje: "Escriba", texto: "Ya tenés mi autorización." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "El guardia debería dejarte pasar sin problemas." }
     ],
 
     GuardiaInicial:
     [
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "Alto.",
-            imagen: "guardia.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "No podés entrar a la fortaleza.",
-            imagen: "guardia.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "Volvé al pueblo.",
-            imagen: "guardia.png"
-        }
+        { tipo: "dialogo", personaje: "Guardia", texto: "¿Querés entrar a las habitaciones superiores?" },
+        { tipo: "dialogo", personaje: "Guardia", texto: "Las habitaciones superiores están restringidas." },
+        { tipo: "dialogo", personaje: "Guardia", texto: "Necesitás la autorización del escriba." }
     ],
 
-    GuardiaConInformacion:
+    GuardiaSinPermiso:
     [
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "¿Venís por los rumores de la fortaleza?",
-            imagen: "guardia.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "No sé qué está pasando ahí dentro.",
-            imagen: "guardia.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "Pero el escriba tiene una llave que podría ayudarte.",
-            imagen: "guardia.png"
-        }
+        { tipo: "dialogo", personaje: "Guardia", texto: "Ya te dije que no podés pasar." },
+        { tipo: "dialogo", personaje: "Guardia", texto: "Necesitás la autorización del escriba." }
     ],
 
-    EscribaInicial:
+    GuardiaConPermiso:
     [
-        {
-            tipo: "dialogo",
-            personaje: "Escriba",
-            texto: "¿Qué necesitás?",
-            imagen: "escriba.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Escriba",
-            texto: "No tengo tiempo para hablar con curiosos.",
-            imagen: "escriba.png"
-        }
-    ],
-
-    EscribaConInformacion:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Escriba",
-            texto: "Así que estás investigando la fortaleza.",
-            imagen: "escriba.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Escriba",
-            texto: "Encontré registros sobre una cámara cerrada dentro de ella.",
-            imagen: "escriba.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Escriba",
-            texto: "Tengo una llave, pero necesito una herramienta para abrir el mecanismo.",
-            imagen: "escriba.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Escriba",
-            texto: "El herrero quizás pueda ayudarte.",
-            imagen: "escriba.png"
-        }
-    ],
-
-    HerreroInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Herrero",
-            texto: "¿Qué necesitás?",
-            imagen: "herrero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Herrero",
-            texto: "Estoy trabajando. Volvé cuando tengas algo que reparar.",
-            imagen: "herrero.png"
-        }
-    ],
-
-    HerreroConInformacion:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Herrero",
-            texto: "¿Una herramienta para abrir un mecanismo?",
-            imagen: "herrero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Herrero",
-            texto: "Puedo darte una.",
-            imagen: "herrero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Herrero",
-            texto: "Pero tené cuidado. Algunos mecanismos de la fortaleza son bastante viejos.",
-            imagen: "herrero.png"
-        }
-    ],
-
-    HerreroFinal:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Herrero",
-            texto: "¿Encontraste algo en la fortaleza?",
-            imagen: "herrero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Herrero",
-            texto: "No me sorprende. Ese lugar guarda secretos desde hace siglos.",
-            imagen: "herrero.png"
-        }
-    ],
-
-
-    // =========================================================
-    // REVOLUCIÓN INDUSTRIAL
-    // =========================================================
-
-    TrabajadorInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "¿Qué hacés acá?",
-            imagen: "trabajador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "La fábrica no es un lugar para visitantes.",
-            imagen: "trabajador.png"
-        }
-    ],
-
-    TrabajadorConInformacion:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "¿Buscás información sobre las máquinas?",
-            imagen: "trabajador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "Últimamente algunas funcionan solas.",
-            imagen: "trabajador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "El encargado está tratando de descubrir qué pasa.",
-            imagen: "trabajador.png"
-        }
-    ],
-
-    TrabajadorAvanzado:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "Encontraste algo, ¿no?",
-            imagen: "trabajador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "El ingeniero está en la sala de máquinas.",
-            imagen: "trabajador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Trabajador",
-            texto: "Si alguien entiende esas máquinas, es él.",
-            imagen: "trabajador.png"
-        }
-    ],
-
-    EncargadoInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Encargado",
-            texto: "¿Quién te dejó entrar?",
-            imagen: "encargado.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Encargado",
-            texto: "Volvé por donde viniste.",
-            imagen: "encargado.png"
-        }
-    ],
-
-    EncargadoConInformacion:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Encargado",
-            texto: "El trabajador te mandó conmigo, ¿verdad?",
-            imagen: "encargado.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Encargado",
-            texto: "Hay una máquina que lleva días funcionando de manera extraña.",
-            imagen: "encargado.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Encargado",
-            texto: "El ingeniero está intentando repararla.",
-            imagen: "encargado.png"
-        }
-    ],
-
-    IngenieroInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "No me molestes mientras trabajo.",
-            imagen: "ingeniero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "Tengo una máquina fuera de control.",
-            imagen: "ingeniero.png"
-        }
-    ],
-
-    IngenieroConEngranaje:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "¿Encontraste un engranaje?",
-            imagen: "ingeniero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "Perfecto. Eso es exactamente lo que necesito.",
-            imagen: "ingeniero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "Con esto debería poder activar el mecanismo.",
-            imagen: "ingeniero.png"
-        }
-    ],
-
-    IngenieroFinal:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "La máquina ya funciona.",
-            imagen: "ingeniero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "Pero encontré algo que no debería existir.",
-            imagen: "ingeniero.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Ingeniero",
-            texto: "Hay planos de una tecnología que está décadas adelantada a la nuestra.",
-            imagen: "ingeniero.png"
-        }
-    ],
-
-
-    // =========================================================
-    // AÑOS 80
-    // =========================================================
-
-    InvestigadorInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "¿Quién sos?",
-            imagen: "investigador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "Esta instalación no está abierta al público.",
-            imagen: "investigador.png"
-        }
-    ],
-
-    InvestigadorConTarjeta:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "¿Te dieron acceso?",
-            imagen: "investigador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "Entonces probablemente estés buscando lo mismo que nosotros.",
-            imagen: "investigador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "Hay registros sobre experimentos que nunca deberían haberse realizado.",
-            imagen: "investigador.png"
-        }
-    ],
-
-    InvestigadorAvanzado:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "Encontraste el disquete.",
-            imagen: "investigador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "Entonces ya podés acceder a los registros antiguos.",
-            imagen: "investigador.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador",
-            texto: "Buscá cualquier referencia a experimentos temporales.",
-            imagen: "investigador.png"
-        }
-    ],
-
-    TecnicoInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "Estoy ocupado.",
-            imagen: "tecnico.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "Si necesitás entrar a alguna sala, necesitás una tarjeta.",
-            imagen: "tecnico.png"
-        }
-    ],
-
-    TecnicoConTarjeta:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "¿Ya conseguiste una tarjeta?",
-            imagen: "tecnico.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "Bien. Algunas puertas requieren además un código.",
-            imagen: "tecnico.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "El código debería estar en los registros del laboratorio.",
-            imagen: "tecnico.png"
-        }
-    ],
-
-    TecnicoFinal:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "¿Llegaste hasta la sala de comunicaciones?",
-            imagen: "tecnico.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "Entonces ya viste la señal.",
-            imagen: "tecnico.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Técnico",
-            texto: "Nadie sabe de dónde viene.",
-            imagen: "tecnico.png"
-        }
-    ],
-
-    Guardia80Inicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "Identificación.",
-            imagen: "guardia80.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "Sin autorización no podés pasar.",
-            imagen: "guardia80.png"
-        }
-    ],
-
-    Guardia80ConTarjeta:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "La tarjeta parece válida.",
-            imagen: "guardia80.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "Podés pasar a las oficinas.",
-            imagen: "guardia80.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Guardia",
-            texto: "Pero el acceso al laboratorio principal sigue restringido.",
-            imagen: "guardia80.png"
-        }
-    ],
-
-    InvestigadorPrincipalInicial:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "¿Cómo llegaste hasta acá?",
-            imagen: "investigadorPrincipal.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Este laboratorio debería estar completamente aislado.",
-            imagen: "investigadorPrincipal.png"
-        }
-    ],
-
-    InvestigadorPrincipalConRegistros:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Entonces encontraste nuestros registros.",
-            imagen: "investigadorPrincipal.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Hace años intentamos estudiar algo que llamábamos desplazamiento temporal.",
-            imagen: "investigadorPrincipal.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Pero los experimentos terminaron cuando comenzaron a aparecer anomalías.",
-            imagen: "investigadorPrincipal.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Nunca encontramos el origen de esas anomalías.",
-            imagen: "investigadorPrincipal.png"
-        }
-    ],
-
-    InvestigadorPrincipalFinal:
-    [
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Ese fragmento que llevás no pertenece a esta época.",
-            imagen: "investigadorPrincipal.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Y si apareció acá, significa que alguien o algo está alterando el tiempo.",
-            imagen: "investigadorPrincipal.png"
-        },
-        {
-            tipo: "dialogo",
-            personaje: "Investigador Principal",
-            texto: "Tenés que volver al momento del que viniste.",
-            imagen: "investigadorPrincipal.png"
-        }
+        { tipo: "dialogo", personaje: "Guardia", texto: "Veo el sello del escriba." },
+        { tipo: "dialogo", personaje: "Guardia", texto: "Está bien. Podés pasar." }
     ]
+
+
+    
 };
 
 let dialogoAbierto = false;

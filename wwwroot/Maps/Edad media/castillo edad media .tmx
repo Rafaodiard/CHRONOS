@@ -6,7 +6,6 @@
  <tileset firstgid="1" source="../../tilesets/castillo/castilloFondoBlanco.tsx"/>
  <tileset firstgid="2117" source="../../tilesets/ancient_greeks_tileset/ancientGreekTerrain.tsx"/>
  <tileset firstgid="2491" source="../../tilesets/ancient_greeks_tileset/ancientGreekBuilding.tsx"/>
- <tileset firstgid="5194" source="../../tilesets/Spaceships/spaceships_updated.tsx"/>
  <tileset firstgid="5194" source="../../tilesets/ship_medium/ship_big_128x256.tsx"/>
  <tileset firstgid="5290" source="../../tilesets/castillo/premade_buildings_demo.tsx"/>
  <tileset firstgid="5546" source="../../tilesets/castillo/fences.tsx"/>
@@ -716,9 +715,9 @@
  <objectgroup id="8" name="Transiciones">
   <object id="145" x="1440" y="1613" width="100.333" height="29.3333">
    <properties>
-    <property name="MapaDestino" value="/Maps/mapasJson/Castillo1.tmj"/>
-    <property name="SpawnX" type="float" value="336"/>
-    <property name="SpawnY" type="float" value="672"/>
+    <property name="MapaDestino" value="/Maps/mapasJson/CastilloPrincipal.tmj"/>
+    <property name="SpawnX" type="float" value="1225"/>
+    <property name="SpawnY" type="float" value="1317"/>
    </properties>
   </object>
  </objectgroup>

@@ -1,0 +1,35 @@
+PAS7 STUDIO ASSET PACK LICENSE
+Pack: Medieval Weapons Deeds
+Version: 1.0.0
+Publisher: Pas7 Studio
+Platform of purchase: itch.io
+
+1) GRANT OF LICENSE
+Pas7 Studio grants you a non-exclusive, worldwide, perpetual license to use, modify, and incorporate the included assets ("Assets") into interactive and non-interactive projects (including commercial projects), provided you comply with the restrictions below.
+
+2) PERMITTED USES
+You may:
+- Use the Assets in personal, educational, or commercial projects.
+- Modify, adapt, resize, recolor, and combine the Assets with other content.
+- Distribute your finished projects that include the Assets in compiled/built form (e.g., games, apps, videos), including on stores and marketplaces.
+
+3) RESTRICTIONS (NOT PERMITTED)
+You may NOT:
+- Resell, redistribute, share, sublicense, or repackage the Assets themselves, whether modified or unmodified, as standalone files or as part of another asset pack.
+- Upload the Assets (or derivatives that allow extraction/reuse) to asset stores, stock sites, or public repositories.
+- Use the Pas7 Studio name, logo, or branding to imply endorsement of your project, unless you have written permission.
+
+4) TEAM / COLLABORATION
+You may share the Assets with members of the same project team only (employees/contractors) strictly for working on the same end product. Team members may not reuse the Assets in other projects.
+
+5) NO WARRANTY
+The Assets are provided "as is" without warranty of any kind. Pas7 Studio is not liable for any claims, damages, or other liability arising from use of the Assets.
+
+6) TERMINATION
+If you violate the restrictions above, your license is terminated automatically. You must stop using the Assets and delete all copies in your possession. Projects already released are not automatically revoked, but continued distribution after termination is not permitted.
+
+7) COPYRIGHT
+All Assets remain copyrighted by Pas7 Studio. You receive a license to use them; you do not receive ownership.
+
+8) CONTACT
+For support, questions, or licensing inquiries: <YOUR EMAIL OR CONTACT LINK>

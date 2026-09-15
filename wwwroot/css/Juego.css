@@ -99,3 +99,217 @@ h3{
     color: white;
     cursor: pointer;
 }
+
+.menu-biblioteca {
+    position: fixed;
+    inset: 0;
+    z-index: 20;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(13, 15, 18, 0.86);
+}
+
+.biblioteca-panel {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    width: min(1180px, 96vw);
+    max-height: 94vh;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.06) 25%, transparent 25%) 0 0 / 19px 19px,
+        linear-gradient(315deg, rgba(0, 0, 0, 0.16) 25%, transparent 25%) 0 0 / 23px 23px,
+        #5b6061;
+    border: 10px solid #282c2d;
+    box-shadow:
+        inset 0 0 0 2px #858a89,
+        inset 0 0 30px rgba(0, 0, 0, 0.55),
+        0 18px 60px rgba(0, 0, 0, 0.65);
+}
+
+.placa-biblioteca {
+    position: relative;
+    z-index: 1;
+    width: min(92%, 1060px);
+    margin: 22px auto 18px;
+    box-sizing: border-box;
+    flex: 0 0 auto;
+    padding: 26px 42px;
+    text-align: center;
+    background:
+        linear-gradient(100deg, transparent 9%, rgba(255, 255, 255, 0.12) 10%, transparent 11%, transparent 73%, rgba(0, 0, 0, 0.12) 74%, transparent 75%),
+        linear-gradient(#879094, #4a5358 48%, #737d81);
+    border: 4px solid #252a2d;
+    box-shadow:
+        inset 0 0 0 2px #aab0af,
+        inset 0 -9px 14px rgba(0, 0, 0, 0.3),
+        0 8px 0 #1c2021,
+        0 12px 16px rgba(0, 0, 0, 0.55);
+    color: #e2d8bd;
+    text-shadow: 1px 1px #1b1e20;
+}
+
+.placa-biblioteca::before,
+.placa-biblioteca::after {
+    position: absolute;
+    top: 12px;
+    width: 13px;
+    height: 13px;
+    content: "";
+    border: 2px solid #252a2d;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #d5d9d7 0 12%, #727a7b 28%, #303638 70%);
+    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.55);
+}
+
+.placa-biblioteca::before {
+    left: 15px;
+}
+
+.placa-biblioteca::after {
+    right: 15px;
+}
+
+.inscripcion-biblioteca {
+    position: relative;
+    z-index: 1;
+    margin: 0;
+    font-family: Georgia, serif;
+    font-size: clamp(14px, 1.5vw, 18px);
+    line-height: 1.45;
+}
+
+.inscripcion-biblioteca.secundaria {
+    margin-top: 12px;
+    color: #f0dfad;
+    font-size: clamp(13px, 1.35vw, 16px);
+}
+
+.biblioteca-contenido {
+    position: relative;
+    z-index: 1;
+    display: grid;
+    grid-template-columns: minmax(230px, 0.8fr) minmax(0, 1.6fr);
+    min-height: 0;
+}
+
+.lista-libros {
+    min-height: 0;
+    overflow-y: auto;
+    padding: 18px;
+    background: #171b1f;
+    border-right: 2px solid #596168;
+}
+
+.lista-libros h2 {
+    margin: 0 0 12px;
+    color: #e9d28f;
+    font-size: 20px;
+}
+
+.libro-disponible {
+    display: block;
+    width: 100%;
+    margin: 4px 0;
+    padding: 9px 10px;
+    text-align: left;
+    background: transparent;
+    border: 1px solid transparent;
+    color: #d9dde0;
+    cursor: pointer;
+}
+
+.libro-disponible:hover,
+.libro-disponible.seleccionado {
+    background: #39434b;
+    border-color: #ae8f4c;
+    color: #ffe6a8;
+}
+
+.visor-libro {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    padding: 22px;
+}
+
+.visor-libro-cabecera,
+.controles-libro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.visor-libro-cabecera h3 {
+    margin: 0;
+    color: #f0d994;
+    font-family: Georgia, serif;
+    font-size: clamp(20px, 2.5vw, 30px);
+}
+
+.pagina-libro {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    min-height: 280px;
+    margin: 20px 0;
+    padding: 32px;
+    background: #e7d7b4;
+    border: 8px solid #5b4430;
+    color: #30271d;
+    font-family: Georgia, serif;
+    font-size: 18px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.pagina-libro p {
+    max-width: 620px;
+    color: #30271d;
+}
+
+.boton-biblioteca,
+.boton-documento {
+    padding: 9px 14px;
+    background: #39434b;
+    border: 1px solid #b49452;
+    color: #f6e5b1;
+    cursor: pointer;
+}
+
+.boton-biblioteca:hover,
+.boton-documento:hover {
+    background: #4b5861;
+}
+
+.boton-biblioteca:disabled {
+    cursor: not-allowed;
+    opacity: 0.4;
+}
+
+#contadorPagina {
+    color: #d8c38e;
+}
+
+@media (max-width: 720px) {
+    .biblioteca-contenido {
+        grid-template-columns: 1fr;
+        overflow-y: auto;
+    }
+
+    .lista-libros {
+        max-height: 190px;
+        border-right: 0;
+        border-bottom: 2px solid #596168;
+    }
+
+    .pagina-libro {
+        min-height: 220px;
+        margin: 14px 0;
+        padding: 18px;
+    }
+}

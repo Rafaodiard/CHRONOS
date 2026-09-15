@@ -141,6 +141,10 @@ function puedeUsarTransicion(requisito) {
         return true;
     }
 
+    if (requisito.value === "permiso_escriba") {
+        return progreso.tienePermisoEscriba;
+    }
+
     return tieneObjeto(requisito.value);
 }
 function iniciarFadeTransicion(mapaDestino, spawnX, spawnY) {

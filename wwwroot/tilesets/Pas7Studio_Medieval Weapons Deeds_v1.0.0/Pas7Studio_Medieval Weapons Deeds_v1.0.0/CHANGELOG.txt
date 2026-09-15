@@ -1,0 +1,5 @@
+Changelog
+v1.0.0 - Initial release
+- Added melee set
+- Added ranged set
+- Added full_set atlases

@@ -46,4 +46,12 @@ const objetos = {
         tipo: "mision",
         usable: false
     },
+
+    documento1: {
+        id: "Documento1",
+        nombre: "Documento 1",
+        descripcion: "Un documento encontrado en el castillo.",
+        tipo: "mision",
+        usable: false
+    },
 };

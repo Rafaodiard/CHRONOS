@@ -22,7 +22,7 @@ const teclas = {};
 document.addEventListener("keydown", function (e) {
     const tecla = e.key.toLowerCase();
 
-    if (dialogoAbierto && tecla === "e") {
+    if ((dialogoAbierto || bibliotecaAbierta) && tecla === "e") {
         return;
     }
 
@@ -65,7 +65,7 @@ function loop() {
         canvas.height
     );
 
-    if (!dialogoAbierto && !acertijoAbierto) {
+    if (!dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta) {
 
         moverJugador();
 

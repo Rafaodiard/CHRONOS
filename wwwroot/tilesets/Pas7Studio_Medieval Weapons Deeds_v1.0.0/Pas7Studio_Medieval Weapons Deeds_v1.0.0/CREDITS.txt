@@ -1,0 +1,3 @@
+Credits
+- Art & Pack assembly: Pas7 Studio
+- Tools: pack_projects_v3.py (internal pipeline)

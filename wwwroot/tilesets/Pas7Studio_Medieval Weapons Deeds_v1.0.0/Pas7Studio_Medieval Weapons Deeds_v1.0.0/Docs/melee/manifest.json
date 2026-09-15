@@ -1,0 +1,25 @@
+{
+  "pack_name": "Medieval Weapons Deeds",
+  "version": "1.0.0",
+  "label": "melee",
+  "sets_included": [
+    "melee"
+  ],
+  "sprites_count": 44,
+  "generated_at": "2026-01-28T23:30:22Z",
+  "notes": {
+    "root_source": "diffuse-only",
+    "unmatched_masks": 0,
+    "unmatched_normals": 0,
+    "auto_fixed_layer_mismatches": 1,
+    "watermark_mode": "per-sprite",
+    "watermark_bbox": true
+  },
+  "outputs": {
+    "json": "..\\Atlases\\melee\\Medieval Weapons Deeds_melee_atlas_2048x1024_gap4_ext2_pot.json",
+    "csv": "..\\Atlases\\melee\\Medieval Weapons Deeds_melee_atlas_2048x1024_gap4_ext2_pot.csv",
+    "diffuse": "..\\Atlases\\melee\\Medieval Weapons Deeds_melee_atlas_2048x1024_gap4_ext2_pot_diffuse.png",
+    "masks": "..\\Atlases\\melee\\Medieval Weapons Deeds_melee_atlas_2048x1024_gap4_ext2_pot_masks.png",
+    "normals": "..\\Atlases\\melee\\Medieval Weapons Deeds_melee_atlas_2048x1024_gap4_ext2_pot_normals.png"
+  }
+}

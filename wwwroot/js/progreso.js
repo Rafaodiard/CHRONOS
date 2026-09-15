@@ -12,6 +12,7 @@ const progreso = {
     habloConAldeano: false,
     habloConGuardia: false,
     habloConEscriba: false,
+    tienePermisoEscriba: false,
     consiguioHerramienta: false,
 
     habloConTrabajador: false,

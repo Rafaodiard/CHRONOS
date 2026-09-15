@@ -11,19 +11,28 @@ function normalizarRutaMapa(ruta) {
         return ruta;
     }
 
-    let rutaNormalizada = ruta.replace(/\\/g, "/").trim();
+    const segmentos = ruta
+        .replace(/\\/g, "/")
+        .trim()
+        .split("/");
 
-    while (rutaNormalizada.startsWith("./")) {
-        rutaNormalizada = rutaNormalizada.substring(2);
+    const rutaNormalizada = [];
+
+    for (const segmento of segmentos) {
+        if (!segmento || segmento === ".") {
+            continue;
+        }
+
+        if (segmento === "..") {
+            rutaNormalizada.pop();
+            continue;
+        }
+
+        rutaNormalizada.push(segmento);
     }
 
-    if (!rutaNormalizada.startsWith("/")) {
-        rutaNormalizada = "/" + rutaNormalizada;
-    }
-
-    return rutaNormalizada;
+    return "/" + rutaNormalizada.join("/");
 }
-
 
 async function cargarMapa(nuevaRuta = rutaMapa) {
     rutaMapa = normalizarRutaMapa(nuevaRuta);
@@ -44,6 +53,7 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         console.log("Tilesets:", mapa.tilesets);
         console.log("Tamaño:", mapa.width, "x", mapa.height);
         console.log("BUSCANDO TRANSICIONES...");
+
         cargarColisiones();
         cargarTransiciones();
         cargarNPCs();
@@ -51,225 +61,104 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         cargarInteractuablesMapa();
         cargarAcertijosMapa();
         cargarTilesets();
-
-    } catch (error) {
+    }
+    catch (error) {
         console.error("ERROR AL CARGAR MAPA:", error);
     }
 }
 
-
 async function cargarTilesets() {
-
-    let cargados = 0;
-
     if (!mapa.tilesets || mapa.tilesets.length === 0) {
         iniciarJuego();
         return;
     }
 
-    for (let i = 0; i < mapa.tilesets.length; i++) {
+    const tilesetsCargados = mapa.tilesets.map(
+        async (tilesetReferencia, indice) => {
+            try {
+                const rutaImagen = await obtenerRutaImagenTileset(
+                    tilesetReferencia
+                );
 
-        const tilesetReferencia = mapa.tilesets[i];
+                console.log("Cargando imagen:", rutaImagen);
 
-        try {
+                const imagen = await cargarImagen(rutaImagen);
 
-            // Ruta del archivo .tsx indicada por el mapa
-            let rutaTSX = tilesetReferencia.source;
-
-            // Obtenemos la carpeta donde está el .tmj
-            let partesRutaMapa = rutaMapa.split("/");
-            partesRutaMapa.pop();
-
-            let rutaBase = partesRutaMapa.join("/");
-
-            // Unimos la carpeta del mapa con la ruta del TSX
-            let rutaCompletaTSX =
-                rutaBase + "/" + rutaTSX;
-
-            // Normalizamos ../ y ./ 
-            let segmentosTSX = rutaCompletaTSX.split("/");
-            let resultadoTSX = [];
-
-            for (let segmento of segmentosTSX) {
-
-                if (segmento === "..") {
-                    resultadoTSX.pop();
-                }
-                else if (segmento !== "." && segmento !== "") {
-                    resultadoTSX.push(segmento);
-                }
+                imagenesTilesets[indice] = imagen;
+                console.log("Tileset cargado:", indice, rutaImagen);
             }
-
-            rutaCompletaTSX =
-                "/" + resultadoTSX.join("/");
-
-            console.log(
-                "Cargando TSX:",
-                rutaCompletaTSX
-            );
-
-
-            // ==========================================
-            // CARGAR EL ARCHIVO TSX
-            // ==========================================
-
-            const respuestaTSX =
-                await fetch(rutaCompletaTSX);
-
-            if (!respuestaTSX.ok) {
-                throw new Error(
-                    "No se pudo cargar el TSX: " +
-                    rutaCompletaTSX
-                );
-            }
-
-            const textoTSX =
-                await respuestaTSX.text();
-
-
-            // ==========================================
-            // LEER EL XML DEL TSX
-            // ==========================================
-
-            const parser =
-                new DOMParser();
-
-            const xml =
-                parser.parseFromString(
-                    textoTSX,
-                    "application/xml"
-                );
-
-            const imagenTSX =
-                xml.querySelector("image");
-
-            if (!imagenTSX) {
-                throw new Error(
-                    "El TSX no contiene una imagen"
-                );
-            }
-
-            const rutaImagen =
-                imagenTSX.getAttribute("source");
-
-
-            // ==========================================
-            // CONSTRUIR RUTA DE LA IMAGEN
-            // ==========================================
-
-            let partesRutaTSX =
-                rutaCompletaTSX.split("/");
-
-            partesRutaTSX.pop();
-
-            let rutaImagenCompleta =
-                partesRutaTSX.join("/") +
-                "/" +
-                rutaImagen;
-
-
-            // Normalizamos ../ y ./
-            let segmentosImagen =
-                rutaImagenCompleta.split("/");
-
-            let resultadoImagen = [];
-
-            for (let segmento of segmentosImagen) {
-
-                if (segmento === "..") {
-                    resultadoImagen.pop();
-                }
-                else if (
-                    segmento !== "." &&
-                    segmento !== ""
-                ) {
-                    resultadoImagen.push(segmento);
-                }
-            }
-
-            rutaImagenCompleta =
-                "/" + resultadoImagen.join("/");
-
-
-            console.log(
-                "Cargando imagen:",
-                rutaImagenCompleta
-            );
-
-
-            // ==========================================
-            // CARGAR IMAGEN DEL TILESET
-            // ==========================================
-
-            const imagen =
-                new Image();
-
-            imagen.onload = function () {
-
-                imagenesTilesets[i] =
-                    imagen;
-
-                console.log(
-                    "Tileset cargado:",
-                    i,
-                    rutaImagenCompleta
-                );
-
-                cargados++;
-
-                if (
-                    cargados ===
-                    mapa.tilesets.length
-                ) {
-
-                    console.log(
-                        "TODOS LOS TILESETS CARGADOS"
-                    );
-
-                    iniciarJuego();
-                }
-            };
-
-
-            imagen.onerror = function () {
-
-                console.error(
-                    "NO SE PUDO CARGAR LA IMAGEN:",
-                    rutaImagenCompleta
-                );
-
-                cargados++;
-
-                if (
-                    cargados ===
-                    mapa.tilesets.length
-                ) {
-                    iniciarJuego();
-                }
-            };
-
-
-            imagen.src =
-                rutaImagenCompleta;
-
-        }
-        catch (error) {
-
-            console.error(
-                "ERROR AL CARGAR TILESET:",
-                error
-            );
-
-            cargados++;
-
-            if (
-                cargados ===
-                mapa.tilesets.length
-            ) {
-                iniciarJuego();
+            catch (error) {
+                console.error("ERROR AL CARGAR TILESET:", error);
             }
         }
+    );
+
+    await Promise.all(tilesetsCargados);
+
+    console.log("TODOS LOS TILESETS CARGADOS");
+    iniciarJuego();
+}
+
+async function obtenerRutaImagenTileset(tilesetReferencia) {
+    const rutaBaseMapa = rutaMapa.substring(
+        0,
+        rutaMapa.lastIndexOf("/")
+    );
+
+    if (tilesetReferencia.image) {
+        return normalizarRutaMapa(
+            `${rutaBaseMapa}/${tilesetReferencia.image}`
+        );
     }
+
+    if (!tilesetReferencia.source) {
+        throw new Error("El tileset no tiene source ni image");
+    }
+
+    const rutaTSX = normalizarRutaMapa(
+        `${rutaBaseMapa}/${tilesetReferencia.source}`
+    );
+
+    console.log("Cargando TSX:", rutaTSX);
+
+    const respuestaTSX = await fetch(rutaTSX);
+
+    if (!respuestaTSX.ok) {
+        throw new Error("No se pudo cargar el TSX: " + rutaTSX);
+    }
+
+    const xml = new DOMParser().parseFromString(
+        await respuestaTSX.text(),
+        "application/xml"
+    );
+
+    const imagenTSX = xml.querySelector("image");
+    const rutaImagen = imagenTSX?.getAttribute("source");
+
+    if (!rutaImagen) {
+        throw new Error("El TSX no contiene una imagen");
+    }
+
+    const rutaBaseTSX = rutaTSX.substring(
+        0,
+        rutaTSX.lastIndexOf("/")
+    );
+
+    return normalizarRutaMapa(
+        `${rutaBaseTSX}/${rutaImagen}`
+    );
+}
+
+function cargarImagen(rutaImagen) {
+    return new Promise((resolve, reject) => {
+        const imagen = new Image();
+
+        imagen.onload = () => resolve(imagen);
+        imagen.onerror = () => reject(
+            new Error("No se pudo cargar la imagen: " + rutaImagen)
+        );
+        imagen.src = rutaImagen;
+    });
 }
 
 function obtenerTileset(gid) {

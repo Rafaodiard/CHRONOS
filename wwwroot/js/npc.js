@@ -163,6 +163,75 @@ function cargarNPCs() {
 
     }
 
+    else if (rutaMapa === "/Maps/mapasJson/CastilloPrincipal.tmj") {
+
+        npcs = [
+            {
+                x: 345,
+                y: 1075,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Escriba",
+                imagen: "/sprites/npcs/bibliotecario.png",
+                dialogoInicial: "EscribaInicial",
+                dialogos: [
+                    {
+                        condicion: () => progreso.tienePermisoEscriba,
+                        dialogo: "EscribaConPermiso"
+                    },
+                    {
+                        condicion: () => tieneObjeto("Documento1") && !progreso.habloConEscriba,
+                        dialogo: "EscribaConDocumento"
+                    },
+                    {
+                        condicion: () => tieneObjeto("Documento1"),
+                        dialogo: "EscribaDocumentoEncontrado"
+                    },
+                    {
+                        condicion: () => progreso.habloConEscriba,
+                        dialogo: "EscribaSinDocumento"
+                    }
+                ],
+                alTerminar: () => {
+                    progreso.habloConEscriba = true;
+
+                    if (
+                        tieneObjeto("Documento1") &&
+                        !progreso.tienePermisoEscriba
+                    ) {
+                        quitarObjeto("Documento1");
+                        progreso.tienePermisoEscriba = true;
+                    }
+                }
+            },
+            {
+                x: 1200,
+                y: 400,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Guardia",
+                imagen: "/sprites/npcs/stranger.png",
+                dialogoInicial: "GuardiaInicial",
+                dialogos: [
+                    {
+                        condicion: () => progreso.tienePermisoEscriba,
+                        dialogo: "GuardiaConPermiso"
+                    },
+                    {
+                        condicion: () => progreso.habloConGuardia,
+                        dialogo: "GuardiaSinPermiso"
+                    }
+                ],
+                alTerminar: () => {
+                    progreso.habloConGuardia = true;
+                }
+            }
+        ];
+
+    }
+
     inicializarNPCs();
 }
 

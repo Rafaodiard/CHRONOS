@@ -148,6 +148,11 @@ function interactuarConObjeto(
             "Objeto"
         );
 
+    if (objeto === "Documento1") {
+        abrirBiblioteca();
+        return;
+    }
+
 
     // =====================================================
     // SI TIENE MENSAJE

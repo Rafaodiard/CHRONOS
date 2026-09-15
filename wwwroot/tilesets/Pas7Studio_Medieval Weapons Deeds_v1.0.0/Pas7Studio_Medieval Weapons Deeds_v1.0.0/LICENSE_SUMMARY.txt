@@ -1,0 +1,13 @@
+PAS7 STUDIO LICENSE SUMMARY (NOT A SUBSTITUTE FOR LICENSE.txt)
+
+✅ You CAN:
+- Use these assets in personal and commercial projects.
+- Modify them.
+- Ship your finished game/app/video that includes them.
+
+❌ You CAN'T:
+- Re-upload or resell the files as an asset pack (even modified).
+- Share the raw files publicly or with people outside your project team.
+- Claim Pas7 Studio endorses your project.
+
+If in doubt — read LICENSE.txt or contact Pas7 Studio.

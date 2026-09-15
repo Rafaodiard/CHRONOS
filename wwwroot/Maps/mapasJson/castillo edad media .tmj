@@ -2278,17 +2278,17 @@
                         {
                          "name":"MapaDestino",
                          "type":"string",
-                         "value":"\/Maps\/mapasJson\/Castillo1.tmj"
+                         "value":"\/Maps\/mapasJson\/CastilloPrincipal.tmj"
                         }, 
                         {
                          "name":"SpawnX",
                          "type":"float",
-                         "value":336
+                         "value":1225
                         }, 
                         {
                          "name":"SpawnY",
                          "type":"float",
-                         "value":672
+                         "value":1317
                         }],
                  "rotation":0,
                  "type":"",
@@ -2321,10 +2321,6 @@
         {
          "firstgid":2491,
          "source":"..\/..\/tilesets\/ancient_greeks_tileset\/ancientGreekBuilding.tsx"
-        }, 
-        {
-         "firstgid":5194,
-         "source":"..\/..\/tilesets\/Spaceships\/spaceships_updated.tsx"
         }, 
         {
          "firstgid":5194,

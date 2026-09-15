@@ -30,15 +30,45 @@
     </div>
 </div>
 
+<div id="menuBiblioteca" class="menu-biblioteca" style="display: none;" aria-hidden="true">
+    <section class="biblioteca-panel" role="dialog" aria-modal="true" aria-labelledby="bibliotecaTitulo">
+        <header class="placa-biblioteca">
+            <p class="inscripcion-biblioteca">Los reyes nacen y mueren, los imperios se levantan y caen.<br>Pero las estrellas que observó mi abuelo siguen allí,<br>recorriendo el mismo cielo que contemplaron nuestros antepasados.</p>
+            <p class="inscripcion-biblioteca secundaria">He pasado incontables noches observando el firmamento.<br>No pretendo comprenderlo; me basta con contemplarlo.</p>
+        </header>
+
+        <div class="biblioteca-contenido">
+            <aside class="lista-libros" aria-label="Libros de la biblioteca">
+                <h2 id="bibliotecaTitulo">Catálogo de libros</h2>
+                <div id="librosDisponibles"></div>
+            </aside>
+
+            <section class="visor-libro" aria-live="polite">
+                <div class="visor-libro-cabecera">
+                    <h3 id="tituloLibroActual"></h3>
+                    <button id="cerrarBiblioteca" class="boton-biblioteca boton-cerrar" type="button" aria-label="Cerrar biblioteca">Cerrar</button>
+                </div>
+                <article id="paginaLibroActual" class="pagina-libro"></article>
+                <div class="controles-libro">
+                    <button id="paginaAnterior" class="boton-biblioteca" type="button">Página anterior</button>
+                    <span id="contadorPagina"></span>
+                    <button id="paginaSiguiente" class="boton-biblioteca" type="button">Página siguiente</button>
+                </div>
+            </section>
+        </div>
+    </section>
+</div>
+
 @section Scripts {
     <script src="~/js/inventario/objetos.js"></script>
     <script src="~/js/inventario/recogibles.js"></script>
+    <script src="~/js/dialogos.js"></script>
+    <script src="~/js/inventario/libros.js"></script>
 
     <script src="~/js/inventario/inventario.js"></script>
     <script src="~/js/inventario/inventarioUI.js"></script>
     <script src="~/js/interactuables.js"></script>
     <script src="~/js/progreso.js"></script>
-    <script src="~/js/dialogos.js"></script>
     <script src="~/js/acertijos.js"></script>
     <script src="~/js/colisiones.js"></script>
     <script src="~/js/mapa.js"></script>
