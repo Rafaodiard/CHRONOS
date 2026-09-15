@@ -84,7 +84,9 @@ function obtenerPropiedadInteractuable(
         );
 
     return propiedad
-        ? propiedad.value
+        ? typeof propiedad.value === "string"
+            ? propiedad.value.trim()
+            : propiedad.value
         : null;
 }
 
@@ -136,6 +138,12 @@ function interactuarConObjeto(
     interactuable
 ) {
 
+    const dialogo =
+        obtenerPropiedadInteractuable(
+            interactuable,
+            "Dialogo"
+        );
+
     const mensaje =
         obtenerPropiedadInteractuable(
             interactuable,
@@ -147,6 +155,11 @@ function interactuarConObjeto(
             interactuable,
             "Objeto"
         );
+
+    if (dialogo) {
+        abrirDialogo(dialogo);
+        return;
+    }
 
     if (objeto === "Documento1") {
         abrirBiblioteca();

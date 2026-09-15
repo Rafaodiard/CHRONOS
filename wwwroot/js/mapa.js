@@ -59,6 +59,7 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         cargarNPCs();
         cargarObjetosMapa();
         cargarInteractuablesMapa();
+        cargarPalancasMapa();
         cargarAcertijosMapa();
         cargarTilesets();
     }
@@ -456,6 +457,13 @@ function dibujarTile(
 function dibujarCapa(capa) {
 
     if (
+        capa.name === "PuertaOculta" &&
+        !progreso.palancasResueltas
+    ) {
+        return;
+    }
+
+    if (
         capa.type !==
         "tilelayer"
     ) {
@@ -570,6 +578,8 @@ function dibujarMapa() {
 
                 capa.type ===
                 "tilelayer" &&
+
+                !(capa.name === "PuertaOculta" && !progreso.palancasResueltas) &&
 
                 capa.name !==
                 "EdificiosDelante" &&

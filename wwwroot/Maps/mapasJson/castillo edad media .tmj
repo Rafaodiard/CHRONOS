@@ -2296,6 +2296,44 @@
                  "width":100.333,
                  "x":1440,
                  "y":1613
+                }, 
+                {
+                 "height":142.5,
+                 "id":146,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"Dialogo",
+                         "type":"string",
+                         "value":"maquina1"
+                        }, 
+                        {
+                         "name":"MapaDestino",
+                         "type":"string",
+                         "value":"\/Maps\/mapasJson\/fabrica.tmj\n"
+                        }, 
+                        {
+                         "name":"Requisito",
+                         "type":"string",
+                         "value":"fragmento_temporal2"
+                        }, 
+                        {
+                         "name":"SpawnX",
+                         "type":"float",
+                         "value":600
+                        }, 
+                        {
+                         "name":"SpawnY",
+                         "type":"float",
+                         "value":900
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":149.5,
+                 "x":470.5,
+                 "y":775.5
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -2304,7 +2342,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":146,
+ "nextobjectid":147,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",

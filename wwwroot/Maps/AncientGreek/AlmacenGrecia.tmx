@@ -97,7 +97,7 @@
   </object>
  </objectgroup>
  <objectgroup id="6" name="Objetos"/>
- <objectgroup id="7" name="Interactuables" visible="0">
+ <objectgroup id="7" name="Interactuables">
   <object id="25" x="138.125" y="50.25" width="11.125" height="44.875">
    <properties>
     <property name="Id" value="jarra1"/>

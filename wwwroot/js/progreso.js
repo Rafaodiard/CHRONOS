@@ -26,5 +26,8 @@ const progreso = {
     leyoInvestigacion: false
     ,
     // bandera para indicar que el guardia llegó y desbloqueó la puerta
-    guardiaLlegado: false
+    guardiaLlegado: false,
+    guardiaX: null,
+    guardiaY: null,
+    palancasResueltas: false
 };

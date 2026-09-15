@@ -454,6 +454,15 @@ AlfareroConVasija:
     [
         { tipo: "dialogo", personaje: "Guardia", texto: "Veo el sello del escriba." },
         { tipo: "dialogo", personaje: "Guardia", texto: "Está bien. Podés pasar." }
+    ],
+    PistasPalancas:
+    [
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "El mecanismo que protege las catacumbas fue creado hace siglos." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Cuatro salas esconden parte de la combinación." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Donde descansa el acero, la segunda y la cuarta deben permanecer levantadas." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "La cámara olvidada solo responde a la primera." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Entre los libros, las últimas dos deben despertar." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Entre las Estatuas, la primera y la tercera deben permanecer en pie." }
     ]
 
 

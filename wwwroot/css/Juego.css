@@ -1,22 +1,245 @@
 #dialogo {
     position: fixed;
-    bottom: 20px;
-    left: 5%;
-    width: 90%;
-    height: 150px;
-
-    background-color: white;
-    border: 4px solid black;
-    box-sizing: border-box;
-
-    padding: 15px;
+    right: clamp(16px, 5vw, 72px);
+    bottom: clamp(18px, 5vh, 48px);
+    left: clamp(16px, 5vw, 72px);
+    z-index: 5;
     display: none;
+    align-items: stretch;
+    box-sizing: border-box;
+    min-height: 142px;
+    padding: 1px;
+    overflow: hidden;
+    background: rgba(10, 17, 29, 0.94);
+    border: 1px solid rgba(229, 190, 103, 0.72);
+    border-radius: 6px;
+    box-shadow: 0 12px 34px rgba(0, 0, 0, 0.48), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    color: #f5f0e4;
 }
-p{
-    color: black;
+
+#dialogo::before {
+    width: 5px;
+    flex: 0 0 5px;
+    content: "";
+    background: linear-gradient(180deg, #f2cf78, #b47735);
 }
-h3{
-    color: black;
+
+#textoDialogo {
+    position: relative;
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    justify-content: center;
+    min-width: 0;
+    padding: 20px clamp(20px, 4vw, 42px) 22px;
+}
+
+.dialogo-etiqueta {
+    margin-bottom: 7px;
+    color: #e3bb68;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.18em;
+}
+
+#nombrePersonaje {
+    margin: 0 0 8px;
+    color: #fff2c8;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(19px, 2.2vw, 27px);
+    line-height: 1.1;
+}
+
+#texto {
+    max-width: 900px;
+    margin: 0;
+    color: #e6e9ed;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(15px, 1.55vw, 19px);
+    line-height: 1.5;
+}
+
+.dialogo-ayuda {
+    align-self: flex-end;
+    margin-top: 12px;
+    color: rgba(214, 222, 231, 0.58);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+@media (max-width: 560px) {
+    #dialogo {
+        bottom: 14px;
+        min-height: 132px;
+    }
+
+    #textoDialogo {
+        padding: 16px 17px 17px;
+    }
+
+    .dialogo-ayuda {
+        font-size: 9px;
+    }
+}
+
+.menu-palancas {
+    position: fixed;
+    inset: 0;
+    z-index: 15;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(4, 8, 14, 0.78);
+}
+
+.panel-palancas {
+    width: min(92vw, 560px);
+    padding: clamp(22px, 5vw, 36px);
+    background: #101a28;
+    border: 1px solid rgba(229, 190, 103, 0.8);
+    border-radius: 7px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
+    color: #f5f0e4;
+}
+
+.cabecera-palancas {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 18px;
+}
+
+.etiqueta-palancas {
+    color: #e3bb68;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.18em;
+}
+
+#tituloPalancas {
+    margin: 5px 0 0;
+    color: #fff2c8;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(24px, 4vw, 32px);
+}
+
+.boton-cerrar-palancas {
+    padding: 8px 12px;
+    background: transparent;
+    border: 1px solid rgba(214, 222, 231, 0.35);
+    color: #d6dee7;
+    cursor: pointer;
+}
+
+.boton-cerrar-palancas:hover {
+    border-color: #e3bb68;
+    color: #fff2c8;
+}
+
+.instruccion-palancas {
+    margin: 20px 0 18px;
+    color: #b8c3d0;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+.lista-palancas {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.palanca-control {
+    display: flex;
+    min-height: 142px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 8px;
+    background: #182536;
+    border: 1px solid #405064;
+    border-radius: 4px;
+    color: #d6dee7;
+    cursor: pointer;
+    transition: border-color 120ms ease, background 120ms ease, transform 120ms ease;
+}
+
+.palanca-control:hover,
+.palanca-control:focus-visible {
+    transform: translateY(-2px);
+    border-color: #e3bb68;
+    outline: none;
+}
+
+.palanca-control-numero {
+    align-self: flex-start;
+    color: #9aa9b8;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 12px;
+}
+
+.palanca-control-icono {
+    position: relative;
+    display: block;
+    width: 12px;
+    height: 54px;
+    border: 2px solid #8998a8;
+    border-radius: 8px;
+    background: #2e3c4d;
+}
+
+.palanca-control-icono::before {
+    position: absolute;
+    top: 5px;
+    left: 50%;
+    width: 8px;
+    height: 26px;
+    content: "";
+    transform: translateX(-50%);
+    border-radius: 5px;
+    background: #d6dee7;
+}
+
+.palanca-control.activa {
+    background: rgba(47, 104, 75, 0.45);
+    border-color: #73c98a;
+}
+
+.palanca-control.activa .palanca-control-icono::before {
+    top: 3px;
+    background: #9ce5a9;
+    box-shadow: 0 0 12px rgba(142, 227, 142, 0.7);
+}
+
+.palanca-control.inactiva .palanca-control-icono::before {
+    top: 21px;
+    background: #ff9b8e;
+}
+
+.palanca-control-estado {
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 11px;
+    font-weight: bold;
+    letter-spacing: 0.08em;
+}
+
+.palanca-control.activa .palanca-control-estado {
+    color: #9ce5a9;
+}
+
+.palanca-control.inactiva .palanca-control-estado {
+    color: #ffb0a6;
+}
+
+@media (max-width: 560px) {
+    .lista-palancas {
+        grid-template-columns: repeat(2, 1fr);
+    }
 }
 
 .menu-acertijo {

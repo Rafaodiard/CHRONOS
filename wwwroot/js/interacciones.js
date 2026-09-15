@@ -12,15 +12,16 @@ function cargarTransiciones() {
         return;
     }
 
-    const capaTransiciones = mapa.layers.find(
-        capa => capa.name === "Transiciones"
+    const capasTransiciones = mapa.layers.filter(capa =>
+        capa.name === "Transiciones" ||
+        (capa.name === "PuertaOcultaTransicion" && progreso.palancasResueltas)
     );
 
-    if (!capaTransiciones || !capaTransiciones.objects) {
+    if (capasTransiciones.length === 0) {
         return;
     }
 
-    transiciones = capaTransiciones.objects;
+    transiciones = capasTransiciones.flatMap(capa => capa.objects || []);
 
     console.log("TRANSICIONES CARGADAS:", transiciones);
 }

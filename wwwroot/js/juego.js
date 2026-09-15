@@ -22,7 +22,7 @@ const teclas = {};
 document.addEventListener("keydown", function (e) {
     const tecla = e.key.toLowerCase();
 
-    if ((dialogoAbierto || bibliotecaAbierta) && tecla === "e") {
+    if ((dialogoAbierto || bibliotecaAbierta || palancasAbierto) && tecla === "e") {
         return;
     }
 
@@ -65,7 +65,7 @@ function loop() {
         canvas.height
     );
 
-    if (!dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta) {
+    if (!dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto) {
 
         moverJugador();
 
@@ -73,6 +73,7 @@ function loop() {
 
         comprobarObjetos(); 
         comprobarInteractuables();
+        comprobarPalancas();
         comprobarAcertijos();
         actualizarInteraccion();
 
@@ -81,7 +82,8 @@ function loop() {
             jugadorEnTransicionActual() ||
             mostrarIndicadorObjeto ||     
             mostrarIndicadorInteractuable ||
-            mostrarIndicadorAcertijo
+            mostrarIndicadorAcertijo ||
+            mostrarIndicadorPalanca
 
         );
     }
@@ -91,6 +93,8 @@ function loop() {
     dibujarMapa();
 
     dibujarObjetosMapa();
+
+    dibujarPalancas();
 
     dibujarNPCs();
 

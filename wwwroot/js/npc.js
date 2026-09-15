@@ -206,8 +206,8 @@ function cargarNPCs() {
                 }
             },
             {
-                x: 1250,
-                y: 600,
+                x: progreso.guardiaX ?? 1250,
+                y: progreso.guardiaY ?? 600,
                 ancho: 64,
                 alto: 64,
                 tamañoVisual: 160,
@@ -312,13 +312,18 @@ function iniciarDesbloqueoGuardia() {
 
     if (!guardia) return;
 
+    if (progreso.guardiaLlegado) {
+        guardia.moviendose = false;
+        return;
+    }
+
     const trans = buscarTransicionPorDestino("/Maps/mapasJson/CastilloPiso2.tmj");
 
     console.log("iniciarDesbloqueoGuardia: trans encontrada=", trans);
 
     if (!trans) return;
 
-    guardia.objetivoX = trans.x + (trans.width || 0) / 2;
+    guardia.objetivoX = trans.x + (trans.width || 0) / 2 + 100;
     guardia.objetivoY = trans.y + (trans.height || 0) / 2;
     guardia.moviendose = true;
     guardia.velocidad = 1.2;
@@ -339,6 +344,8 @@ function actualizarMovimientosNPCs() {
             npc.y = npc.objetivoY;
             npc.moviendose = false;
             if (npc.nombre === "Guardia") {
+                progreso.guardiaX = npc.x;
+                progreso.guardiaY = npc.y;
                 progreso.guardiaLlegado = true;
                 console.log("Guardia ha llegado a la puerta. progreso.guardiaLlegado=true");
                 try {
@@ -371,6 +378,11 @@ function actualizarMovimientosNPCs() {
 
         npc.x += nx * (npc.velocidad || 1);
         npc.y += ny * (npc.velocidad || 1);
+
+        if (npc.nombre === "Guardia") {
+            progreso.guardiaX = npc.x;
+            progreso.guardiaY = npc.y;
+        }
     }
 }
 

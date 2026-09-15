@@ -41,15 +41,31 @@ const objetos = {
 
     fragmentoTemporal1: {
         id: "fragmento_temporal1",
-        nombre: "Fragmento temporal 1",
+        nombre: "Fragmento temporal N°1",
         descripcion: "Un fragmento relacionado con las anomalías temporales.",
+        tipo: "mision",
+        usable: false
+    },
+
+    fragmentoTemporal2: {
+        id: "fragmento_temporal2",
+        nombre: "Fragmento temporal N°2",
+        descripcion: "Un segundo fragmento relacionado con las anomalías temporales.",
+        tipo: "mision",
+        usable: false
+    },
+
+    fragmentoTemporal3: {
+        id: "fragmento_temporal3",
+        nombre: "Fragmento temporal N°3",
+        descripcion: "Un tercer fragmento relacionado con las anomalías temporales.",
         tipo: "mision",
         usable: false
     },
 
     documento1: {
         id: "Documento1",
-        nombre: "Documento 1",
+        nombre: "Documento Antiguo",
         descripcion: "Un documento encontrado en el castillo.",
         tipo: "mision",
         usable: false

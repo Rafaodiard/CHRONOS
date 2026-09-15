@@ -16,7 +16,6 @@ const librosBiblioteca = [
     "Mapas de los Reinos Conocidos",
     "El Estudio de los Astros",
     "Calendarios y Mareas",
-    "Las Estrellas y sus Ciclos",
     "Tratado sobre los Planetas",
     "Astronomía de los Antiguos"
 ];
