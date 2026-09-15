@@ -299,8 +299,8 @@
   <object id="45" x="1123.83" y="1429.33" width="328.333" height="41.3333">
    <properties>
     <property name="MapaDestino" value="/Maps/mapasJson/castillo edad media .tmj"/>
-    <property name="SpawnX" type="float" value="1440"/>
-    <property name="SpawnY" type="float" value="1613"/>
+    <property name="SpawnX" type="float" value="1460"/>
+    <property name="SpawnY" type="float" value="1650"/>
    </properties>
   </object>
  </objectgroup>
@@ -321,7 +321,7 @@
     <property name="Palanca4" type="bool" value="true"/>
    </properties>
   </object>
-  <object id="42" x="2619.13" y="252.208" width="37.75" height="40.25">
+  <object id="42" x="2618.8" y="252.208" width="38.0833" height="38.9167">
    <properties>
     <property name="Palanca1" type="bool" value="true"/>
     <property name="Palanca2" type="bool" value="false"/>

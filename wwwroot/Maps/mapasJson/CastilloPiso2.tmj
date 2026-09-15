@@ -436,12 +436,12 @@
                         {
                          "name":"SpawnX",
                          "type":"float",
-                         "value":1160
+                         "value":1200
                         }, 
                         {
                          "name":"SpawnY",
                          "type":"float",
-                         "value":640
+                         "value":670
                         }],
                  "rotation":0,
                  "type":"",

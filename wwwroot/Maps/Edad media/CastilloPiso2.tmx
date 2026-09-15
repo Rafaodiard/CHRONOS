@@ -209,8 +209,8 @@
   <object id="19" x="993.5" y="767" width="281" height="31">
    <properties>
     <property name="MapaDestino" value="/Maps/mapasJson/CastilloPrincipal.tmj"/>
-    <property name="SpawnX" type="float" value="1160"/>
-    <property name="SpawnY" type="float" value="640"/>
+    <property name="SpawnX" type="float" value="1200"/>
+    <property name="SpawnY" type="float" value="670"/>
    </properties>
   </object>
  </objectgroup>

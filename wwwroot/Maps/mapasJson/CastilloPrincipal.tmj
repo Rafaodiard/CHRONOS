@@ -669,19 +669,19 @@
                         {
                          "name":"SpawnX",
                          "type":"float",
-                         "value":1440
+                         "value":1460
                         }, 
                         {
                          "name":"SpawnY",
                          "type":"float",
-                         "value":1613
+                         "value":1650
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":328.333,
-                 "x":1123.8335,
-                 "y":1429.33335
+                 "x":1123.83,
+                 "y":1429.33
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -762,7 +762,7 @@
                  "y":702.125
                 }, 
                 {
-                 "height":40.25,
+                 "height":38.9166666666667,
                  "id":42,
                  "name":"",
                  "opacity":1,
@@ -790,8 +790,8 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":37.75,
-                 "x":2619.13,
+                 "width":38.0833333333335,
+                 "x":2618.79666666667,
                  "y":252.208
                 }, 
                 {
