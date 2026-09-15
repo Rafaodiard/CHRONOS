@@ -24,4 +24,7 @@ const progreso = {
     encontroDisquete: false,
     encontroCodigo: false,
     leyoInvestigacion: false
+    ,
+    // bandera para indicar que el guardia llegó y desbloqueó la puerta
+    guardiaLlegado: false
 };

@@ -96,7 +96,13 @@ function ejecutarTransicion(transicion) {
         propiedad => propiedad.name === "Requisito"
     );
 
-    if (!puedeUsarTransicion(requisito)) {
+    const permiso = puedeUsarTransicion(transicion);
+
+    console.log('Intentando ejecutar transición. jugador=', { x: jugador.x, y: jugador.y });
+    console.log('Transición seleccionada:', transicion);
+    console.log('puedeUsarTransicion ->', permiso);
+
+    if (!permiso) {
 
         const dialogoBloqueado = transicion.properties?.find(
             propiedad => propiedad.name === "Dialogo"
@@ -104,6 +110,13 @@ function ejecutarTransicion(transicion) {
 
         if (dialogoBloqueado) {
             abrirDialogo(dialogoBloqueado.value);
+        }
+
+        // Si la transición está marcada como Desbloqueada pero sigue fallando por colisión,
+        // mostrar un dialogo informativo.
+        const des = transicion.properties?.find(p => p.name === 'Desbloqueada' && p.value === true);
+        if (des) {
+            abrirDialogo('puertaTemplo');
         }
 
         return;
@@ -135,17 +148,47 @@ function ejecutarTransicion(transicion) {
         Number(spawnY.value)
     );
 }
-function puedeUsarTransicion(requisito) {
+function puedeUsarTransicion(transicion) {
+    // Mostrar estados para depuración
+    console.log('puedeUsarTransicion: progreso=', {
+        tienePermisoEscriba: progreso.tienePermisoEscriba,
+        habloConGuardia: progreso.habloConGuardia,
+        guardiaLlegado: progreso.guardiaLlegado
+    });
 
-    if (!requisito || requisito.value === "ninguno") {
+    // Si la transición fue marcada como desbloqueada por el guardia, permitirla
+    const desbloqueada = transicion.properties?.find(p => p.name === 'Desbloqueada' && p.value === true);
+    if (desbloqueada) {
+        console.log('Transición marcada como Desbloqueada -> permitida');
         return true;
     }
 
-    if (requisito.value === "permiso_escriba") {
-        return progreso.tienePermisoEscriba;
+    const requisito = transicion.properties?.find(
+        propiedad => propiedad.name === "Requisito"
+    );
+
+    if (requisito) {
+        if (requisito.value === "ninguno") {
+            return true;
+        }
+
+        if (requisito.value === "permiso_escriba") {
+            return progreso.tienePermisoEscriba;
+        }
+
+        return tieneObjeto(requisito.value);
     }
 
-    return tieneObjeto(requisito.value);
+    // Si no hay requisito explícito, forzar permiso para la puerta
+    // principal del castillo que lleva a "CastilloPiso2.tmj".
+    const mapaDestino = transicion.properties?.find(p => p.name === "MapaDestino")?.value;
+
+    if (mapaDestino === "/Maps/mapasJson/CastilloPiso2.tmj") {
+        // Requiere permiso del escriba y que el guardia haya llegado a la puerta
+        return progreso.tienePermisoEscriba && progreso.guardiaLlegado;
+    }
+
+    return true;
 }
 function iniciarFadeTransicion(mapaDestino, spawnX, spawnY) {
 

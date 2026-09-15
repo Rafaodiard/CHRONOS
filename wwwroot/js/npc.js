@@ -201,18 +201,18 @@ function cargarNPCs() {
                         !progreso.tienePermisoEscriba
                     ) {
                         quitarObjeto("Documento1");
-                        progreso.tienePermisoEscriba = true;
+                            progreso.tienePermisoEscriba = true;
                     }
                 }
             },
             {
-                x: 1200,
-                y: 400,
+                x: 1250,
+                y: 600,
                 ancho: 64,
                 alto: 64,
                 tamañoVisual: 160,
                 nombre: "Guardia",
-                imagen: "/sprites/npcs/stranger.png",
+                imagen: "/sprites/npcs/Guardia.png",
                 dialogoInicial: "GuardiaInicial",
                 dialogos: [
                     {
@@ -226,6 +226,10 @@ function cargarNPCs() {
                 ],
                 alTerminar: () => {
                     progreso.habloConGuardia = true;
+                    // Si ya tenés autorización del escriba, el guardia se mueve y activa la puerta
+                    if (progreso.tienePermisoEscriba) {
+                        iniciarDesbloqueoGuardia();
+                    }
                 }
             }
         ];
@@ -290,8 +294,90 @@ function actualizarAnimacionesNPC() {
     });
 }
 
+ 
+
+function buscarTransicionPorDestino(destinoMapa) {
+    if (!transiciones) return null;
+
+    return transiciones.find(function (t) {
+        return (
+            t.properties &&
+            t.properties.find(p => p.name === "MapaDestino" && p.value === destinoMapa)
+        );
+    });
+}
+
+function iniciarDesbloqueoGuardia() {
+    const guardia = npcs.find(n => n.nombre === "Guardia");
+
+    if (!guardia) return;
+
+    const trans = buscarTransicionPorDestino("/Maps/mapasJson/CastilloPiso2.tmj");
+
+    console.log("iniciarDesbloqueoGuardia: trans encontrada=", trans);
+
+    if (!trans) return;
+
+    guardia.objetivoX = trans.x + (trans.width || 0) / 2;
+    guardia.objetivoY = trans.y + (trans.height || 0) / 2;
+    guardia.moviendose = true;
+    guardia.velocidad = 1.2;
+
+    console.log("Guardia moviéndose hacia:", guardia.objetivoX, guardia.objetivoY);
+}
+
+function actualizarMovimientosNPCs() {
+    for (const npc of npcs) {
+        if (!npc.moviendose) continue;
+
+        const dx = npc.objetivoX - npc.x;
+        const dy = npc.objetivoY - npc.y;
+        const distancia = Math.hypot(dx, dy);
+
+        if (distancia < 2) {
+            npc.x = npc.objetivoX;
+            npc.y = npc.objetivoY;
+            npc.moviendose = false;
+            if (npc.nombre === "Guardia") {
+                progreso.guardiaLlegado = true;
+                console.log("Guardia ha llegado a la puerta. progreso.guardiaLlegado=true");
+                try {
+                    const trans = buscarTransicionPorDestino("/Maps/mapasJson/CastilloPiso2.tmj");
+
+                    if (trans) {
+                        trans.properties = trans.properties || [];
+
+                        const prop = trans.properties.find(p => p.name === "Desbloqueada");
+                        if (prop) {
+                            prop.value = true;
+                        } else {
+                            trans.properties.push({ name: "Desbloqueada", value: true });
+                        }
+
+                        console.log('Transición a CastilloPiso2 marcada como Desbloqueada');
+                    } else {
+                        console.warn('No se encontró la transición para marcar como desbloqueada');
+                    }
+                }
+                catch (e) {
+                    console.error('Error marcando transición desbloqueada:', e);
+                }
+            }
+            continue;
+        }
+
+        const nx = dx / distancia;
+        const ny = dy / distancia;
+
+        npc.x += nx * (npc.velocidad || 1);
+        npc.y += ny * (npc.velocidad || 1);
+    }
+}
+
 
 function dibujarNPCs() {
+
+    actualizarMovimientosNPCs();
 
     actualizarAnimacionesNPC();
 

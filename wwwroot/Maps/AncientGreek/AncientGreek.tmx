@@ -780,7 +780,7 @@
     <property name="SpawnY" type="float" value="672"/>
    </properties>
   </object>
-  <object id="311" x="1027.33" y="914.333" width="122" height="112">
+  <object id="311" x="1025" y="914.333" width="126" height="121">
    <properties>
     <property name="Dialogo" value="maquina1"/>
     <property name="MapaDestino" value="/Maps/mapasJson/castillo edad media .tmj"/>
