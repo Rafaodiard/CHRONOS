@@ -18,6 +18,15 @@ canvas.height =
 
 const teclas = {};
 
+const parametrosJuego = new URLSearchParams(window.location.search);
+const modoIntroduccion = parametrosJuego.get("introduccion")?.toLowerCase() === "true";
+let introduccionDialogoIniciada = false;
+
+if (modoIntroduccion) {
+    progreso.introduccionCompletada = false;
+    localStorage.removeItem("chronosIntroduccionCompletada");
+}
+
 
 document.addEventListener("keydown", function (e) {
     const tecla = e.key.toLowerCase();
@@ -65,7 +74,7 @@ function loop() {
         canvas.height
     );
 
-    if (!dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto) {
+    if (!modoIntroduccion && !transicionEnCurso && !dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto) {
 
         moverJugador();
 
@@ -132,8 +141,64 @@ function iniciarJuego() {
     }
 
     juegoIniciado = true;
+
+    if (modoIntroduccion && !progreso.introduccionCompletada) {
+        iniciarIntroduccionLaboratorio();
+    }
+
     requestAnimationFrame(loop);
 }
 
-cargarMapa("/Maps/mapasJson/AncientGreek.tmj");
+const mapaInicial = modoIntroduccion
+    ? "/Maps/mapasJson/labo.tmj"
+    : parametrosJuego.get("mapa")
+    || "/Maps/mapasJson/AncientGreek.tmj";
+
+if (modoIntroduccion || mapaInicial === "/Maps/mapasJson/labo.tmj") {
+    jugador.x = 400;
+    jugador.y = 400;
+}
+
+function iniciarIntroduccionLaboratorio() {
+    if (introduccionDialogoIniciada) return;
+
+    introduccionDialogoIniciada = true;
+
+    const anio = document.getElementById("introduccionAnio");
+    anio?.classList.add("visible");
+
+    setTimeout(() => {
+        anio?.classList.remove("visible");
+        abrirDialogo("IntroduccionLaboratorio", {
+            alTerminar: terminarIntroduccionLaboratorio
+        });
+    }, 1400);
+}
+
+function terminarIntroduccionLaboratorio() {
+    progreso.introduccionCompletada = true;
+    localStorage.setItem("chronosIntroduccionCompletada", "true");
+
+    const anio = document.getElementById("introduccionAnio");
+    if (anio) {
+        anio.textContent = "";
+    }
+    anio?.classList.add("transicionando");
+
+    const pantalla = document.getElementById("transicionEpoca");
+    const nombre = document.getElementById("transicionEpocaNombre");
+    const anioDestino = document.getElementById("transicionEpocaAnio");
+
+    if (pantalla && nombre && anioDestino) {
+        nombre.textContent = "Antigua Grecia";
+        anioDestino.textContent = "Año 450 a. C.";
+        pantalla.classList.add("visible");
+    }
+
+    setTimeout(() => {
+        window.location.href = "/Juego?mapa=/Maps/mapasJson/AncientGreek.tmj";
+    }, 2200);
+}
+
+cargarMapa(mapaInicial);
 

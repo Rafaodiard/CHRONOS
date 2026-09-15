@@ -1,5 +1,46 @@
 const dialogos =
 {
+    IntroduccionLaboratorio:
+    [
+        { tipo: "dialogo", personaje: "Investigadora", texto: "¿Finalmente despertaste?" },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Pensé que ibas a tardar mucho más." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Estás en el laboratorio de CHRONOS." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "La máquina funciona... pero tenemos un problema mucho más grave." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Durante el experimento, algo salió mal y los fragmentos del núcleo temporal fueron expulsados hacia distintas épocas." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Al principio pensamos que simplemente tendríamos que recuperarlos para reparar la máquina." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Pero no es así." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Los fragmentos mantienen estable la línea temporal." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Sin ellos, el tiempo comienza a desestabilizarse." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Si permanecen demasiado tiempo separados, los acontecimientos del pasado empezarán a cambiar." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Y cuando el pasado cambia..." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "...también cambia nuestro presente." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Todavía podemos utilizar CHRONOS para viajar a las épocas donde terminaron los fragmentos." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Pero tenemos que recuperarlos antes de que la línea temporal colapse." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "El primer fragmento fue detectado en una época muy antigua." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "La Antigua Grecia." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Tenemos que encontrarlo antes de que sea demasiado tarde." },
+        { tipo: "dialogo", personaje: "Investigadora", texto: "Preparáte. El primer salto comienza ahora." }
+    ],
+
+    InvestigadoraInicial:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "Investigadora",
+            texto: "Despertaste. El salto temporal nos dejó en un laboratorio que no reconozco."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Investigadora",
+            texto: "CHRONOS perdió sus componentes durante la desincronización. Tenemos que encontrarlos antes de que la energía se agote."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Investigadora",
+            texto: "Explorá el laboratorio y buscá cualquier rastro del primer fragmento temporal."
+        }
+    ],
+
     // =========================================================
     // ANTIGUA GRECIA
     // =========================================================

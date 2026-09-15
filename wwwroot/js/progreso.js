@@ -1,4 +1,5 @@
 const progreso = {
+    introduccionCompletada: localStorage.getItem("chronosIntroduccionCompletada") === "true",
     habloConAnciano: false,
     habloConPescador: false,
     habloConPescadorDespuesDeAnciano: false,

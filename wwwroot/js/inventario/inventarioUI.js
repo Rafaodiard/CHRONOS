@@ -23,6 +23,10 @@ function cerrarInventario() {
 }
 
 function alternarInventario() {
+    if (typeof modoIntroduccion !== "undefined" && modoIntroduccion) {
+        return;
+    }
+
     if (inventarioAbierto) {
         cerrarInventario();
     } else {

@@ -10,7 +10,24 @@ function cargarNPCs() {
 
     npcs = [];
 
-    if (rutaMapa === "/Maps/mapasJson/AncientGreek.tmj") {
+    if (rutaMapa === "/Maps/mapasJson/labo.tmj") {
+
+        npcs = [
+            {
+                x: 500,
+                y: 400,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Investigadora",
+                imagen: "/sprites/npcs/stranger.png",
+                dialogoInicial: "InvestigadoraInicial"
+            }
+        ];
+
+    }
+
+    else if (rutaMapa === "/Maps/mapasJson/AncientGreek.tmj") {
 
         npcs = [
             {

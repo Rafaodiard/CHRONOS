@@ -143,11 +143,62 @@ function ejecutarTransicion(transicion) {
 
     transicionEnCurso = true;
 
-    iniciarFadeTransicion(
-        mapaDestino.value,
-        Number(spawnX.value),
-        Number(spawnY.value)
-    );
+    const esCambioDeEpoca = obtenerPropiedadTransicion(transicion, "Dialogo") === "maquina1"
+        && obtenerPropiedadTransicion(transicion, "Requisito")?.startsWith("fragmento_temporal");
+
+    if (esCambioDeEpoca) {
+        mostrarTransicionEpoca(mapaDestino.value, Number(spawnX.value), Number(spawnY.value));
+        return;
+    }
+
+    iniciarFadeTransicion(mapaDestino.value, Number(spawnX.value), Number(spawnY.value));
+}
+
+function obtenerPropiedadTransicion(transicion, nombre) {
+    const propiedad = transicion.properties?.find(item => item.name === nombre);
+    return typeof propiedad?.value === "string" ? propiedad.value.trim() : propiedad?.value;
+}
+
+function mostrarTransicionEpoca(rutaDestino, spawnX, spawnY) {
+    const datosEpoca = obtenerDatosEpoca(rutaDestino);
+    const pantalla = document.getElementById("transicionEpoca");
+    const anio = document.getElementById("transicionEpocaAnio");
+    const nombre = document.getElementById("transicionEpocaNombre");
+
+    if (!pantalla || !anio || !nombre) {
+        iniciarFadeTransicion(rutaDestino, spawnX, spawnY);
+        return;
+    }
+
+    anio.textContent = datosEpoca.anio;
+    nombre.textContent = datosEpoca.nombre;
+    pantalla.classList.add("visible");
+
+    setTimeout(() => {
+        iniciarFadeTransicion(rutaDestino, spawnX, spawnY);
+    }, 1600);
+
+    setTimeout(() => {
+        pantalla.classList.remove("visible");
+    }, 2800);
+}
+
+function obtenerDatosEpoca(rutaDestino) {
+    const ruta = rutaDestino.toLowerCase();
+
+    if (ruta.includes("castillo edad media")) {
+        return { nombre: "Edad Media", anio: "Año 1348" };
+    }
+
+    if (ruta.includes("fabrica")) {
+        return { nombre: "Revolución Industrial", anio: "Año 1889" };
+    }
+
+    if (ruta.includes("ancientgreek")) {
+        return { nombre: "Antigua Grecia", anio: "Año 450 a. C." };
+    }
+
+    return { nombre: "Nueva época", anio: "Destino temporal" };
 }
 function puedeUsarTransicion(transicion) {
     // Mostrar estados para depuración

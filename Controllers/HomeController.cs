@@ -30,12 +30,11 @@ public class HomeController : Controller
             return RedirectToAction("Index", "Account");
         }
 
-        return RedirectToAction("Introduccion", "Sala");
+        return RedirectToAction("Index", "Juego", new { introduccion = true });
     }
     public IActionResult NewGamePrueba()
     {
-
-        return RedirectToAction("Introduccion", "Juego");
+        return RedirectToAction("Index", "Juego", new { introduccion = true });
     }
     public IActionResult Login()
     {

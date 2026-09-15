@@ -1,3 +1,64 @@
+ .introduccion-anio {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-items: center;
+    background: #05070b;
+    color: #f1f7f4;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(32px, 6vw, 72px);
+    letter-spacing: 0.08em;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.6s ease;
+}
+
+.introduccion-anio.visible,
+.introduccion-anio.transicionando {
+    opacity: 1;
+}
+
+.introduccion-anio.transicionando {
+    transition-duration: 0.7s;
+    color: transparent;
+}
+
+.transicion-epoca {
+    position: fixed;
+    inset: 0;
+    z-index: 2000;
+    display: grid;
+    place-content: center;
+    gap: 12px;
+    background: #05070b;
+    color: #f1f7f4;
+    text-align: center;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+.transicion-epoca.visible {
+    opacity: 1;
+}
+
+.transicion-epoca-anio {
+    margin: 0;
+    color: #8bedd5;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    font-weight: bold;
+    letter-spacing: 0.28em;
+    text-transform: uppercase;
+}
+
+.transicion-epoca h1 {
+    margin: 0;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(36px, 7vw, 76px);
+    letter-spacing: 0.04em;
+}
 #dialogo {
     position: fixed;
     right: clamp(16px, 5vw, 72px);

@@ -1,11 +1,21 @@
 @{
     ViewData["Title"] = "Juego";
+    var esIntroduccion = string.Equals(
+        Context.Request.Query["introduccion"].ToString(),
+        "true",
+        StringComparison.OrdinalIgnoreCase
+    );
 }
 <link rel="stylesheet" href="~/css/juego.css" />
 <link rel="stylesheet" href="~/css/Inventario.css" />
 
 
 <canvas id="juego" style="background-color: green;"></canvas>
+<div id="introduccionAnio" class="introduccion-anio @(esIntroduccion ? "visible" : "")" aria-hidden="true">Año 2147</div>
+<div id="transicionEpoca" class="transicion-epoca" aria-hidden="true">
+    <p id="transicionEpocaAnio" class="transicion-epoca-anio"></p>
+    <h1 id="transicionEpocaNombre"></h1>
+</div>
  <div id="dialogo" role="dialog" aria-live="polite" aria-label="Diálogo">
     <div id="textoDialogo">
         <h3 id="nombrePersonaje"></h3>
