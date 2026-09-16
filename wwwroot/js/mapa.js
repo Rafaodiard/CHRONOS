@@ -572,6 +572,11 @@ function dibujarMapa() {
                 capa.type ===
                 "tilelayer" &&
 
+                (
+                    capa.name !== "PuertaOculta" ||
+                    progreso.palancasResueltas
+                ) &&
+
                 capa.name !==
                 "EdificiosDelante" &&
 

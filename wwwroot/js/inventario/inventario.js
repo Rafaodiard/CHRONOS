@@ -65,4 +65,5 @@ function quitarObjeto(idObjeto, cantidad = 1) {
     return true;
 }
 
-agregarObjeto("fragmento_temporal1",1 );
+agregarObjeto("fragmento_temporal1", 1);
+agregarObjeto("Documento1", 1);

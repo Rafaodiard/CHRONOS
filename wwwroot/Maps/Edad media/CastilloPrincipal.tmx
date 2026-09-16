@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="90" height="46" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="46">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="90" height="46" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="50">
  <editorsettings>
   <export target="../mapasJson/CastilloPrincipal.tmj" format="json"/>
  </editorsettings>
@@ -287,6 +287,9 @@
   <object id="37" x="1158.67" y="640" width="278.167" height="29.3333"/>
   <object id="38" x="1605.33" y="901.333" width="571.152" height="80.6061"/>
   <object id="40" x="588.875" y="714.875" width="8.75" height="11.375"/>
+  <object id="46" x="368" y="1106.25" width="29" height="78"/>
+  <object id="48" x="2629.64" y="254.364" width="20.7273" height="28.1818"/>
+  <object id="49" x="2565.25" y="1088.5" width="21.5" height="24.75"/>
  </objectgroup>
  <objectgroup id="8" name="Transiciones">
   <object id="26" x="1157.5" y="670.667" width="281" height="16">
