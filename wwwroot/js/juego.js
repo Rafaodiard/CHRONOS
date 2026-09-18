@@ -149,14 +149,40 @@ function iniciarJuego() {
     requestAnimationFrame(loop);
 }
 
-const mapaInicial = modoIntroduccion
-    ? "/Maps/mapasJson/labo.tmj"
-    : parametrosJuego.get("mapa")
+let mapaInicial = parametrosJuego.get("mapa")
     || "/Maps/mapasJson/AncientGreek.tmj";
 
-if (modoIntroduccion || mapaInicial === "/Maps/mapasJson/labo.tmj") {
-    jugador.x = 400;
-    jugador.y = 400;
+async function cargarPartida() {
+
+    const respuesta = await fetch("/Juego/ObtenerEstado");
+
+    if (!respuesta.ok) {
+        console.error("No se pudo obtener la partida.");
+        cargarMapa(mapaInicial);
+        return;
+    }
+
+    const estado = await respuesta.json();
+
+    if (estado) {
+        jugador.x = estado.posicionX;
+        jugador.y = estado.posicionY;
+
+        mapaInicial = estado.mapaActual;
+
+        inventario = estado.inventario || [];
+
+        Object.assign(progreso, estado.progreso || {});
+
+        console.log("PARTIDA CARGADA:", estado);
+    }
+
+    if (modoIntroduccion || mapaInicial === "/Maps/mapasJson/labo.tmj") {
+        jugador.x = 400;
+        jugador.y = 400;
+    }
+
+    cargarMapa(mapaInicial);
 }
 
 function iniciarIntroduccionLaboratorio() {
@@ -200,5 +226,32 @@ function terminarIntroduccionLaboratorio() {
     }, 2200);
 }
 
-cargarMapa(mapaInicial);
+cargarPartida();
 
+async function guardarEstado() {
+
+    const estado = {
+        posicionX: jugador.x,
+        posicionY: jugador.y,
+        mapaActual: rutaMapa,
+        inventario: inventario,
+        progreso: progreso
+    };
+
+    const respuesta = await fetch("/Juego/GuardarEstado", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify(estado)
+    });
+
+    if (!respuesta.ok) {
+        console.error("No se pudo guardar la partida.");
+        return;
+    }
+
+    console.log("PARTIDA GUARDADA:", estado);
+}
+
+window.guardarEstado = guardarEstado;
