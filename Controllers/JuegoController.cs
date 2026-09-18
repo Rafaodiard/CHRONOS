@@ -16,20 +16,66 @@ public class JuegoController : Controller
         return View("~/Views/Juego/Juego.cshtml");
     }
 
-    [HttpPost]
-    public IActionResult GuardarEstado([FromBody] EstadoPartida estado)
-    {
-        HttpContext.Session.SetString(
-            "EstadoPartida",
-            JsonSerializer.Serialize(estado)
-        );
+[HttpPost]
+public async Task<IActionResult> GuardarEstado()
+{
+    using var reader = new StreamReader(Request.Body);
+    var cuerpo = await reader.ReadToEndAsync();
 
-        return Ok();
+    var estado = JsonSerializer.Deserialize<EstadoPartida>(
+        cuerpo,
+        new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        }
+    );
+
+    if (estado == null)
+    {
+        return BadRequest();
     }
+
+    int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+    HttpContext.Session.SetString(
+        "EstadoPartida",
+        JsonSerializer.Serialize(estado)
+    );
+
+    if (usuarioId != null)
+    {
+        DB.GuardarPartida(usuarioId.Value, estado);
+    }
+
+    Console.WriteLine("ESTADO GUARDADO EN SESSION Y SQL:");
+    Console.WriteLine(
+        HttpContext.Session.GetString("EstadoPartida")
+    );
+
+    return Ok();
+}
     [HttpGet]
     public IActionResult ObtenerEstado()
     {
+        Console.WriteLine("SESSION GET: " + HttpContext.Session.Id);
+
         var datos = HttpContext.Session.GetString("EstadoPartida");
+
+        if (datos == null)
+        {
+            int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+            if (usuarioId != null)
+            {
+                var partidaGuardada = DB.ObtenerPartidaActual(usuarioId.Value);
+
+                if (partidaGuardada != null)
+                {
+                    datos = JsonSerializer.Serialize(partidaGuardada);
+                    HttpContext.Session.SetString("EstadoPartida", datos);
+                }
+            }
+        }
 
         if (datos == null)
         {

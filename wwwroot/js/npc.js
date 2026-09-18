@@ -3,14 +3,28 @@ let npcs = [];
 let puedeHablar = true;
 let npcAnimaciones = [];
 
+function obtenerRutaMapaActual() {
+    if (typeof rutaMapa !== "undefined" && rutaMapa) {
+        return rutaMapa;
+    }
 
+    if (typeof window !== "undefined") {
+        const parametros = new URLSearchParams(window.location.search);
+        const mapaDesdeQuery = parametros.get("mapa");
+        if (mapaDesdeQuery) {
+            return mapaDesdeQuery;
+        }
+    }
 
+    return "/Maps/mapasJson/AncientGreek.tmj";
+}
 
 function cargarNPCs() {
 
     npcs = [];
+    const rutaActual = obtenerRutaMapaActual();
 
-    if (rutaMapa === "/Maps/mapasJson/labo.tmj") {
+    if (rutaActual === "/Maps/mapasJson/labo.tmj") {
 
         npcs = [
             {
@@ -27,7 +41,7 @@ function cargarNPCs() {
 
     }
 
-    else if (rutaMapa === "/Maps/mapasJson/AncientGreek.tmj") {
+    else if (rutaActual === "/Maps/mapasJson/AncientGreek.tmj") {
 
         npcs = [
             {
@@ -40,9 +54,13 @@ function cargarNPCs() {
                 imagen: "/sprites/npcs/elder.png",
                 dialogoInicial: "Anciano",
                 alTerminar: () => {
-                progreso.habloConAnciano = true;}
-                
-            },{
+                    progreso.habloConAnciano = true;
+                    if (typeof marcarEstadoModificado === "function") {
+                        marcarEstadoModificado();
+                    }
+                }
+            },
+            {
                 x: 230,
                 y: 1550,
                 ancho: 64,
@@ -82,8 +100,13 @@ function cargarNPCs() {
                     if (progreso.habloConAnciano) {
                         progreso.habloConPescadorDespuesDeAnciano = true;
                     }
+
+                    if (typeof marcarEstadoModificado === "function") {
+                        marcarEstadoModificado();
+                    }
                 }
-            },{
+            },
+            {
                 x: 650,
                 y: 1350,
                 ancho: 64,
@@ -97,21 +120,25 @@ function cargarNPCs() {
                     {
                         condicion: ()=> progreso.habloConComerciante,
                         dialogo: "ComercianteFinal"
-                    },{
+                    },
+                    {
                         condicion: () => tieneObjeto("vasija_antigua"),
                         dialogo: "ComercianteConJarra"
                     }
-                ],                   
+                ],
                 alTerminar: () => {
-                        if (
-                            tieneObjeto("vasija_antigua") &&
-                            !tieneObjeto("sello_del_templo")
-                        ) {
-                            quitarObjeto("vasija_antigua");
-                            agregarObjeto("sello_del_templo");
-                            progreso.habloConComerciante = true;
+                    if (
+                        tieneObjeto("vasija_antigua") &&
+                        !tieneObjeto("sello_del_templo")
+                    ) {
+                        quitarObjeto("vasija_antigua");
+                        agregarObjeto("sello_del_templo");
+                        progreso.habloConComerciante = true;
+                        if (typeof marcarEstadoModificado === "function") {
+                            marcarEstadoModificado();
                         }
                     }
+                }
             },
             {
                 x: 1350,
@@ -138,6 +165,9 @@ function cargarNPCs() {
                             agregarObjeto("vasija_antigua");
                             progreso.consiguioVasijaRota = true;
                             progreso.consiguioJarraAntigua = true;
+                            if (typeof marcarEstadoModificado === "function") {
+                                marcarEstadoModificado();
+                            }
                         }
                     } 
 
@@ -173,6 +203,9 @@ function cargarNPCs() {
                     ) {
                         agregarObjeto("llave_templo");
                         progreso.habloConSacerdote = true;
+                        if (typeof marcarEstadoModificado === "function") {
+                            marcarEstadoModificado();
+                        }
                     }
                 }
             }
@@ -218,8 +251,10 @@ function cargarNPCs() {
                         !progreso.tienePermisoEscriba
                     ) {
                         quitarObjeto("Documento1");
-                            progreso.tienePermisoEscriba = true;
+                        progreso.tienePermisoEscriba = true;
                     }
+
+                    marcarEstadoModificado();
                 }
             },
             {
@@ -246,6 +281,9 @@ function cargarNPCs() {
                     // Si ya tenés autorización del escriba, el guardia se mueve y activa la puerta
                     if (progreso.tienePermisoEscriba) {
                         iniciarDesbloqueoGuardia();
+                    }
+                    if (typeof marcarEstadoModificado === "function") {
+                        marcarEstadoModificado();
                     }
                 }
             }
@@ -364,6 +402,9 @@ function actualizarMovimientosNPCs() {
                 progreso.guardiaX = npc.x;
                 progreso.guardiaY = npc.y;
                 progreso.guardiaLlegado = true;
+                if (typeof marcarEstadoModificado === "function") {
+                    marcarEstadoModificado();
+                }
                 console.log("Guardia ha llegado a la puerta. progreso.guardiaLlegado=true");
                 try {
                     const trans = buscarTransicionPorDestino("/Maps/mapasJson/CastilloPiso2.tmj");

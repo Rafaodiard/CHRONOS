@@ -600,6 +600,9 @@ function cambiarMapa(nuevaRuta, nuevaX, nuevaY) {
 
     jugador.x = nuevaX;
     jugador.y = nuevaY;
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
 
     mapa = null;
     colisiones = [];

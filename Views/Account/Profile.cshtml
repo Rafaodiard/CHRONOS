@@ -1,21 +1,22 @@
-<div class="contenedor">
+<div class="account-page">
+    <a href="@Url.Action("Index", "Home")" class="account-back" aria-label="Volver al inicio">←</a>
 
-    <div class="formulario">
+    <div class="account-shell">
+        <div class="account-card">
+            <h1>Mi Perfil</h1>
 
-        <h1>Mi Perfil</h1>
+            <p><strong>Nombre:</strong> @ViewBag.usuario.Nombre</p>
+            <p><strong>Usuario:</strong> @ViewBag.usuario.Usuario</p>
 
-        <p><strong>Nombre:</strong> @ViewBag.usuario.Nombre</p>
+            <div class="account-actions">
+                <a class="boton" href="@Url.Action("ChangePassword", "Account")">
+                    Cambiar contraseña
+                </a>
 
-        <p><strong>Usuario:</strong> @ViewBag.usuario.Usuario</p>
-
-        <a class="boton" href="@Url.Action("ChangePassword", "Account")">
-            Cambiar contraseña
-        </a>
-
-        <a class="boton" href="@Url.Action("Logout", "Account")">
-            Cerrar sesión
-        </a>
-
+                <a class="boton" href="@Url.Action("Logout", "Account")">
+                    Cerrar sesión
+                </a>
+            </div>
+        </div>
     </div>
-
 </div>

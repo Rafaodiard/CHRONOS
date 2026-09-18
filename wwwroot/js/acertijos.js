@@ -177,6 +177,9 @@ function comprobarAcertijo() {
     acertijosMapa = acertijosMapa.filter(
         acertijo => acertijo !== acertijoResuelto
     );
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
 
     if (accion && typeof window[accion] === "function") {
         window[accion]();
@@ -187,6 +190,9 @@ function comprobarAcertijo() {
 
 function resolverAcertijoTemplo() {
     progreso.puedeEntrarTemplo = true;
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
     abrirDialogoMensaje("El mecanismo del templo se ha activado.");
 }
 

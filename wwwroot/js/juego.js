@@ -20,7 +20,10 @@ const teclas = {};
 
 const parametrosJuego = new URLSearchParams(window.location.search);
 const modoIntroduccion = parametrosJuego.get("introduccion")?.toLowerCase() === "true";
+const spawnXInicial = Number(parametrosJuego.get("spawnX"));
+const spawnYInicial = Number(parametrosJuego.get("spawnY"));
 let introduccionDialogoIniciada = false;
+let menuPausaAbierto = false;
 
 if (modoIntroduccion) {
     progreso.introduccionCompletada = false;
@@ -30,6 +33,22 @@ if (modoIntroduccion) {
 
 document.addEventListener("keydown", function (e) {
     const tecla = e.key.toLowerCase();
+
+    if (e.key === "Escape") {
+        e.preventDefault();
+
+        if (menuPausaAbierto) {
+            cerrarMenuPausa();
+            return;
+        }
+
+        if (dialogoAbierto || bibliotecaAbierta || palancasAbierto || acertijoAbierto) {
+            return;
+        }
+
+        abrirMenuPausa();
+        return;
+    }
 
     if ((dialogoAbierto || bibliotecaAbierta || palancasAbierto) && tecla === "e") {
         return;
@@ -74,7 +93,7 @@ function loop() {
         canvas.height
     );
 
-    if (!modoIntroduccion && !transicionEnCurso && !dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto) {
+    if (!modoIntroduccion && !transicionEnCurso && !dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto && !menuPausaAbierto) {
 
         moverJugador();
 
@@ -130,6 +149,70 @@ window.addEventListener(
 
     }
 );
+function abrirMenuPausa() {
+    const menu = document.getElementById("menuPausa");
+
+    if (!menu) {
+        return;
+    }
+
+    menuPausaAbierto = true;
+    menu.style.display = "flex";
+    menu.setAttribute("aria-hidden", "false");
+
+    Object.keys(teclas).forEach(tecla => {
+        teclas[tecla] = false;
+    });
+}
+
+function cerrarMenuPausa() {
+    const menu = document.getElementById("menuPausa");
+
+    menuPausaAbierto = false;
+
+    if (menu) {
+        menu.style.display = "none";
+        menu.setAttribute("aria-hidden", "true");
+    }
+}
+
+function mostrarMensajeGuardadoPausa() {
+    const mensaje = document.getElementById("mensajeGuardadoPausa");
+    if (!mensaje) {
+        return;
+    }
+
+    mensaje.classList.remove("visible");
+    void mensaje.offsetWidth;
+    mensaje.classList.add("visible");
+
+    clearTimeout(mensaje._timeoutGuardado);
+    mensaje._timeoutGuardado = setTimeout(() => {
+        mensaje.classList.remove("visible");
+    }, 1500);
+}
+
+function mostrarErrorGuardadoPausa(mensaje = "No se pudo guardar la partida.") {
+    const estado = document.getElementById("mensajeGuardadoPausa");
+    if (!estado) {
+        console.error(mensaje);
+        return;
+    }
+
+    estado.textContent = mensaje;
+    estado.classList.remove("visible");
+    void estado.offsetWidth;
+    estado.classList.add("visible");
+    estado.style.color = "#ff9a9a";
+
+    clearTimeout(estado._timeoutGuardado);
+    estado._timeoutGuardado = setTimeout(() => {
+        estado.textContent = "Partida guardada";
+        estado.style.color = "#8bedd5";
+        estado.classList.remove("visible");
+    }, 1800);
+}
+
 let juegoIniciado = false;
 
 function iniciarJuego() {
@@ -150,41 +233,57 @@ function iniciarJuego() {
 }
 
 let mapaInicial = parametrosJuego.get("mapa")
-    || "/Maps/mapasJson/AncientGreek.tmj";
+    || (modoIntroduccion ? "/Maps/mapasJson/labo.tmj" : "/Maps/mapasJson/AncientGreek.tmj");
 
 async function cargarPartida() {
+    if (modoIntroduccion) {
+        console.log("Nueva introducción: se ignora la partida guardada.");
+        jugador.x = 400;
+        jugador.y = 400;
+        await cargarMapa("/Maps/mapasJson/labo.tmj");
+        return;
+    }
+
+    if (Number.isFinite(spawnXInicial) && Number.isFinite(spawnYInicial)) {
+        jugador.x = spawnXInicial;
+        jugador.y = spawnYInicial;
+    }
 
     const respuesta = await fetch("/Juego/ObtenerEstado");
 
     if (!respuesta.ok) {
         console.error("No se pudo obtener la partida.");
-        cargarMapa(mapaInicial);
+        await cargarMapa(mapaInicial);
         return;
     }
 
     const estado = await respuesta.json();
 
     if (estado) {
-        jugador.x = estado.posicionX;
-        jugador.y = estado.posicionY;
+        jugador.x = estado.PosicionX;
+        jugador.y = estado.PosicionY;
 
-        mapaInicial = estado.mapaActual;
+        if (estado.MapaActual) {
+            mapaInicial = estado.MapaActual;
+        }
 
-        inventario = estado.inventario || [];
+        inventario = (estado.Inventario || []).map(objeto => ({
+            id: objeto.Id,
+            cantidad: objeto.Cantidad
+        }));
 
-        Object.assign(progreso, estado.progreso || {});
+        Object.assign(progreso, estado.Progreso || {});
 
         console.log("PARTIDA CARGADA:", estado);
     }
 
-    if (modoIntroduccion || mapaInicial === "/Maps/mapasJson/labo.tmj") {
+    if (mapaInicial === "/Maps/mapasJson/labo.tmj") {
         jugador.x = 400;
         jugador.y = 400;
     }
 
-    cargarMapa(mapaInicial);
+    await cargarMapa(mapaInicial);
 }
-
 function iniciarIntroduccionLaboratorio() {
     if (introduccionDialogoIniciada) return;
 
@@ -203,6 +302,9 @@ function iniciarIntroduccionLaboratorio() {
 
 function terminarIntroduccionLaboratorio() {
     progreso.introduccionCompletada = true;
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
     localStorage.setItem("chronosIntroduccionCompletada", "true");
 
     const anio = document.getElementById("introduccionAnio");
@@ -214,6 +316,12 @@ function terminarIntroduccionLaboratorio() {
     const pantalla = document.getElementById("transicionEpoca");
     const nombre = document.getElementById("transicionEpocaNombre");
     const anioDestino = document.getElementById("transicionEpocaAnio");
+    const mapaDestino = "/Maps/mapasJson/AncientGreek.tmj";
+
+    mapaInicial = mapaDestino;
+    rutaMapa = mapaDestino;
+    jugador.x = 944;
+    jugador.y = 944;
 
     if (pantalla && nombre && anioDestino) {
         nombre.textContent = "Antigua Grecia";
@@ -222,13 +330,30 @@ function terminarIntroduccionLaboratorio() {
     }
 
     setTimeout(() => {
-        window.location.href = "/Juego?mapa=/Maps/mapasJson/AncientGreek.tmj";
+        window.location.href = "/Juego?mapa=" + encodeURIComponent(mapaDestino) + "&spawnX=944&spawnY=944";
     }, 2200);
 }
 
-cargarPartida();
+cargarPartida().then(() => {
+    iniciarJuego();
+});
+let guardadoPendiente = null;
 
+function marcarEstadoModificado() {
+    clearTimeout(guardadoPendiente);
+
+    guardadoPendiente = setTimeout(() => {
+        guardarEstado();
+    }, 500);
+}
 async function guardarEstado() {
+    console.log("ANTES DE GUARDAR:");
+    console.log("Jugador:", jugador.x, jugador.y);
+    console.log("Mapa:", rutaMapa);
+
+    if (typeof progreso === "object" && progreso) {
+        progreso.palancasEstado = JSON.parse(JSON.stringify(estadosPaneles || {}));
+    }
 
     const estado = {
         posicionX: jugador.x,
@@ -248,10 +373,10 @@ async function guardarEstado() {
 
     if (!respuesta.ok) {
         console.error("No se pudo guardar la partida.");
-        return;
+        return false;
     }
 
     console.log("PARTIDA GUARDADA:", estado);
+    return true;
 }
-
 window.guardarEstado = guardarEstado;

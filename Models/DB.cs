@@ -1,16 +1,16 @@
 namespace EscapeRoom.Models;
 using Dapper;
 using Microsoft.Data.SqlClient;
+using System.Text.Json;
 using EscapeRoom.Models;
 
 
     public static class DB 
     { 
         private static string _connectionString =
-        @"Server=localhost;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True";
-        //@"Server=.\SQLEXPRESS;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True;";
+        //@"Server=localhost;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True";
+        @"Server=.\SQLEXPRESS;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True;";
 
-                
         public static Usuarios? Login(LogInViewModel l)
         {
             using(SqlConnection connection = new SqlConnection(_connectionString))
@@ -96,10 +96,83 @@ using EscapeRoom.Models;
             }
         }
 
+        public static void GuardarPartida(int idUsuario, EstadoPartida estado)
+        {
+            using var connection = new SqlConnection(_connectionString);
 
+            string estadoJson = JsonSerializer.Serialize(estado);
+            DateTime ahora = DateTime.Now;
 
+            var partidaExistente = connection.QuerySingleOrDefault<Partidas>(
+                @"SELECT TOP 1 *
+                  FROM Partidas
+                  WHERE IDUsuario = @idUsuario
+                  ORDER BY UltimoGuardado DESC",
+                new { idUsuario });
 
-        
-        
+            if (partidaExistente == null)
+            {
+                connection.Execute(
+                    @"INSERT INTO Partidas (IDUsuario, FechaInicio, UltimoGuardado, Finalizada, EstadoJuego)
+                      VALUES (@idUsuario, @fechaInicio, @ultimoGuardado, @finalizada, @estadoJuego)",
+                    new
+                    {
+                        idUsuario,
+                        fechaInicio = ahora,
+                        ultimoGuardado = ahora,
+                        finalizada = false,
+                        estadoJuego = estadoJson
+                    });
+                return;
+            }
+
+            connection.Execute(
+                @"UPDATE Partidas
+                  SET UltimoGuardado = @ultimoGuardado,
+                      Finalizada = @finalizada,
+                      EstadoJuego = @estadoJuego
+                  WHERE ID = @idPartida",
+                new
+                {
+                    idPartida = partidaExistente.ID,
+                    ultimoGuardado = ahora,
+                    finalizada = false,
+                    estadoJuego = estadoJson
+                });
+        }
+
+        public static void BorrarPartidasUsuario(int idUsuario)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+            connection.Execute(
+                @"DELETE FROM Partidas
+                  WHERE IDUsuario = @idUsuario",
+                new { idUsuario });
+        }
+
+        public static EstadoPartida? ObtenerPartidaActual(int idUsuario)
+        {
+            using var connection = new SqlConnection(_connectionString);
+
+            var partida = connection.QuerySingleOrDefault<Partidas>(
+                @"SELECT TOP 1 *
+                  FROM Partidas
+                  WHERE IDUsuario = @idUsuario
+                  ORDER BY UltimoGuardado DESC",
+                new { idUsuario });
+
+            if (partida == null || string.IsNullOrWhiteSpace(partida.EstadoJuego))
+            {
+                return null;
+            }
+
+            return JsonSerializer.Deserialize<EstadoPartida>(
+                partida.EstadoJuego,
+                new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                });
+        }
     }
     

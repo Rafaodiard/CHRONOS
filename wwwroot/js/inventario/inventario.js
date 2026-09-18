@@ -12,6 +12,14 @@ function agregarObjeto(idObjeto, cantidad = 1) {
         });
     }
 
+    if (progreso && typeof progreso === "object") {
+        progreso.objetosRecogidos ??= {};
+        progreso.objetosRecogidos[idObjeto] = true;
+    }
+
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
     mostrarMensajeObjetoRecibido(idObjeto);
 }
 
@@ -62,8 +70,9 @@ function quitarObjeto(idObjeto, cantidad = 1) {
         inventario = inventario.filter(objeto => objeto.id !== idObjeto);
     }
 
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
     return true;
 }
 
-agregarObjeto("fragmento_temporal1", 1);
-agregarObjeto("Documento1", 1);

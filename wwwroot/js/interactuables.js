@@ -94,6 +94,9 @@ function marcarInteractuableUsado(interactuable) {
     interactuablesMapa = interactuablesMapa.filter(
         elemento => elemento !== interactuable
     );
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
 }
 
 
@@ -155,6 +158,11 @@ function interactuarConObjeto(
             interactuable,
             "Objeto"
         );
+
+    if (objeto && (tieneObjeto(objeto) || progreso?.objetosRecogidos?.[objeto])) {
+        marcarInteractuableUsado(interactuable);
+        return;
+    }
 
     if (dialogo) {
         abrirDialogo(dialogo);

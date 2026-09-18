@@ -24,6 +24,8 @@ function cargarPalancasMapa() {
             /^Palanca[1-4]$/.test(propiedad.name)))
         .sort((objetoA, objetoB) => objetoA.id - objetoB.id);
 
+    const estadoGuardadoPalancas = progreso?.palancasEstado || {};
+
     palancasMapa.forEach(panel => {
         const clave = obtenerClavePanel(panel);
         objetivosPaneles[clave] = [1, 2, 3, 4].map(numero => {
@@ -33,7 +35,11 @@ function cargarPalancasMapa() {
 
             return propiedad?.value === true;
         });
-        estadosPaneles[clave] ??= [false, false, false, false];
+
+        const estadoGuardado = estadoGuardadoPalancas[clave];
+        estadosPaneles[clave] = Array.isArray(estadoGuardado)
+            ? estadoGuardado.slice(0, 4)
+            : [false, false, false, false];
     });
 }
 
@@ -105,6 +111,9 @@ function alternarPalanca(indice) {
 
     const clave = obtenerClavePanel(panelPalancasActual);
     estadosPaneles[clave][indice] = !estadosPaneles[clave][indice];
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
     renderizarPalancas();
     comprobarMecanismo();
 }
@@ -117,6 +126,9 @@ function comprobarMecanismo() {
 
     if (mecanismoCorrecto && !progreso.palancasResueltas) {
         progreso.palancasResueltas = true;
+        if (typeof marcarEstadoModificado === "function") {
+            marcarEstadoModificado();
+        }
         cargarTransiciones();
         cerrarMenuPalancas();
         abrirDialogoMensaje("Se escuchó el mecanismo en el segundo piso.");

@@ -1,10 +1,9 @@
 ﻿@{
     ViewData["Title"] = "Menú principal";
+    bool tienePartidaGuardada = ViewBag.TienePartidaGuardada is bool valor && valor;
 }
 
 <section class="chronos-home-screen">
-
-
     <div class="layout">
         <section class="copy">
             <div>
@@ -12,15 +11,27 @@
                 <h1>CHRONOS</h1>
                 <p>EL VIAJE QUE SALIÓ MAL</p>
             </div>
-                            <a class="secondary" href="@Url.Action("Introduccion", "Juego")">TEST introducción</a>
-                <a class="secondary" href="@Url.Action("Index", "Juego")">TEST juego directo</a>
+            <a class="secondary" href="@Url.Action("Introduccion", "Juego")">TEST introducción</a>
+            <a class="secondary" href="@Url.Action("Index", "Juego")">TEST juego directo</a>
             <nav class="actions">
-                <a class="primary" href="@Url.Action("NewGame","Home")">Nuevo Juego</a>
-
-                <a class="secondary" href="">CONTINUAR</a>
+                <a id="btnNuevoJuego" class="primary" href="@Url.Action("NewGame","Home")" data-tiene-partida="@(tienePartidaGuardada ? "true" : "false")">Nuevo Juego</a>
+                <a class="secondary" href="@Url.Action("Index", "Juego")">CONTINUAR</a>
                 <a class="secondary" href="@Url.Action("LogIn","Home")">OPCIONES</a>
-                <a class="secondary danger" href="@Url.Action("Logout","Account")">SALIR</a> 
+                <a class="secondary danger" href="@Url.Action("Logout","Account")">SALIR</a>
             </nav>
         </section>
     </div>
 </section>
+
+<script>
+    const btnNuevoJuego = document.getElementById("btnNuevoJuego");
+
+    if (btnNuevoJuego && btnNuevoJuego.dataset.tienePartida === "true") {
+        btnNuevoJuego.addEventListener("click", function (evento) {
+            const confirmado = confirm("Ya tenés una partida guardada. Si empezás un juego nuevo, se borrará la partida actual. ¿Querés continuar?");
+            if (!confirmado) {
+                evento.preventDefault();
+            }
+        });
+    }
+</script>

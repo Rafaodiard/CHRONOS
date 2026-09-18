@@ -1,3 +1,5 @@
+using System.Text.Json;
+
 namespace EscapeRoom.Models;
 
 public class EstadoPartida
@@ -9,7 +11,7 @@ public class EstadoPartida
 
     public List<ObjetoPartida> Inventario { get; set; } = new();
 
-    public Dictionary<string, bool> Progreso { get; set; } = new();
+    public Dictionary<string, JsonElement> Progreso { get; set; } = new();
 }
 
 public class ObjetoPartida

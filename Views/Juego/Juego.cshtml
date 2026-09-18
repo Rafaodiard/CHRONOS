@@ -68,6 +68,18 @@
     </div>
 </div>
 
+<div id="menuPausa" class="menu-pausa" style="display: none;" aria-hidden="true">
+    <div class="panel-pausa" role="dialog" aria-modal="true" aria-labelledby="tituloPausa">
+        <p class="etiqueta-pausa">PAUSA</p>
+        <h2 id="tituloPausa">Chronos</h2>
+        <div class="lista-opciones-pausa">
+            <button type="button" class="boton-pausa" data-accion="continuar">CONTINUAR</button>
+            <button type="button" class="boton-pausa boton-pausa-salir" data-accion="guardar-salir">GUARDAR Y SALIR</button>
+        </div>
+        <div id="mensajeGuardadoPausa" class="mensaje-guardado-pausa" aria-live="polite">Partida guardada</div>
+    </div>
+</div>
+
 <div id="menuBiblioteca" class="menu-biblioteca" style="display: none;" aria-hidden="true">
     <section class="biblioteca-panel" role="dialog" aria-modal="true" aria-labelledby="bibliotecaTitulo">
         <header class="placa-biblioteca">
@@ -110,8 +122,8 @@
     <script src="~/js/progreso.js"></script>
     <script src="~/js/acertijos.js"></script>
     <script src="~/js/colisiones.js"></script>
-    <script src="~/js/mapa.js"></script>
     <script src="~/js/jugador.js"></script>
+    <script src="~/js/mapa.js"></script>
     <script src="~/js/npc.js"></script>
     <script src="~/js/camara.js"></script>
     <script src="~/js/interacciones.js"></script>
@@ -119,5 +131,30 @@
     <script src="~/js/juego.js"></script>
     <script>
         document.getElementById("cerrarPalancas").addEventListener("click", cerrarMenuPalancas);
+
+        document.addEventListener("click", async function (evento) {
+            const boton = evento.target.closest("[data-accion]");
+            if (!boton) {
+                return;
+            }
+
+            const accion = boton.dataset.accion;
+
+            if (accion === "continuar") {
+                cerrarMenuPausa();
+                return;
+            }
+
+            if (accion === "guardar-salir") {
+                const guardado = await guardarEstado();
+
+                if (!guardado) {
+                    mostrarErrorGuardadoPausa();
+                    return;
+                }
+
+                window.location.href = "/Home/Index";
+            }
+        });
     </script>
 }

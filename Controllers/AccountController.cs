@@ -83,7 +83,7 @@ public class AccountController : Controller
             HttpContext.Session.SetInt32("UsuarioId", usuario.ID);
         }
 
-        return RedirectToAction("Index", "Sala");
+        return RedirectToAction("Index", "Home");
     }
 
     [HttpPost]

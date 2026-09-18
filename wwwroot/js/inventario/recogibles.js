@@ -22,7 +22,11 @@ function cargarObjetosMapa() {
         return;
     }
 
-    objetosMapa = capaObjetos.objects;
+    const objetosRecogidos = progreso?.objetosRecogidos || {};
+    objetosMapa = capaObjetos.objects.filter(function (objeto) {
+        const idObjeto = obtenerIdObjeto(objeto);
+        return !idObjeto || !objetosRecogidos[idObjeto];
+    });
 
     imagenesObjetos = objetosMapa.map(function (objeto) {
 
@@ -106,9 +110,16 @@ function recogerObjeto(objeto) {
 
     agregarObjeto(idObjeto);
 
-    objetosMapa.splice(indice, 1);
+    if (progreso && typeof progreso === "object") {
+        progreso.objetosRecogidos ??= {};
+        progreso.objetosRecogidos[idObjeto] = true;
+    }
 
+    objetosMapa.splice(indice, 1);
     imagenesObjetos.splice(indice, 1);
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
 
     console.log(
         "OBJETO RECOGIDO:",
