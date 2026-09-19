@@ -78,9 +78,10 @@ function obtenerPropiedadInteractuable(
 ) {
 
     const propiedad =
-        interactuable.properties?.find(
+        interactuable?.properties?.find(
             propiedad =>
-                propiedad.name === nombre
+                typeof propiedad?.name === "string" &&
+                propiedad.name.toLowerCase() === String(nombre).toLowerCase()
         );
 
     return propiedad
@@ -114,7 +115,8 @@ function comprobarInteractuables() {
     }
 
     const interactuable =
-        obtenerInteractuableCercano();
+        obtenerInteractuableCercano() ||
+        (typeof obtenerReguladorMaquinaCercano === "function" ? obtenerReguladorMaquinaCercano() : null);
 
     mostrarIndicadorInteractuable =
         interactuable !== null;
@@ -140,6 +142,28 @@ function comprobarInteractuables() {
 function interactuarConObjeto(
     interactuable
 ) {
+
+    const tipo =
+        obtenerPropiedadInteractuable(
+            interactuable,
+            "Tipo"
+        ) ||
+        obtenerPropiedadInteractuable(
+            interactuable,
+            "tipo"
+        );
+
+    const nombreObjeto =
+        (interactuable?.name || "")
+            .toLowerCase();
+
+    if (
+        tipo && tipo.toLowerCase() === "engranajes"
+        || nombreObjeto === "reguladormaquina"
+    ) {
+        abrirPuzzleEngranajes(interactuable);
+        return;
+    }
 
     const dialogo =
         obtenerPropiedadInteractuable(

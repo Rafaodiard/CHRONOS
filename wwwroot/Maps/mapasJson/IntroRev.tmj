@@ -258,10 +258,32 @@
                 {
                  "height":71,
                  "id":19,
-                 "name":"",
+                 "name":"ReguladorMaquina",
                  "opacity":1,
+                 "properties":[
+                        {
+                         "name":"tipo",
+                         "type":"string",
+                         "value":"engranajes"
+                        },
+                        {
+                         "name":"cantidadEngranajes",
+                         "type":"int",
+                         "value":4
+                        },
+                        {
+                         "name":"posiciones",
+                         "type":"int",
+                         "value":4
+                        },
+                        {
+                         "name":"objetivo",
+                         "type":"string",
+                         "value":"0,0,0,0"
+                        }
+                 ],
                  "rotation":0,
-                 "type":"",
+                 "type":"engranajes",
                  "visible":true,
                  "width":86.875,
                  "x":375.375,

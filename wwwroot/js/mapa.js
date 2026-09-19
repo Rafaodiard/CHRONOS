@@ -61,6 +61,7 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         cargarInteractuablesMapa();
         cargarPalancasMapa();
         cargarAcertijosMapa();
+        cargarReguladorMaquina();
         cargarTilesets();
     }
     catch (error) {

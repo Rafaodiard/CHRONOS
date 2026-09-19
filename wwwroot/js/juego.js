@@ -101,6 +101,7 @@ function loop() {
 
         comprobarObjetos(); 
         comprobarInteractuables();
+        comprobarReguladorMaquina();
         comprobarPalancas();
         comprobarAcertijos();
         actualizarInteraccion();

@@ -227,6 +227,65 @@
     }
 }
 
+.lista-engranajes {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.engranaje-item {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding: 16px 14px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 8px;
+}
+
+.engranaje-titulo {
+    color: #f5c764;
+    font-size: 14px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.engranaje-valor {
+    color: #f4f5f7;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.engranaje-controles {
+    display: flex;
+    gap: 10px;
+}
+
+.engranaje-controles button {
+    flex: 1;
+    padding: 10px 6px;
+    border: 1px solid rgba(229, 190, 103, 0.75);
+    background: rgba(217, 181, 92, 0.12);
+    color: #f7f1d8;
+    font-size: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.engranaje-controles button:disabled {
+    opacity: 0.4;
+    cursor: not-allowed;
+}
+
+.instruccion-engranajes {
+    margin: 8px 0 0;
+    color: rgba(214, 222, 231, 0.82);
+    font-size: 15px;
+    line-height: 1.5;
+}
+
 .menu-palancas {
     position: fixed;
     inset: 0;
@@ -238,7 +297,19 @@
     background: rgba(4, 8, 14, 0.78);
 }
 
-.panel-palancas {
+.menu-engranajes {
+    position: fixed;
+    inset: 0;
+    z-index: 18;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 18px;
+    background: rgba(4, 8, 14, 0.82);
+}
+
+.panel-palancas,
+.panel-engranajes {
     width: min(92vw, 560px);
     padding: clamp(22px, 5vw, 36px);
     background: #101a28;
@@ -248,14 +319,16 @@
     color: #f5f0e4;
 }
 
-.cabecera-palancas {
+.cabecera-palancas,
+.cabecera-engranajes {
     display: flex;
     align-items: flex-start;
     justify-content: space-between;
     gap: 18px;
 }
 
-.etiqueta-palancas {
+.etiqueta-palancas,
+.etiqueta-engranajes {
     color: #e3bb68;
     font-family: Arial, Helvetica, sans-serif;
     font-size: 10px;
@@ -263,14 +336,16 @@
     letter-spacing: 0.18em;
 }
 
-#tituloPalancas {
+#tituloPalancas,
+#tituloEngranajes {
     margin: 5px 0 0;
     color: #fff2c8;
     font-family: Georgia, "Times New Roman", serif;
     font-size: clamp(24px, 4vw, 32px);
 }
 
-.boton-cerrar-palancas {
+.boton-cerrar-palancas,
+.boton-cerrar-engranajes {
     padding: 8px 12px;
     background: transparent;
     border: 1px solid rgba(214, 222, 231, 0.35);
@@ -278,7 +353,8 @@
     cursor: pointer;
 }
 
-.boton-cerrar-palancas:hover {
+.boton-cerrar-palancas:hover,
+.boton-cerrar-engranajes:hover {
     border-color: #e3bb68;
     color: #fff2c8;
 }
