@@ -723,11 +723,11 @@
   <object id="146" x="470.5" y="775.5" width="149.5" height="142.5">
    <properties>
     <property name="Dialogo" value="maquina1"/>
-    <property name="MapaDestino">/Maps/mapasJson/fabrica.tmj
+    <property name="MapaDestino">/Maps/mapasJson/IntroRev.tmj
 </property>
     <property name="Requisito" value="fragmento_temporal2"/>
-    <property name="SpawnX" type="float" value="600"/>
-    <property name="SpawnY" type="float" value="900"/>
+    <property name="SpawnX" type="float" value="165"/>
+    <property name="SpawnY" type="float" value="149"/>
    </properties>
   </object>
  </objectgroup>

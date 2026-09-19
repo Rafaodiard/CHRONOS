@@ -2311,7 +2311,7 @@
                         {
                          "name":"MapaDestino",
                          "type":"string",
-                         "value":"\/Maps\/mapasJson\/fabrica.tmj\n"
+                         "value":"\/Maps\/mapasJson\/IntroRev.tmj\n"
                         }, 
                         {
                          "name":"Requisito",
@@ -2321,12 +2321,12 @@
                         {
                          "name":"SpawnX",
                          "type":"float",
-                         "value":600
+                         "value":165
                         }, 
                         {
                          "name":"SpawnY",
                          "type":"float",
-                         "value":900
+                         "value":149
                         }],
                  "rotation":0,
                  "type":"",

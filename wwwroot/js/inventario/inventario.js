@@ -12,7 +12,7 @@ function agregarObjeto(idObjeto, cantidad = 1) {
         });
     }
 
-    if (progreso && typeof progreso === "object") {
+    if (typeof progreso !== "undefined" && progreso && typeof progreso === "object") {
         progreso.objetosRecogidos ??= {};
         progreso.objetosRecogidos[idObjeto] = true;
     }
@@ -75,4 +75,3 @@ function quitarObjeto(idObjeto, cantidad = 1) {
     }
     return true;
 }
-

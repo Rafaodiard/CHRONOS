@@ -1,0 +1,406 @@
+{ "compressionlevel":-1,
+ "height":10,
+ "infinite":false,
+ "layers":[
+        {
+         "data":[245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245,
+            245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245, 245],
+         "height":10,
+         "id":1,
+         "name":"Suelo",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[815, 815, 815, 815, 815, 815, 815, 819, 820, 815, 815, 815, 815, 815, 816,
+            831, 831, 831, 831, 831, 831, 831, 835, 836, 831, 831, 831, 831, 831, 832,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "id":2,
+         "name":"Paredes",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 1009, 0, 0, 0, 0, 0, 0, 1011, 1012, 1711, 1712, 0,
+            0, 0, 0, 1025, 0, 0, 0, 0, 0, 0, 1027, 1028, 1727, 1728, 0,
+            0, 0, 0, 0, 0, 1010, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 1026, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1486, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1010, 0, 0, 0,
+            0, 0, 0, 0, 1010, 0, 0, 0, 1614, 0, 0, 1026, 0, 0, 0,
+            0, 0, 0, 0, 1026, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1248, 0],
+         "height":10,
+         "id":4,
+         "name":"Decoraciones",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[1319, 1320, 1321, 1322, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1331, 1332, 1333, 1334, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1343, 1344, 1345, 1346, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1355, 1356, 1357, 1358, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1367, 1368, 1369, 1370, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1379, 1380, 1381, 1382, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1391, 1392, 1393, 1394, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1403, 1404, 1405, 1406, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "id":3,
+         "name":"Edificios",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "data":[1319, 1320, 1321, 1322, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1331, 1332, 1333, 1334, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1343, 1344, 1345, 1346, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1355, 1356, 1357, 1358, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            1367, 1368, 1369, 1370, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+            0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
+         "height":10,
+         "id":6,
+         "name":"EdificiosDelante",
+         "opacity":1,
+         "type":"tilelayer",
+         "visible":true,
+         "width":15,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":5,
+         "name":"Colisiones",
+         "objects":[
+                {
+                 "height":28.6666666666667,
+                 "id":2,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":15,
+                 "x":168.666666666667,
+                 "y":125.666666666667
+                }, 
+                {
+                 "height":26,
+                 "id":3,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":19.3333333333333,
+                 "x":134,
+                 "y":254
+                }, 
+                {
+                 "height":24.3333333333333,
+                 "id":4,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":6.33333333333337,
+                 "x":270.666666666667,
+                 "y":231.333333333333
+                }, 
+                {
+                 "height":31,
+                 "id":6,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":16,
+                 "x":359.666666666667,
+                 "y":220
+                }, 
+                {
+                 "height":25,
+                 "id":7,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14.6666666666667,
+                 "x":427.333333333333,
+                 "y":292.333333333333
+                }, 
+                {
+                 "height":27,
+                 "id":8,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":12.3333333333333,
+                 "x":426.333333333333,
+                 "y":167.333333333333
+                }, 
+                {
+                 "height":40.25,
+                 "id":10,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":62.4166666666667,
+                 "x":376.916666666667,
+                 "y":45.0833333333333
+                }, 
+                {
+                 "height":33,
+                 "id":11,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":46,
+                 "x":331,
+                 "y":52.3333333333333
+                }, 
+                {
+                 "height":29.3333333333333,
+                 "id":12,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":14,
+                 "x":106.333333333333,
+                 "y":57.3333333333333
+                }, 
+                {
+                 "height":75,
+                 "id":13,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":503,
+                 "x":-12,
+                 "y":-13.5
+                }, 
+                {
+                 "height":84.75,
+                 "id":14,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":113,
+                 "x":5,
+                 "y":156
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":8,
+         "name":"Reguladores",
+         "objects":[
+                {
+                 "height":71,
+                 "id":19,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":86.875,
+                 "x":375.375,
+                 "y":37.9166666666667
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":7,
+         "name":"Transiciones",
+         "objects":[
+                {
+                 "height":15.3333,
+                 "id":16,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"MapaDestino",
+                         "type":"string",
+                         "value":"\/Maps\/mapasJson\/FabricaEntrada1.tmj"
+                        }, 
+                        {
+                         "name":"SpawnX",
+                         "type":"float",
+                         "value":336
+                        }, 
+                        {
+                         "name":"SpawnY",
+                         "type":"float",
+                         "value":672
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":64,
+                 "x":225,
+                 "y":61.08335
+                }, 
+                {
+                 "height":142.5,
+                 "id":18,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"Dialogo",
+                         "type":"string",
+                         "value":"maquina1"
+                        }, 
+                        {
+                         "name":"MapaDestino",
+                         "type":"string",
+                         "value":"\/Maps\/mapasJson\/ns.tmj\n"
+                        }, 
+                        {
+                         "name":"Requisito",
+                         "type":"string",
+                         "value":"fragmento_temporal3"
+                        }, 
+                        {
+                         "name":"SpawnX",
+                         "type":"float",
+                         "value":600
+                        }, 
+                        {
+                         "name":"SpawnY",
+                         "type":"float",
+                         "value":900
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":149.5,
+                 "x":-0.166666666666675,
+                 "y":144.833333333333
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
+        }],
+ "nextlayerid":9,
+ "nextobjectid":20,
+ "orientation":"orthogonal",
+ "renderorder":"right-down",
+ "tiledversion":"1.12.2",
+ "tileheight":32,
+ "tilesets":[
+        {
+         "firstgid":1,
+         "source":"..\/..\/tilesets\/Industrial Revolution Factory\/Tile_A2 (2).tsx"
+        }, 
+        {
+         "firstgid":193,
+         "source":"..\/..\/tilesets\/ancient_greeks_tileset\/ancientGreekTerrain.tsx"
+        }, 
+        {
+         "columns":16,
+         "firstgid":567,
+         "image":"..\/..\/tilesets\/Industrial Revolution Factory\/Auto-tile-A4-walls-2.png",
+         "imageheight":483,
+         "imagewidth":515,
+         "margin":0,
+         "name":"Auto-tile-A4-walls-2",
+         "spacing":0,
+         "tilecount":240,
+         "tileheight":32,
+         "tilewidth":32,
+         "transparentcolor":"#000103"
+        }, 
+        {
+         "firstgid":807,
+         "source":"..\/..\/tilesets\/Industrial Revolution Factory\/tile-B-13.tsx"
+        }, 
+        {
+         "firstgid":1063,
+         "source":"..\/..\/tilesets\/Industrial Revolution Factory\/tile-B-10.tsx"
+        }, 
+        {
+         "firstgid":1319,
+         "source":"..\/..\/tilesets\/ship_medium\/ship_big_128x256.tsx"
+        }, 
+        {
+         "firstgid":1415,
+         "source":"..\/..\/tilesets\/Industrial Revolution Factory\/tile-B-09.tsx"
+        }, 
+        {
+         "firstgid":1671,
+         "source":"..\/..\/tilesets\/Industrial Revolution Factory\/tile-B-12.tsx"
+        }],
+ "tilewidth":32,
+ "type":"map",
+ "version":"1.10",
+ "width":15
+}
