@@ -113,6 +113,15 @@ function ejecutarTransicion(transicion) {
             abrirDialogo(dialogoBloqueado.value);
         }
 
+        const esEntradaFabrica = transicion.properties?.some(propiedad =>
+            propiedad.name === "MapaDestino" && String(propiedad.value).includes("FabricaEntrada1")
+        );
+
+        if (esEntradaFabrica) {
+            abrirDialogoMensaje("La puerta de la fábrica está trabada. Primero tenés que sincronizar los engranajes de la máquina.");
+            return;
+        }
+
         // Si la transición está marcada como Desbloqueada pero sigue fallando por colisión,
         // mostrar un dialogo informativo.
         const des = transicion.properties?.find(p => p.name === 'Desbloqueada' && p.value === true);
@@ -220,15 +229,21 @@ function puedeUsarTransicion(transicion) {
     );
 
     if (requisito) {
-        if (requisito.value === "ninguno") {
+        const requisitoValor = String(requisito.value || "").trim();
+
+        if (requisitoValor === "ninguno") {
             return true;
         }
 
-        if (requisito.value === "permiso_escriba") {
+        if (requisitoValor === "permiso_escriba") {
             return progreso.tienePermisoEscriba;
         }
 
-        return tieneObjeto(requisito.value);
+        if (requisitoValor === "reparoMaquina" || requisitoValor === "reparo_maquina") {
+            return Boolean(progreso.reparoMaquina);
+        }
+
+        return tieneObjeto(requisitoValor);
     }
 
     // Si no hay requisito explícito, forzar permiso para la puerta

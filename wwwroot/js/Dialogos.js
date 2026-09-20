@@ -96,6 +96,85 @@ const dialogos =
             texto: "La puerta esta cerrada"
         }
     ],
+    TrabajadorFabrica:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "¿Qué...? ¿De dónde saliste?"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "No importa ahora. Si querés entrar a la fábrica, vas a tener que ayudarme."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "La máquina que controla la puerta dejó de funcionar."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Intenté ponerla en marcha, pero los engranajes quedaron trabados."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Si conseguís hacer que vuelvan a sincronizarse, debería poder abrir la puerta."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Son cuatro engranajes. Cada uno afecta a los demás cuando lo movés."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Tenés que conseguir que todos queden en su posición inicial."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Cuando estén alineados, la máquina debería volver a funcionar."
+        }
+    ],
+    TrabajadorFabricaDespues:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Los engranajes siguen trabados."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Probá moverlos hasta que todos vuelvan a su posición inicial."
+        }
+    ],
+    TrabajadorFabricaResuelto:
+    [
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "¡Lo lograste!"
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "La máquina volvió a funcionar."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "La puerta debería estar abierta ahora."
+        },
+        {
+            tipo: "dialogo",
+            personaje: "Trabajador",
+            texto: "Podés entrar. Suerte ahí dentro... la vas a necesitar."
+        }
+    ],
     maquina1:
     [
         {
@@ -632,6 +711,13 @@ document.addEventListener("keydown", function (e) {
         e.stopImmediatePropagation();
 
         indiceDialogo++;
+
+        if (modoIntroduccion && dialogoActual === dialogos.IntroduccionLaboratorio && indiceDialogo >= 3) {
+            introAnimacionNormal = true;
+            jugador.moviendose = false;
+            frameAnimacion = 0;
+            tiempoAnimacion = 0;
+        }
 
         mostrarDialogo();
     }

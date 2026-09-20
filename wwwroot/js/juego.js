@@ -20,8 +20,10 @@ const teclas = {};
 
 const parametrosJuego = new URLSearchParams(window.location.search);
 const modoIntroduccion = parametrosJuego.get("introduccion")?.toLowerCase() === "true";
-const spawnXInicial = Number(parametrosJuego.get("spawnX"));
-const spawnYInicial = Number(parametrosJuego.get("spawnY"));
+const spawnXTexto = parametrosJuego.get("spawnX");
+const spawnYTexto = parametrosJuego.get("spawnY");
+const spawnXInicial = spawnXTexto !== null && spawnXTexto !== "" ? Number(spawnXTexto) : Number.NaN;
+const spawnYInicial = spawnYTexto !== null && spawnYTexto !== "" ? Number(spawnYTexto) : Number.NaN;
 let introduccionDialogoIniciada = false;
 let menuPausaAbierto = false;
 
@@ -239,8 +241,10 @@ let mapaInicial = parametrosJuego.get("mapa")
 async function cargarPartida() {
     if (modoIntroduccion) {
         console.log("Nueva introducción: se ignora la partida guardada.");
-        jugador.x = 400;
-        jugador.y = 400;
+        const spawnXIntro = Number.isFinite(spawnXInicial) ? spawnXInicial : 470;
+        const spawnYIntro = Number.isFinite(spawnYInicial) ? spawnYInicial : 470;
+        jugador.x = spawnXIntro;
+        jugador.y = spawnYIntro;
         await cargarMapa("/Maps/mapasJson/labo.tmj");
         return;
     }
@@ -276,11 +280,6 @@ async function cargarPartida() {
         Object.assign(progreso, estado.Progreso || {});
 
         console.log("PARTIDA CARGADA:", estado);
-    }
-
-    if (mapaInicial === "/Maps/mapasJson/labo.tmj") {
-        jugador.x = 400;
-        jugador.y = 400;
     }
 
     await cargarMapa(mapaInicial);

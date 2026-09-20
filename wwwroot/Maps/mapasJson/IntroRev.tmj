@@ -258,7 +258,7 @@
                 {
                  "height":71,
                  "id":19,
-                 "name":"ReguladorMaquina",
+                  "name":"ReguladorMaquina",
                  "opacity":1,
                  "properties":[
                         {
@@ -310,7 +310,12 @@
                          "name":"MapaDestino",
                          "type":"string",
                          "value":"\/Maps\/mapasJson\/FabricaEntrada1.tmj"
-                        }, 
+                        },
+                        {
+                         "name":"Requisito",
+                         "type":"string",
+                         "value":"reparoMaquina"
+                        },
                         {
                          "name":"SpawnX",
                          "type":"float",

@@ -93,22 +93,40 @@ function resolverObjetivoEngranajes() {
 }
 
 function generarEstadoInicialEngranajes() {
-    for (let intento = 0; intento < 200; intento += 1) {
+    let mejorEstado = { A: 1, B: 2, C: 1, D: 3 };
+    let mejorPuntaje = -Infinity;
+
+    for (let intento = 0; intento < 400; intento += 1) {
         let estado = crearEstadoEngranajesVacio();
-        const pasos = 4 + Math.floor(Math.random() * 8);
+        const pasos = 10 + Math.floor(Math.random() * 12);
+        const engranajesUsados = new Set();
 
         for (let paso = 0; paso < pasos; paso += 1) {
             const engranaje = engranajesOrden[Math.floor(Math.random() * engranajesOrden.length)];
             const sentido = Math.random() < 0.5 ? 1 : -1;
+            engranajesUsados.add(engranaje);
             estado = aplicarMovimientoEngranaje(estado, engranaje, sentido);
         }
 
-        if (!estadosSonIguales(estado, crearEstadoEngranajesVacio())) {
-            return estado;
+        if (estadosSonIguales(estado, crearEstadoEngranajesVacio())) {
+            continue;
+        }
+
+        const valores = Object.values(estado);
+        const engranajesNoCero = valores.filter(valor => valor !== 0).length;
+        const puntuacion = (engranajesNoCero * 3) + (pasos - 8) + valores.filter(valor => valor > 1).length * 2;
+
+        if (engranajesNoCero >= 2 && engranajesUsados.size >= 2 && puntuacion > mejorPuntaje) {
+            mejorEstado = estado;
+            mejorPuntaje = puntuacion;
         }
     }
 
-    return { A: 1, B: 0, C: 0, D: 0 };
+    if (mejorPuntaje < 0) {
+        return { A: 1, B: 2, C: 1, D: 3 };
+    }
+
+    return mejorEstado;
 }
 
 function cargarReguladorMaquina() {

@@ -19,6 +19,7 @@ const progreso = {
 
     habloConTrabajador: false,
     habloConEncargado: false,
+    habloConIngenieroIndustrial: false,
     encontroEngranaje: false,
     reparoMaquina: false,
 

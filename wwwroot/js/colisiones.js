@@ -34,6 +34,10 @@ function cargarColisiones() {
 
 function hayColision(x, y) {
 
+    if (cheatTranspasarParedes) {
+        return false;
+    }
+
     // La colisión empieza en la mitad del personaje
     const jugadorIzquierda = x;
 

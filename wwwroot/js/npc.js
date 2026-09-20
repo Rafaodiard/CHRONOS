@@ -28,14 +28,47 @@ function cargarNPCs() {
 
         npcs = [
             {
-                x: 500,
-                y: 400,
+                x: 350,
+                y: 450,
                 ancho: 64,
                 alto: 64,
                 tamañoVisual: 160,
                 nombre: "Investigadora",
-                imagen: "/sprites/npcs/stranger.png",
+                imagen: "/sprites/npcs/Investigadora.png",
                 dialogoInicial: "InvestigadoraInicial"
+            }
+        ];
+
+    }
+
+    else if (rutaActual === "/Maps/mapasJson/IntroRev.tmj") {
+
+        npcs = [
+            {
+                x: 410,
+                y: 160,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Trabajador",
+                imagen: "/sprites/npcs/stranger.png",
+                dialogoInicial: "TrabajadorFabrica",
+                dialogos: [
+                    {
+                        condicion: () => progreso.reparoMaquina && progreso.habloConIngenieroIndustrial,
+                        dialogo: "TrabajadorFabricaResuelto"
+                    },
+                    {
+                        condicion: () => progreso.habloConIngenieroIndustrial,
+                        dialogo: "TrabajadorFabricaDespues"
+                    }
+                ],
+                alTerminar: () => {
+                    progreso.habloConIngenieroIndustrial = true;
+                    if (typeof marcarEstadoModificado === "function") {
+                        marcarEstadoModificado();
+                    }
+                }
             }
         ];
 
