@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="3" nextobjectid="1">
+ <tileset firstgid="1" source="../../tilesets/Castle Dungeon Tileset/Castle_Dungeon_Tilesheet.tsx"/>
+ <tileset firstgid="443" source="../../tilesets/Industrial Revolution Factory/Auto-tile-A4-walls-2.tsx"/>
+ <tileset firstgid="683" source="../../tilesets/Industrial Revolution Factory/Paredes.tsx"/>
+ <layer id="1" name="Suelo" width="10" height="10">
+  <data encoding="csv">
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21
+</data>
+ </layer>
+ <layer id="2" name="Paredes" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+821,822,822,822,0,0,822,822,822,822,
+837,838,838,838,0,0,838,838,838,838
+</data>
+ </layer>
+</map>
