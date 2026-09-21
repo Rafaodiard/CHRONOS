@@ -175,6 +175,17 @@ const dialogos =
             texto: "Podés entrar. Suerte ahí dentro... la vas a necesitar."
         }
     ],
+    recepcionista:
+    [
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "¿Vos sos el que arregló la máquina de la entrada?" },
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "No sé cómo lo hiciste, pero nos acabás de ahorrar un buen problema." },
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "Aunque arreglar esa máquina es lo de menos." },
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "Desde que instalaron el nuevo generador, toda la fábrica está funcionando de manera extraña." },
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "Las máquinas producen mucha más energía de la que deberían." },
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "Y cada tanto tenemos que detenerlas porque el sistema empieza a sobrecargarse." },
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "El ingeniero está en la sala de máquinas intentando averiguar qué está pasando." },
+        { tipo: "dialogo", personaje: "Recepcionista", texto: "Si querés seguir avanzando, hablá con él." }
+    ],
     maquina1:
     [
         {

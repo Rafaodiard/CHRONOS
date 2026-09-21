@@ -1,6 +1,7 @@
 ﻿@{
     ViewData["Title"] = "Menú principal";
-    bool tienePartidaGuardada = ViewBag.TienePartidaGuardada is bool valor && valor;
+    bool usuarioLogueado = ViewBag.UsuarioLogueado is bool valor && valor;
+    bool tienePartidaGuardada = ViewBag.TienePartidaGuardada is bool valorPartida && valorPartida;
 }
 
 <section class="chronos-home-screen">
@@ -15,7 +16,16 @@
             <a class="secondary" href="@Url.Action("Index", "Juego")">TEST juego directo</a>
             <nav class="actions">
                 <a id="btnNuevoJuego" class="primary" href="@Url.Action("NewGame","Home")" data-tiene-partida="@(tienePartidaGuardada ? "true" : "false")">Nuevo Juego</a>
-                <a class="secondary" href="@Url.Action("Index", "Juego")">CONTINUAR</a>
+
+                @if (usuarioLogueado)
+                {
+                    <a class="secondary" href="@Url.Action("Index", "Juego")">CONTINUAR</a>
+                }
+                else
+                {
+                    <a class="secondary disabled" href="#" aria-disabled="true" tabindex="-1" onclick="return false;">CONTINUAR</a>
+                }
+
                 <a class="secondary" href="@Url.Action("LogIn","Home")">OPCIONES</a>
                 <a class="secondary danger" href="@Url.Action("Logout","Account")">SALIR</a>
             </nav>

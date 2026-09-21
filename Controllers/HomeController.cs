@@ -16,6 +16,7 @@ public class HomeController : Controller
     public IActionResult Index()
     {
         int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+        bool usuarioLogueado = usuarioId != null;
         bool tienePartidaGuardada = false;
 
         if (!string.IsNullOrWhiteSpace(HttpContext.Session.GetString("EstadoPartida")))
@@ -28,6 +29,7 @@ public class HomeController : Controller
             tienePartidaGuardada = partida != null;
         }
 
+        ViewBag.UsuarioLogueado = usuarioLogueado;
         ViewBag.TienePartidaGuardada = tienePartidaGuardada;
         return View();
     }

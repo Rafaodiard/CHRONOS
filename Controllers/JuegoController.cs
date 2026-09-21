@@ -13,6 +13,14 @@ public class JuegoController : Controller
 
     public IActionResult Index()
     {
+        int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+        if (usuarioId == null)
+        {
+            TempData["Error"] = "Debes iniciar sesión para continuar una partida.";
+            return RedirectToAction("Index", "Account");
+        }
+
         return View("~/Views/Juego/Juego.cshtml");
     }
 

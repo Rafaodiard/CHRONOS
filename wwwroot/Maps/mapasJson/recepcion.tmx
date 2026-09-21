@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="10" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="7" nextobjectid="14">
+ <tileset firstgid="1" source="../../tilesets/Castle Dungeon Tileset/Castle_Dungeon_Tilesheet.tsx"/>
+ <tileset firstgid="443" source="../../tilesets/Industrial Revolution Factory/Auto-tile-A4-walls-2.tsx"/>
+ <tileset firstgid="683" source="../../tilesets/Industrial Revolution Factory/Paredes.tsx"/>
+ <tileset firstgid="923" source="../../tilesets/Industrial Revolution Factory/Auto-tile-A4-Walls-1.tsx"/>
+ <tileset firstgid="1163" source="../../tilesets/Industrial Revolution Factory/Tile_A2 (2).tsx"/>
+ <tileset firstgid="1355" source="../../tilesets/Industrial Revolution Factory/Tile_A2-1 (2).tsx"/>
+ <tileset firstgid="1547" source="../../tilesets/Industrial Revolution Factory/tile-B-09.tsx"/>
+ <tileset firstgid="1803" source="../../tilesets/Industrial Revolution Factory/tile-B-10.tsx"/>
+ <tileset firstgid="2059" source="../../tilesets/Industrial Revolution Factory/tile-B-11.tsx"/>
+ <tileset firstgid="2315" source="../../tilesets/Industrial Revolution Factory/tile-B-12.tsx"/>
+ <tileset firstgid="2571" source="../../tilesets/Industrial Revolution Factory/tile-B-13.tsx"/>
+ <layer id="1" name="Suelo" width="10" height="10">
+  <data encoding="csv">
+821,822,822,822,2615,2616,822,822,822,822,
+837,838,838,838,2631,2632,838,838,838,838,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21,
+21,21,21,21,21,21,21,21,21,21
+</data>
+ </layer>
+ <layer id="2" name="Paredes" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+821,822,822,822,0,0,822,822,822,822,
+837,838,838,838,0,0,838,838,838,838
+</data>
+ </layer>
+ <layer id="6" name="Decoraciones" width="10" height="10">
+  <data encoding="csv">
+0,0,0,0,0,0,0,201,202,203,
+1968,2197,0,0,0,0,0,227,228,279,
+1984,2213,0,0,0,0,0,0,0,0,
+1955,0,0,0,0,0,0,175,176,177,
+0,0,0,0,0,0,0,0,2194,2208,
+0,0,0,0,0,0,0,0,2194,2193,
+0,0,0,0,0,0,0,0,0,2208,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,0
+</data>
+ </layer>
+ <objectgroup id="4" name="Colisiones">
+  <object id="1" x="-29.3333" y="-15.3333" width="396.667" height="78.6667"/>
+  <object id="2" x="-4.66667" y="258" width="130" height="64"/>
+  <object id="3" x="193.333" y="254.667" width="177.333" height="69.3333"/>
+  <object id="7" x="228" y="99.6667" width="88" height="18.6667"/>
+  <object id="8" x="259" y="135.333" width="57.3333" height="52.3333"/>
+  <object id="9" x="291.333" y="187" width="27" height="34.6667"/>
+  <object id="10" x="2.66667" y="43.3333" width="26.6667" height="78.6667"/>
+  <object id="11" x="26" y="51" width="36" height="41"/>
+ </objectgroup>
+ <objectgroup id="5" name="Transiciones">
+  <object id="5" x="125" y="301.833" width="67" height="18.8333">
+   <properties>
+    <property name="MapaDestino" value="/Maps/mapasJson/IntroRev.tmj"/>
+    <property name="SpawnX" type="float" value="225"/>
+    <property name="SpawnY" type="float" value="61"/>
+   </properties>
+  </object>
+  <object id="6" x="128" y="65.3333" width="64" height="15.3333">
+   <properties>
+    <property name="MapaDestino" value="/Maps/mapasJson/SalaMaquinas.tmj"/>
+    <property name="SpawnX" type="float" value="336"/>
+    <property name="SpawnY" type="float" value="672"/>
+   </properties>
+  </object>
+ </objectgroup>
+</map>

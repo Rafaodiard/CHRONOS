@@ -46,7 +46,7 @@
         }, 
         {
          "data":[0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 0, 1009, 0, 0, 0, 0, 0, 0, 1011, 1012, 1711, 1712, 0,
+            0, 0, 0, 1009, 1093, 1280, 0, 0, 0, 0, 1011, 1012, 1711, 1712, 0,
             0, 0, 0, 1025, 0, 0, 0, 0, 0, 0, 1027, 1028, 1727, 1728, 0,
             0, 0, 0, 0, 0, 1010, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 1026, 0, 0, 0, 0, 0, 0, 0, 0, 0,
@@ -113,7 +113,7 @@
          "name":"Colisiones",
          "objects":[
                 {
-                 "height":28.6666666666667,
+                 "height":28.6667,
                  "id":2,
                  "name":"",
                  "opacity":1,
@@ -121,8 +121,8 @@
                  "type":"",
                  "visible":true,
                  "width":15,
-                 "x":168.666666666667,
-                 "y":125.666666666667
+                 "x":168.667,
+                 "y":125.667
                 }, 
                 {
                  "height":26,
@@ -132,21 +132,21 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":19.3333333333333,
+                 "width":19.3333,
                  "x":134,
                  "y":254
                 }, 
                 {
-                 "height":24.3333333333333,
+                 "height":24.3333,
                  "id":4,
                  "name":"",
                  "opacity":1,
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":6.33333333333337,
-                 "x":270.666666666667,
-                 "y":231.333333333333
+                 "width":6.33333,
+                 "x":270.667,
+                 "y":231.333
                 }, 
                 {
                  "height":31,
@@ -157,7 +157,7 @@
                  "type":"",
                  "visible":true,
                  "width":16,
-                 "x":359.666666666667,
+                 "x":359.667,
                  "y":220
                 }, 
                 {
@@ -168,9 +168,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":14.6666666666667,
-                 "x":427.333333333333,
-                 "y":292.333333333333
+                 "width":14.6667,
+                 "x":427.333,
+                 "y":292.333
                 }, 
                 {
                  "height":27,
@@ -180,9 +180,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":12.3333333333333,
-                 "x":426.333333333333,
-                 "y":167.333333333333
+                 "width":12.3333,
+                 "x":426.333,
+                 "y":167.333
                 }, 
                 {
                  "height":40.25,
@@ -192,9 +192,9 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":62.4166666666667,
-                 "x":376.916666666667,
-                 "y":45.0833333333333
+                 "width":62.4167,
+                 "x":376.917,
+                 "y":45.0833
                 }, 
                 {
                  "height":33,
@@ -206,10 +206,10 @@
                  "visible":true,
                  "width":46,
                  "x":331,
-                 "y":52.3333333333333
+                 "y":52.3333
                 }, 
                 {
-                 "height":29.3333333333333,
+                 "height":29.3333,
                  "id":12,
                  "name":"",
                  "opacity":1,
@@ -217,8 +217,8 @@
                  "type":"",
                  "visible":true,
                  "width":14,
-                 "x":106.333333333333,
-                 "y":57.3333333333333
+                 "x":106.333,
+                 "y":57.3333
                 }, 
                 {
                  "height":75,
@@ -258,36 +258,25 @@
                 {
                  "height":71,
                  "id":19,
-                  "name":"ReguladorMaquina",
+                 "name":"reguladorMaquina",
                  "opacity":1,
-                 "properties":[
-                        {
-                         "name":"tipo",
-                         "type":"string",
-                         "value":"engranajes"
-                        },
-                        {
-                         "name":"cantidadEngranajes",
-                         "type":"int",
-                         "value":4
-                        },
-                        {
-                         "name":"posiciones",
-                         "type":"int",
-                         "value":4
-                        },
-                        {
-                         "name":"objetivo",
-                         "type":"string",
-                         "value":"0,0,0,0"
-                        }
-                 ],
                  "rotation":0,
                  "type":"engranajes",
                  "visible":true,
                  "width":86.875,
                  "x":375.375,
-                 "y":37.9166666666667
+                 "y":37.9167,
+                 "properties":[
+                        {
+                         "name":"Tipo",
+                         "type":"string",
+                         "value":"engranajes"
+                        }, 
+                        {
+                         "name":"Objetivo",
+                         "type":"string",
+                         "value":"0,0,0,0"
+                        }]
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -309,29 +298,29 @@
                         {
                          "name":"MapaDestino",
                          "type":"string",
-                         "value":"\/Maps\/mapasJson\/FabricaEntrada1.tmj"
-                        },
+                         "value":"\/Maps\/mapasJson\/recepcion.tmj"
+                        }, 
                         {
                          "name":"Requisito",
                          "type":"string",
                          "value":"reparoMaquina"
-                        },
+                        }, 
                         {
                          "name":"SpawnX",
                          "type":"float",
-                         "value":336
+                         "value":128
                         }, 
                         {
                          "name":"SpawnY",
                          "type":"float",
-                         "value":672
+                         "value":301
                         }],
                  "rotation":0,
                  "type":"",
                  "visible":true,
                  "width":64,
                  "x":225,
-                 "y":61.08335
+                 "y":61.0833
                 }, 
                 {
                  "height":142.5,
@@ -368,8 +357,8 @@
                  "type":"",
                  "visible":true,
                  "width":149.5,
-                 "x":-0.166666666666675,
-                 "y":144.833333333333
+                 "x":-0.166667,
+                 "y":144.833
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -378,7 +367,7 @@
          "y":0
         }],
  "nextlayerid":9,
- "nextobjectid":20,
+ "nextobjectid":21,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",

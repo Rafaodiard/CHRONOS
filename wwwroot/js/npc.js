@@ -74,6 +74,29 @@ function cargarNPCs() {
 
     }
 
+    else if (rutaActual === "/Maps/mapasJson/recepcion.tmj") {
+
+        npcs = [
+            {
+                x: 150,
+                y: 120,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "recepcionista",
+                imagen: "/sprites/npcs/recepcionista.png",
+                dialogoInicial: "recepcionista",
+                alTerminar: () => {
+                    progreso.habloConEncargado = true;
+                    if (typeof marcarEstadoModificado === "function") {
+                        marcarEstadoModificado();
+                    }
+                }
+            }
+        ];
+
+    }
+
     else if (rutaActual === "/Maps/mapasJson/AncientGreek.tmj") {
 
         npcs = [
@@ -311,7 +334,6 @@ function cargarNPCs() {
                 ],
                 alTerminar: () => {
                     progreso.habloConGuardia = true;
-                    // Si ya tenés autorización del escriba, el guardia se mueve y activa la puerta
                     if (progreso.tienePermisoEscriba) {
                         iniciarDesbloqueoGuardia();
                     }

@@ -136,7 +136,9 @@ function cargarReguladorMaquina() {
         return null;
     }
 
-    const capaReguladores = mapa.layers.find(capa => capa.name === "Reguladores");
+    const capaReguladores = mapa.layers.find(capa =>
+        capa.name && capa.name.toLowerCase() === "reguladores"
+    );
 
     if (!capaReguladores?.objects) {
         return null;
@@ -145,8 +147,16 @@ function cargarReguladorMaquina() {
     reguladorMaquinaObjeto = capaReguladores.objects.find(objeto => {
         const nombre = (objeto?.name || "").toLowerCase();
         const tipo = obtenerPropiedadObjeto(objeto, "tipo") || obtenerPropiedadObjeto(objeto, "Tipo");
-        return nombre === "reguladormaquina" || tipo === "engranajes";
-    }) || null;
+        return nombre === "reguladormaquina"
+            || nombre === "engranajes"
+            || nombre === "reguladormaquina"
+            || tipo === "engranajes"
+            || tipo === "regulador";
+    }) || capaReguladores.objects[0] || null;
+
+    if (reguladorMaquinaObjeto && !reguladorMaquinaObjeto.name) {
+        reguladorMaquinaObjeto.name = "reguladorMaquina";
+    }
 
     return reguladorMaquinaObjeto;
 }
@@ -156,10 +166,12 @@ function obtenerReguladorMaquinaCercano() {
         return null;
     }
 
-    const distanciaX = Math.abs(jugador.x - reguladorMaquinaObjeto.x);
-    const distanciaY = Math.abs(jugador.y - reguladorMaquinaObjeto.y);
+    const centroX = reguladorMaquinaObjeto.x + (reguladorMaquinaObjeto.width || 0) / 2;
+    const centroY = reguladorMaquinaObjeto.y + (reguladorMaquinaObjeto.height || 0) / 2;
+    const distanciaX = Math.abs(jugador.x - centroX);
+    const distanciaY = Math.abs(jugador.y - centroY);
 
-    if (distanciaX < 52 && distanciaY < 52) {
+    if (distanciaX < 60 && distanciaY < 60) {
         return reguladorMaquinaObjeto;
     }
 
