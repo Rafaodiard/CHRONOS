@@ -260,23 +260,23 @@
                  "id":19,
                  "name":"reguladorMaquina",
                  "opacity":1,
+                 "properties":[
+                        {
+                         "name":"Objetivo",
+                         "type":"string",
+                         "value":"0,0,0,0"
+                        }, 
+                        {
+                         "name":"Tipo",
+                         "type":"string",
+                         "value":"engranajes"
+                        }],
                  "rotation":0,
                  "type":"engranajes",
                  "visible":true,
                  "width":86.875,
                  "x":375.375,
-                 "y":37.9167,
-                 "properties":[
-                        {
-                         "name":"Tipo",
-                         "type":"string",
-                         "value":"engranajes"
-                        }, 
-                        {
-                         "name":"Objetivo",
-                         "type":"string",
-                         "value":"0,0,0,0"
-                        }]
+                 "y":37.9167
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -313,7 +313,7 @@
                         {
                          "name":"SpawnY",
                          "type":"float",
-                         "value":301
+                         "value":275
                         }],
                  "rotation":0,
                  "type":"",

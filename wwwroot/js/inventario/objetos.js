@@ -39,6 +39,14 @@ const objetos = {
         usable: false
     },
 
+    llaveElectricidad: {
+        id: "llave_electricidad",
+        nombre: "Llave de la sala de electricidad",
+        descripcion: "Una llave de acceso para la sala de distribucion electrica.",
+        tipo: "llave",
+        usable: false
+    },
+
     fragmentoTemporal1: {
         id: "fragmento_temporal1",
         nombre: "Fragmento temporal N°1",

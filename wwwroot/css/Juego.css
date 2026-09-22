@@ -311,12 +311,23 @@
 .panel-palancas,
 .panel-engranajes {
     width: min(92vw, 560px);
+    max-height: 86vh;
+    overflow-y: auto;
     padding: clamp(22px, 5vw, 36px);
     background: #101a28;
     border: 1px solid rgba(229, 190, 103, 0.8);
     border-radius: 7px;
     box-shadow: 0 18px 50px rgba(0, 0, 0, 0.55), 0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     color: #f5f0e4;
+}
+
+#menuMaquinas .panel-palancas {
+    width: min(94vw, 980px);
+}
+
+#contenidoMaquina {
+    max-height: none;
+    overflow-y: visible;
 }
 
 .cabecera-palancas,

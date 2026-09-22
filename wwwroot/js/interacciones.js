@@ -105,6 +105,15 @@ function ejecutarTransicion(transicion) {
 
     if (!permiso) {
 
+        const requisito = transicion.properties?.find(
+            propiedad => propiedad.name === "Requisito"
+        );
+
+        if (requisito && String(requisito.value || "").trim() === "llave_electricidad") {
+            abrirDialogoMensaje("Está cerrada.");
+            return;
+        }
+
         const dialogoBloqueado = transicion.properties?.find(
             propiedad => propiedad.name === "Dialogo"
         );
@@ -122,8 +131,6 @@ function ejecutarTransicion(transicion) {
             return;
         }
 
-        // Si la transición está marcada como Desbloqueada pero sigue fallando por colisión,
-        // mostrar un dialogo informativo.
         const des = transicion.properties?.find(p => p.name === 'Desbloqueada' && p.value === true);
         if (des) {
             abrirDialogo('puertaTemplo');
@@ -338,16 +345,14 @@ function dibujarIndicadorInteraccion() {
 }
 function dibujarFade() {
 
-    if (!fadeActivo) {
+    if (fadeActivo) {
+        ctx.fillStyle = `rgba(0, 0, 0, ${opacidadFade})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
         return;
     }
 
-    ctx.fillStyle = `rgba(0, 0, 0, ${opacidadFade})`;
-
-    ctx.fillRect(
-        0,
-        0,
-        canvas.width,
-        canvas.height
-    );
+    if (fragmentoSecuenciaActiva || bloqueoFragmentoActivo) {
+        ctx.fillStyle = `rgba(0, 0, 0, ${fragmentoFadeOpacity})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
 }

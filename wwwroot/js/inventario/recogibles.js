@@ -108,6 +108,10 @@ function recogerObjeto(objeto) {
         return;
     }
 
+    if (idObjeto === "fragmento_temporal3") {
+        return;
+    }
+
     agregarObjeto(idObjeto);
 
     if (progreso && typeof progreso === "object") {
@@ -130,7 +134,7 @@ function recogerObjeto(objeto) {
 
 function comprobarObjetos() {
 
-    if (dialogoAbierto) {
+    if (dialogoAbierto || fragmentoSecuenciaActiva || bloqueoFragmentoActivo) {
 
         mostrarIndicadorObjeto = false;
 
@@ -140,8 +144,11 @@ function comprobarObjetos() {
     const objetoCercano =
         obtenerObjetoCercano();
 
+    const esFragmento =
+        objetoCercano && obtenerIdObjeto(objetoCercano) === "fragmento_temporal3";
+
     mostrarIndicadorObjeto =
-        objetoCercano !== null;
+        objetoCercano !== null && (!esFragmento || puedeInteractuarConFragmento());
 
     if (
         objetoCercano &&
@@ -149,6 +156,15 @@ function comprobarObjetos() {
     ) {
 
         teclas["e"] = false;
+
+        if (esFragmento) {
+            if (!puedeInteractuarConFragmento()) {
+                return;
+            }
+
+            iniciarSecuenciaFragmento();
+            return;
+        }
 
         recogerObjeto(objetoCercano);
     }

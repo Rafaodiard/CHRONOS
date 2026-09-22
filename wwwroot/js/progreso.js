@@ -22,6 +22,7 @@ const progreso = {
     habloConIngenieroIndustrial: false,
     encontroEngranaje: false,
     reparoMaquina: false,
+    habloConIngenieroMaquinas: false,
 
     consiguioTarjeta: false,
     encontroDisquete: false,
@@ -33,5 +34,11 @@ const progreso = {
     guardiaX: null,
     guardiaY: null,
     palancasResueltas: false,
-    palancasEstado: {}
+    palancasEstado: {},
+    maquinas: {},
+    fragmentoLiberado: false,
+    fragmentoSecuenciaIniciada: false,
+    fragmentoDescargaRealizada: false,
+    dialogoPostDescargaCompletado: false,
+    llaveElectricidadEntregada: false
 };

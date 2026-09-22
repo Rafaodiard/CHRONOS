@@ -69,10 +69,10 @@
          "y":0
         }, 
         {
-         "data":[2181, 2181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-            0, 0, 2209, 2197, 2181, 2181, 2181, 2181, 2181, 2179, 2198, 0, 0, 2135, 2136, 0, 0, 0, 2135, 2136, 0, 0, 0, 0, 0,
-            0, 0, 2225, 2226, 0, 1941, 1942, 0, 1977, 1978, 2227, 0, 0, 2151, 2152, 3137, 3138, 3139, 2151, 2152, 0, 2333, 2334, 0, 0,
-            0, 0, 2241, 2242, 0, 1957, 1958, 0, 1993, 1994, 2243, 0, 0, 2167, 2168, 3148, 3149, 3150, 2167, 2168, 0, 2349, 2350, 0, 0,
+         "data":[2181, 2181, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4187, 4188, 0,
+            0, 0, 2209, 2197, 2181, 2181, 2181, 2181, 2181, 2179, 2198, 0, 0, 2135, 2136, 0, 0, 0, 2135, 2136, 0, 0, 4207, 4208, 0,
+            0, 0, 2225, 2226, 0, 1941, 1942, 0, 1977, 1978, 2227, 0, 0, 2151, 2152, 3137, 3138, 3139, 2151, 2152, 0, 0, 0, 0, 0,
+            0, 0, 2241, 2242, 0, 1957, 1958, 0, 1993, 1994, 2243, 0, 0, 2167, 2168, 3148, 3149, 3150, 2167, 2168, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
             0, 0, 0, 0, 0, 0, 0, 0, 0, 2320, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2320, 0, 0, 0, 1909, 1910,
             0, 0, 0, 0, 2320, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2263, 2264, 2263, 2264, 0, 1925, 1926,
@@ -180,7 +180,7 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":887,
+                 "width":676.333,
                  "x":0,
                  "y":1.5
                 }, 
@@ -327,6 +327,18 @@
                  "width":264,
                  "x":546,
                  "y":515
+                }, 
+                {
+                 "height":60,
+                 "id":32,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":132.667,
+                 "x":677.333,
+                 "y":2
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -348,7 +360,7 @@
                         {
                          "name":"MapaDestino",
                          "type":"string",
-                         "value":"\/Maps\/mapasJson\/SalaMaquinas.tmj"
+                         "value":"\/Maps\/mapasJson\/recepcion.tmj"
                         }, 
                         {
                          "name":"SpawnX",
@@ -366,6 +378,39 @@
                  "width":279.5,
                  "x":259.5,
                  "y":687.833
+                }, 
+                {
+                 "height":15.3333,
+                 "id":33,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"MapaDestino",
+                         "type":"string",
+                         "value":"\/Maps\/mapasJson\/SalaElectricidad.tmj"
+                        }, 
+                        {
+                         "name":"Requisito",
+                         "type":"string",
+                         "value":"llave_electricidad"
+                        }, 
+                        {
+                         "name":"SpawnX",
+                         "type":"float",
+                         "value":128
+                        }, 
+                        {
+                         "name":"SpawnY",
+                         "type":"float",
+                         "value":65
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":38,
+                 "x":716.417,
+                 "y":60
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -392,7 +437,7 @@
                         {
                          "name":"accion",
                          "type":"string",
-                         "value":"palanca"
+                         "value":"volante"
                         }, 
                         {
                          "name":"dependencias",
@@ -425,7 +470,7 @@
                         {
                          "name":"accion",
                          "type":"string",
-                         "value":"interruptores"
+                         "value":"palanca"
                         }, 
                         {
                          "name":"dependencias",
@@ -548,9 +593,43 @@
          "visible":true,
          "x":0,
          "y":0
+        }, 
+        {
+         "draworder":"topdown",
+         "id":9,
+         "name":"Objetos",
+         "objects":[
+                {
+                 "height":56.3333,
+                 "id":34,
+                 "name":"",
+                 "opacity":1,
+                 "properties":[
+                        {
+                         "name":"Imagen",
+                         "type":"string",
+                         "value":"\/sprites\/objetos\/Fragmento1.png"
+                        }, 
+                        {
+                         "name":"id",
+                         "type":"string",
+                         "value":"fragmento_temporal3"
+                        }],
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":79.8333,
+                 "x":487.833,
+                 "y":60.0833
+                }],
+         "opacity":1,
+         "type":"objectgroup",
+         "visible":true,
+         "x":0,
+         "y":0
         }],
- "nextlayerid":9,
- "nextobjectid":29,
+ "nextlayerid":10,
+ "nextobjectid":35,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",
@@ -611,6 +690,10 @@
         {
          "firstgid":3217,
          "source":"..\/..\/tilesets\/lab\/tiles_laboratory_LandOfPixels\/tilesStuff.tsx"
+        }, 
+        {
+         "firstgid":3809,
+         "source":"..\/..\/tilesets\/ancient_greeks_tileset\/LPC_Ancient_Greece_Architecture.tsx"
         }],
  "tilewidth":32,
  "type":"map",

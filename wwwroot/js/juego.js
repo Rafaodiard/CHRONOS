@@ -97,26 +97,33 @@ function loop() {
 
     if (!modoIntroduccion && !transicionEnCurso && !dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto && !menuPausaAbierto) {
 
-        moverJugador();
+        if (!bloqueoFragmentoActivo && !fragmentoSecuenciaActiva) {
+            moverJugador();
 
-        comprobarNPC();
+            comprobarNPC();
 
-        comprobarObjetos(); 
-        comprobarInteractuables();
-        comprobarReguladorMaquina();
-        comprobarPalancas();
-        comprobarAcertijos();
-        actualizarInteraccion();
+            comprobarObjetos(); 
+            comprobarInteractuables();
+            comprobarReguladorMaquina();
+            comprobarPalancas();
+            comprobarAcertijos();
+            actualizarInteraccion();
 
-        actualizarIndicadorE(
-            hayNPCCercano() ||
-            jugadorEnTransicionActual() ||
-            mostrarIndicadorObjeto ||     
-            mostrarIndicadorInteractuable ||
-            mostrarIndicadorAcertijo ||
-            mostrarIndicadorPalanca
+            actualizarIndicadorE(
+                hayNPCCercano() ||
+                jugadorEnTransicionActual() ||
+                mostrarIndicadorObjeto ||     
+                mostrarIndicadorInteractuable ||
+                mostrarIndicadorAcertijo ||
+                mostrarIndicadorPalanca
 
-        );
+            );
+        } else {
+            Object.keys(teclas).forEach(tecla => {
+                teclas[tecla] = false;
+            });
+            actualizarIndicadorE(false);
+        }
     }
 
     actualizarCamara();

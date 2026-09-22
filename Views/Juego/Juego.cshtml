@@ -82,6 +82,19 @@
     </div>
 </div>
 
+<div id="menuMaquinas" class="menu-palancas" style="display: none;" aria-hidden="true">
+    <section class="panel-palancas" role="dialog" aria-modal="true" aria-labelledby="tituloMaquina">
+        <div class="cabecera-palancas">
+            <div>
+                <span class="etiqueta-palancas">SALA DE MÁQUINAS</span>
+                <h2 id="tituloMaquina">Panel de control</h2>
+            </div>
+            <button id="cerrarMaquina" class="boton-cerrar-palancas" type="button" onclick="cerrarPanelMaquina()">Cerrar</button>
+        </div>
+        <div id="contenidoMaquina"></div>
+    </section>
+</div>
+
 <div id="menuPausa" class="menu-pausa" style="display: none;" aria-hidden="true">
     <div class="panel-pausa" role="dialog" aria-modal="true" aria-labelledby="tituloPausa">
         <p class="etiqueta-pausa">PAUSA</p>
@@ -135,6 +148,7 @@
     <script src="~/js/interactuables.js"></script>
     <script src="~/js/progreso.js"></script>
     <script src="~/js/engranajes.js"></script>
+    <script src="~/js/maquinas.js"></script>
     <script src="~/js/acertijos.js"></script>
     <script src="~/js/colisiones.js"></script>
     <script src="~/js/jugador.js"></script>

@@ -97,6 +97,35 @@ function cargarNPCs() {
 
     }
 
+    else if (rutaActual === "/Maps/mapasJson/SalaMaquinas.tmj") {
+
+        npcs = [
+            {
+                x: 475,
+                y: 300,
+                ancho: 64,
+                alto: 64,
+                tamañoVisual: 160,
+                nombre: "Ingeniero",
+                imagen: "/sprites/npcs/stranger.png",
+                dialogoInicial: "IngenieroSalaMaquinas",
+                dialogos: [
+                    {
+                        condicion: () => progreso.habloConIngenieroMaquinas,
+                        dialogo: "IngenieroSalaMaquinasDespues"
+                    }
+                ],
+                alTerminar: () => {
+                    progreso.habloConIngenieroMaquinas = true;
+                    if (typeof marcarEstadoModificado === "function") {
+                        marcarEstadoModificado();
+                    }
+                }
+            }
+        ];
+
+    }
+
     else if (rutaActual === "/Maps/mapasJson/AncientGreek.tmj") {
 
         npcs = [

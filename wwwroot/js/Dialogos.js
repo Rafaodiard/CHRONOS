@@ -186,6 +186,40 @@ const dialogos =
         { tipo: "dialogo", personaje: "Recepcionista", texto: "El ingeniero está en la sala de máquinas intentando averiguar qué está pasando." },
         { tipo: "dialogo", personaje: "Recepcionista", texto: "Si querés seguir avanzando, hablá con él." }
     ],
+    IngenieroSalaMaquinas:
+    [
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Llegaste justo a tiempo. Hace unas horas que estamos intentando controlar esto, pero la situación se nos fue de las manos." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cuando encontramos el fragmento, pensamos que habíamos encontrado una fuente de energía perfecta. Durante un tiempo funcionó sin ningún problema." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Hasta que empezó a cambiar. La energía que liberaba se volvió cada vez más inestable y las máquinas comenzaron a recibir picos que no estaban preparados para soportar." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Ahora el fragmento está acumulando una cantidad de energía que el sistema ya no puede regular. Si sigue así, podría colapsar." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Tenemos que apagarlo, pero no podemos simplemente cortar la conexión. Las máquinas están absorbiendo y regulando parte de esa energía." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Si cortamos una línea mientras otra máquina todavía depende de ella, la descarga podría provocar una sobrecarga y dañar todo el sistema." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Por eso tenemos que ir apagándolas en el orden correcto." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "A mantiene funcionando a B y D; B mantiene a C; y D mantiene a E." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Primero C, después B, después E, después D y finalmente A. Si respetamos ese orden, podemos reducir la carga poco a poco sin provocar otra sobrecarga." }
+    ],
+    IngenieroSalaMaquinasDespues:
+    [
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cada máquina tiene su propio sistema de control, así que vas a tener que resolverlas por separado." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cuando una esté estable, podés apagarla. Pero acordate de las conexiones: cortar una línea mientras otra máquina todavía depende de ella podría provocar otro pico de energía." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Acordate del orden: Primero C, después B, después E, después D y finalmente A. Si respetamos ese orden, podemos reducir la carga poco a poco sin provocar otra sobrecarga." }
+
+    ],
+    IngenieroPostDescarga:
+    [
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "¡Ey! ¡Ey, despertá!" },
+        { tipo: "dialogo", personaje: "Jugador", texto: "¿Qué pasó?" },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "La energía del fragmento todavía estaba conectada." },
+        { tipo: "dialogo", personaje: "Jugador", texto: "¿Pero no habíamos apagado todas las máquinas?" },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Sí... las máquinas. Me olvidé de algo." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Apagarlas no era suficiente. Todavía quedaba energía acumulada en la línea principal." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Antes de tocar el fragmento había que descargarla por completo." },
+        { tipo: "dialogo", personaje: "Jugador", texto: "¿Y ahora?" },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Ahora tenemos un problema. La descarga activó el sistema de seguridad de la sala." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Hay una cámara detrás de esa puerta que quedó bloqueada cuando empezó el colapso." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Desde ahí podemos cortar la alimentación principal y descargar lo que queda." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Pero vas a tener que entrar y hacerlo manualmente." }
+    ],
     maquina1:
     [
         {
@@ -626,6 +660,12 @@ function abrirDialogo(nombre, npc = null) {
 
     npcDialogoActual = npc;
 
+    if (nombre === "IngenieroPostDescarga") {
+        animacionDespertarActiva = true;
+        frameAnimacion = 0;
+        tiempoAnimacion = 0;
+    }
+
     mostrarDialogo();
 }
 
@@ -649,6 +689,12 @@ function mostrarDialogo() {
 
     if (!dialogoAbierto || !dialogoActual) {
         return;
+    }
+
+    if (dialogoActual === dialogos.IngenieroPostDescarga && indiceDialogo >= 2) {
+        animacionDespertarActiva = false;
+        frameAnimacion = 0;
+        tiempoAnimacion = 0;
     }
 
     if (indiceDialogo >= dialogoActual.length) {

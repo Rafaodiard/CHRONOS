@@ -59,6 +59,7 @@ async function cargarMapa(nuevaRuta = rutaMapa) {
         cargarNPCs();
         cargarObjetosMapa();
         cargarInteractuablesMapa();
+        cargarMaquinasMapa();
         cargarPalancasMapa();
         cargarAcertijosMapa();
         cargarReguladorMaquina();

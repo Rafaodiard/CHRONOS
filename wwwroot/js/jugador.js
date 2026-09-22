@@ -3,6 +3,7 @@ let frameAnimacion = 0;
 let tiempoAnimacion = 0;
 
 let introAnimacionNormal = false;
+let animacionDespertarActiva = false;
 
 const velocidadAnimacion = 8;
 
@@ -219,7 +220,8 @@ function dibujarJugador() {
         izquierda: 2
     };
 
-    const fila = modoIntroduccion && !introAnimacionNormal ? 4 : filas[jugador.direccion];
+    const usaAnimacionDespertar = animacionDespertarActiva || (modoIntroduccion && !introAnimacionNormal);
+    const fila = usaAnimacionDespertar ? 4 : filas[jugador.direccion];
 
     const pantallaX =
         jugador.x * escala -
@@ -229,7 +231,7 @@ function dibujarJugador() {
         jugador.y * escala -
         camara.y;
 
-    const debeAnimarCaminata = jugador.moviendose || (modoIntroduccion && !introAnimacionNormal);
+    const debeAnimarCaminata = jugador.moviendose || usaAnimacionDespertar;
 
     if (debeAnimarCaminata) {
         tiempoAnimacion++;
@@ -237,7 +239,7 @@ function dibujarJugador() {
         const velocidadAnimacionActual =
             introAnimacionNormal
                 ? 9999
-                : (modoIntroduccion ? 18 : Math.max(4, 16 - jugador.velocidad * 2));
+                : (animacionDespertarActiva ? 18 : (modoIntroduccion ? 18 : Math.max(4, 16 - jugador.velocidad * 2)));
 
         if (
             tiempoAnimacion >=
@@ -246,7 +248,7 @@ function dibujarJugador() {
             tiempoAnimacion = 0;
             frameAnimacion++;
 
-            if (modoIntroduccion && !introAnimacionNormal) {
+            if (animacionDespertarActiva || (modoIntroduccion && !introAnimacionNormal)) {
                 if (frameAnimacion >= 3) {
                     frameAnimacion = 0;
                 }

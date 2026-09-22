@@ -97,10 +97,10 @@
   <object id="14" x="5" y="156" width="113" height="84.75"/>
  </objectgroup>
  <objectgroup id="8" name="Reguladores">
-  <object id="19" name="reguladorMaquina" x="375.375" y="37.9167" width="86.875" height="71" type="engranajes">
+  <object id="19" name="reguladorMaquina" type="engranajes" x="375.375" y="37.9167" width="86.875" height="71">
    <properties>
-    <property name="Tipo" value="engranajes"/>
     <property name="Objetivo" value="0,0,0,0"/>
+    <property name="Tipo" value="engranajes"/>
    </properties>
   </object>
  </objectgroup>
@@ -110,7 +110,7 @@
     <property name="MapaDestino" value="/Maps/mapasJson/recepcion.tmj"/>
     <property name="Requisito" value="reparoMaquina"/>
     <property name="SpawnX" type="float" value="128"/>
-    <property name="SpawnY" type="float" value="301"/>
+    <property name="SpawnY" type="float" value="275"/>
    </properties>
   </object>
   <object id="18" x="-0.166667" y="144.833" width="149.5" height="142.5">

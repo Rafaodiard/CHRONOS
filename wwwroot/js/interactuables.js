@@ -19,15 +19,17 @@ function cargarInteractuablesMapa() {
         capa => capa.name === "Interactuables"
     );
 
-    if (
-        !capaInteractuables ||
-        !capaInteractuables.objects
-    ) {
-        return;
-    }
+    const capaMaquinas = mapa.layers.find(
+        capa => capa.name === "Maquinas"
+    );
 
-    interactuablesMapa =
-        capaInteractuables.objects;
+    const objetosInteractuables = capaInteractuables?.objects || [];
+    const objetosMaquinas = (capaMaquinas?.objects || []).filter(objeto => {
+        const id = String(obtenerPropiedadInteractuable(objeto, "Id") || "").toUpperCase();
+        return ["A", "B", "C", "D", "E"].includes(id);
+    });
+
+    interactuablesMapa = [...objetosInteractuables, ...objetosMaquinas];
 
     console.log(
         "INTERACTUABLES CARGADOS:",
@@ -47,18 +49,18 @@ function obtenerInteractuableCercano() {
         const distanciaX =
             Math.abs(
                 jugador.x -
-                interactuable.x
+                (interactuable.x || 0)
             );
 
         const distanciaY =
             Math.abs(
                 jugador.y -
-                interactuable.y
+                (interactuable.y || 0)
             );
 
         if (
-            distanciaX < 40 &&
-            distanciaY < 40
+            distanciaX < 55 &&
+            distanciaY < 55
         ) {
             return interactuable;
         }
@@ -142,6 +144,21 @@ function comprobarInteractuables() {
 function interactuarConObjeto(
     interactuable
 ) {
+
+    const idMaquina = String(
+        obtenerPropiedadInteractuable(interactuable, "Id") || ""
+    ).toUpperCase();
+
+    if (["A", "B", "C", "D", "E"].includes(idMaquina)) {
+        const estado = obtenerEstadoMaquina(idMaquina);
+        if (estado && estado.apagada) {
+            abrirDialogoMensaje("La máquina ya está apagada.");
+            return;
+        }
+
+        abrirPanelMaquina(idMaquina);
+        return;
+    }
 
     const tipo =
         obtenerPropiedadInteractuable(
