@@ -188,22 +188,16 @@ const dialogos =
     ],
     IngenieroSalaMaquinas:
     [
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Llegaste justo a tiempo. Hace unas horas que estamos intentando controlar esto, pero la situación se nos fue de las manos." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cuando encontramos el fragmento, pensamos que habíamos encontrado una fuente de energía perfecta. Durante un tiempo funcionó sin ningún problema." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Hasta que empezó a cambiar. La energía que liberaba se volvió cada vez más inestable y las máquinas comenzaron a recibir picos que no estaban preparados para soportar." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Ahora el fragmento está acumulando una cantidad de energía que el sistema ya no puede regular. Si sigue así, podría colapsar." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Tenemos que apagarlo, pero no podemos simplemente cortar la conexión. Las máquinas están absorbiendo y regulando parte de esa energía." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Si cortamos una línea mientras otra máquina todavía depende de ella, la descarga podría provocar una sobrecarga y dañar todo el sistema." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Por eso tenemos que ir apagándolas en el orden correcto." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "A mantiene funcionando a B y D; B mantiene a C; y D mantiene a E." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Primero C, después B, después E, después D y finalmente A. Si respetamos ese orden, podemos reducir la carga poco a poco sin provocar otra sobrecarga." }
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Hay cinco máquinas funcionando y el fragmento sigue recibiendo energía." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Pero están conectadas entre sí. A mantiene funcionando a B y D; B mantiene a C; y D mantiene a E." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "No podés cortar una de las líneas mientras todavía haya otra máquina dependiendo de ella. Podrías provocar un corte brusco y dañar el sistema." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Primero hay que liberar las máquinas que están al final de cada conexión y después ir subiendo." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Así que acordate: C, después B, después E, después D y finalmente A." }
     ],
     IngenieroSalaMaquinasDespues:
     [
         { tipo: "dialogo", personaje: "Ingeniero", texto: "Cada máquina tiene su propio sistema de control, así que vas a tener que resolverlas por separado." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cuando una esté estable, podés apagarla. Pero acordate de las conexiones: cortar una línea mientras otra máquina todavía depende de ella podría provocar otro pico de energía." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Acordate del orden: Primero C, después B, después E, después D y finalmente A. Si respetamos ese orden, podemos reducir la carga poco a poco sin provocar otra sobrecarga." }
-
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cuando una esté estable, podés apagarla. Pero no te olvides de las conexiones entre ellas." }
     ],
     IngenieroPostDescarga:
     [
