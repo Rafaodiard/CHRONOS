@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="25" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="8" nextobjectid="22">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="25" height="22" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="29">
  <editorsettings>
   <export target="../mapasJson/SalaMaquinas.tmj" format="json"/>
  </editorsettings>
@@ -72,10 +72,10 @@
  <layer id="3" name="Edificios" width="25" height="22">
   <data encoding="csv">
 2181,2181,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
-0,0,2209,2197,2181,2181,2181,2181,2181,2179,2198,0,0,2135,2136,0,0,0,2135,2136,0,2333,2334,0,0,
-0,0,2225,2226,0,1941,1942,0,1977,1978,2227,0,0,2151,2152,3137,3138,3139,2151,2152,0,2349,2350,0,0,
-0,0,2241,2242,0,1957,1958,0,1993,1994,2243,0,0,2167,2168,3148,3149,3150,2167,2168,0,0,0,1973,1974,
-0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1989,1990,
+0,0,2209,2197,2181,2181,2181,2181,2181,2179,2198,0,0,2135,2136,0,0,0,2135,2136,0,0,0,0,0,
+0,0,2225,2226,0,1941,1942,0,1977,1978,2227,0,0,2151,2152,3137,3138,3139,2151,2152,0,2333,2334,0,0,
+0,0,2241,2242,0,1957,1958,0,1993,1994,2243,0,0,2167,2168,3148,3149,3150,2167,2168,0,2349,2350,0,0,
+0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,
 0,0,0,0,0,0,0,0,0,2320,0,0,0,0,0,0,0,0,0,2320,0,0,0,1909,1910,
 0,0,0,0,2320,0,0,0,0,0,0,0,0,0,0,0,0,0,2263,2264,2263,2264,0,1925,1926,
 2291,2292,2291,2292,2289,2290,2235,2236,0,0,0,0,0,0,0,0,0,0,2279,2280,2279,2280,0,0,0,
@@ -149,7 +149,6 @@
  </layer>
  <objectgroup id="6" name="Colisiones">
   <object id="1" x="0" y="1.5" width="887" height="114.5"/>
-  <object id="2" x="734.5" y="111" width="76" height="36.5"/>
   <object id="9" x="578.667" y="221.667" width="122" height="259"/>
   <object id="10" x="741" y="356" width="57.5" height="122.5"/>
   <object id="11" x="742" y="275.5" width="49" height="42.5"/>
@@ -169,6 +168,48 @@
     <property name="MapaDestino" value="/Maps/mapasJson/SalaMaquinas.tmj"/>
     <property name="SpawnX" type="float" value="128"/>
     <property name="SpawnY" type="float" value="65"/>
+   </properties>
+  </object>
+ </objectgroup>
+ <objectgroup id="8" name="Maquinas">
+  <object id="22" x="65.5" y="116.5" width="59.5" height="21.5">
+   <properties>
+    <property name="Id" value="A"/>
+    <property name="accion" value="palanca"/>
+    <property name="dependencias" value="B,D"/>
+    <property name="estado" value="encendida"/>
+   </properties>
+  </object>
+  <object id="23" x="164" y="116" width="57.5" height="21">
+   <properties>
+    <property name="Id" value="B"/>
+    <property name="accion" value="interruptores"/>
+    <property name="dependencias" value="C"/>
+    <property name="estado" value="encendida"/>
+   </properties>
+  </object>
+  <object id="24" x="261.5" y="115.5" width="54" height="20">
+   <properties>
+    <property name="Id" value="D"/>
+    <property name="accion" value="emergencia"/>
+    <property name="dependencias" value="E"/>
+    <property name="estado" value="encendida"/>
+   </properties>
+  </object>
+  <object id="25" x="425" y="114" width="48" height="21">
+   <properties>
+    <property name="Id" value="E"/>
+    <property name="accion" value="volante"/>
+    <property name="dependencias" value=""/>
+    <property name="estado" value="encendida"/>
+   </properties>
+  </object>
+  <object id="26" x="583" y="116" width="53" height="17.5">
+   <properties>
+    <property name="Id" value="C"/>
+    <property name="accion" value="boton"/>
+    <property name="dependencias" value=""/>
+    <property name="estado" value="encendida"/>
    </properties>
   </object>
  </objectgroup>
