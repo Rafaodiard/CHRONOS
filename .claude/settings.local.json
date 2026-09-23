@@ -17,7 +17,9 @@
       "Bash(xargs -I{} taskkill //PID {} //F)",
       "Bash(grep -v -E \"\\\\.\\(png|jpg|zip|aseprite|tsx|tmx|tsj\\)$\")",
       "Bash(node \"C:/Users/49758734/AppData/Local/Temp/claude/c--Users-49758734-EscapeRoom/2d118a25-dac4-4725-9189-18aff7b85353/scratchpad/bfsD.js\")",
-      "Bash(cd \"C:/Users/49758734/Desktop/EscapeRoom\" && sed -i -E 's#\\(<script src=\"~/js/[^\"]+\\\\.js\"\\)></script>#\\\\1 asp-append-version=\"true\"></script>#' Views/Juego/Juego.cshtml && sed -n '174,198p' Views/Juego/Juego.cshtml && grep -rn \"TagHelpers\" Views/_ViewImports.cshtml)"
+      "Bash(cd \"C:/Users/49758734/Desktop/EscapeRoom\" && sed -i -E 's#\\(<script src=\"~/js/[^\"]+\\\\.js\"\\)></script>#\\\\1 asp-append-version=\"true\"></script>#' Views/Juego/Juego.cshtml && sed -n '174,198p' Views/Juego/Juego.cshtml && grep -rn \"TagHelpers\" Views/_ViewImports.cshtml)",
+      "Bash(git fetch *)",
+      "Bash(git push *)"
     ],
     "additionalDirectories": [
       "C:\\Users\\49758734\\Desktop\\EscapeRoom\\Views\\Juego"
