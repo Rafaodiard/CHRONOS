@@ -276,3 +276,6 @@ __pycache__/
 # End of https://www.toptal.com/developers/gitignore/api/aspnetcore
 
 DescagasSprites/*.exe
+
+# Configuración local de Claude Code
+.claude/settings.local.json
