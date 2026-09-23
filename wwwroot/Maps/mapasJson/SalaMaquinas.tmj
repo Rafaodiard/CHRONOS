@@ -339,6 +339,18 @@
                  "width":132.667,
                  "x":677.333,
                  "y":2
+                }, 
+                {
+                 "height":62.5,
+                 "id":36,
+                 "name":"",
+                 "opacity":1,
+                 "rotation":0,
+                 "type":"",
+                 "visible":true,
+                 "width":51,
+                 "x":743,
+                 "y":164
                 }],
          "opacity":1,
          "type":"objectgroup",
@@ -375,7 +387,7 @@
                  "rotation":0,
                  "type":"",
                  "visible":true,
-                 "width":279.5,
+                 "width":286,
                  "x":259.5,
                  "y":687.833
                 }, 
@@ -403,7 +415,7 @@
                         {
                          "name":"SpawnY",
                          "type":"float",
-                         "value":65
+                         "value":623
                         }],
                  "rotation":0,
                  "type":"",
@@ -629,7 +641,7 @@
          "y":0
         }],
  "nextlayerid":10,
- "nextobjectid":35,
+ "nextobjectid":38,
  "orientation":"orthogonal",
  "renderorder":"right-down",
  "tiledversion":"1.12.2",

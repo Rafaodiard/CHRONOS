@@ -68,6 +68,7 @@ function comprobarAcertijos() {
 }
 
 function abrirAcertijo(objeto) {
+    reproducirEfecto("interactuar");
     acertijoActual = objeto;
     acertijoAbierto = true;
 
@@ -161,6 +162,7 @@ function comprobarAcertijo() {
     );
 
     if (respuesta !== codigoCorrecto) {
+        reproducirEfecto("puzzleError");
         const mensaje = document.getElementById("mensajeAcertijo");
 
         if (mensaje) {
@@ -170,6 +172,7 @@ function comprobarAcertijo() {
         return;
     }
 
+    reproducirEfecto("puzzleCompletado");
     const acertijoResuelto = acertijoActual;
     const accion = obtenerPropiedadAcertijo(acertijoResuelto, "Accion");
 

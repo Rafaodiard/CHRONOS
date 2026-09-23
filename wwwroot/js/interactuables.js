@@ -150,6 +150,7 @@ function interactuarConObjeto(
     ).toUpperCase();
 
     if (["A", "B", "C", "D", "E"].includes(idMaquina)) {
+        reproducirEfecto("interactuar");
         const estado = obtenerEstadoMaquina(idMaquina);
         if (estado && estado.apagada) {
             abrirDialogoMensaje("La máquina ya está apagada.");
@@ -204,6 +205,8 @@ function interactuarConObjeto(
         marcarInteractuableUsado(interactuable);
         return;
     }
+
+    reproducirEfecto("interactuar");
 
     if (dialogo) {
         abrirDialogo(dialogo);

@@ -34,6 +34,7 @@ const progreso = {
     guardiaX: null,
     guardiaY: null,
     palancasResueltas: false,
+    placaBibliotecaLeida: false,
     palancasEstado: {},
     maquinas: {},
     fragmentoLiberado: false,

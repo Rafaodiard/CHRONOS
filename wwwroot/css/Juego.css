@@ -695,6 +695,159 @@
     font-size: clamp(13px, 1.35vw, 16px);
 }
 
+.linea-inscripcion {
+    display: block;
+}
+
+/* ---- Presentación de la placa ---- */
+
+.placa-biblioteca {
+    transition: transform 0.9s ease, filter 0.9s ease, box-shadow 0.9s ease;
+}
+
+.menu-biblioteca:not(.presentando-placa) .placa-biblioteca {
+    cursor: pointer;
+}
+
+.menu-biblioteca:not(.presentando-placa) .placa-biblioteca:hover,
+.menu-biblioteca:not(.presentando-placa) .placa-biblioteca:focus-visible {
+    outline: none;
+    box-shadow:
+        inset 0 0 0 2px #cfc6a4,
+        inset 0 -9px 14px rgba(0, 0, 0, 0.3),
+        0 8px 0 #1c2021,
+        0 12px 16px rgba(0, 0, 0, 0.55),
+        0 0 18px rgba(240, 223, 173, 0.25);
+}
+
+.brillo-placa {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    opacity: 0;
+    background: linear-gradient(105deg, transparent 40%, rgba(255, 244, 214, 0.32) 50%, transparent 60%);
+    background-size: 250% 100%;
+    background-position: 150% 0;
+}
+
+.narracion-biblioteca,
+.ayuda-placa {
+    display: none;
+}
+
+.menu-biblioteca.presentando-placa .biblioteca-panel {
+    justify-content: center;
+    min-height: min(520px, 88vh);
+}
+
+.menu-biblioteca.presentando-placa .biblioteca-panel::after {
+    position: absolute;
+    inset: 0;
+    content: "";
+    pointer-events: none;
+    background: radial-gradient(ellipse at center, transparent 30%, rgba(0, 0, 0, 0.6) 100%);
+}
+
+.menu-biblioteca.presentando-placa .biblioteca-contenido {
+    display: none;
+}
+
+.menu-biblioteca.presentando-placa .placa-biblioteca {
+    transform: scale(0.86);
+    filter: brightness(0.45) blur(1.5px);
+}
+
+.menu-biblioteca.fase-enfoque .placa-biblioteca,
+.menu-biblioteca.fase-lectura .placa-biblioteca {
+    transform: scale(1.04);
+    filter: none;
+    box-shadow:
+        inset 0 0 0 2px #cfc6a4,
+        inset 0 -9px 14px rgba(0, 0, 0, 0.3),
+        0 8px 0 #1c2021,
+        0 12px 16px rgba(0, 0, 0, 0.55),
+        0 0 34px rgba(240, 223, 173, 0.3);
+}
+
+.menu-biblioteca.fase-enfoque .brillo-placa {
+    animation: barridoLuzPlaca 1.2s ease-out forwards;
+}
+
+.menu-biblioteca.presentando-placa .linea-inscripcion {
+    opacity: 0;
+}
+
+.menu-biblioteca.fase-lectura .linea-inscripcion {
+    animation: aparecerLineaPlaca 0.7s ease forwards;
+    animation-delay: calc(var(--linea) * 380ms);
+}
+
+.menu-biblioteca.fase-narracion .narracion-biblioteca {
+    position: absolute;
+    top: 12%;
+    left: 16px;
+    right: 16px;
+    z-index: 3;
+    display: block;
+    margin: 0;
+    color: #e6e9ed;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(16px, 1.8vw, 21px);
+    font-style: italic;
+    text-align: center;
+    text-shadow: 1px 1px #1b1e20;
+    animation: aparecerLineaPlaca 0.8s ease both;
+}
+
+.menu-biblioteca.placa-lista .ayuda-placa {
+    position: absolute;
+    right: 22px;
+    bottom: 16px;
+    z-index: 3;
+    display: block;
+    color: rgba(214, 222, 231, 0.58);
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    animation: aparecerLineaPlaca 0.6s ease both;
+}
+
+.menu-biblioteca.mostrar-catalogo .biblioteca-contenido {
+    animation: aparecerLineaPlaca 0.5s ease both;
+}
+
+@keyframes barridoLuzPlaca {
+    0% { opacity: 1; background-position: 150% 0; }
+    100% { opacity: 0.2; background-position: -50% 0; }
+}
+
+@keyframes aparecerLineaPlaca {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .placa-biblioteca,
+    .menu-biblioteca.presentando-placa .placa-biblioteca {
+        transition: none;
+        transform: none;
+    }
+
+    .menu-biblioteca .brillo-placa {
+        animation: none !important;
+    }
+
+    .menu-biblioteca .linea-inscripcion,
+    .menu-biblioteca .narracion-biblioteca,
+    .menu-biblioteca .ayuda-placa,
+    .menu-biblioteca .biblioteca-contenido {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+    }
+}
+
 .biblioteca-contenido {
     position: relative;
     z-index: 1;

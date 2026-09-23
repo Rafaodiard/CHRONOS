@@ -151,10 +151,22 @@
 
 <div id="menuBiblioteca" class="menu-biblioteca" style="display: none;" aria-hidden="true">
     <section class="biblioteca-panel" role="dialog" aria-modal="true" aria-labelledby="bibliotecaTitulo">
-        <header class="placa-biblioteca">
-            <p class="inscripcion-biblioteca">Los reyes nacen y mueren, los imperios se levantan y caen.<br>Pero las estrellas que observó mi abuelo siguen allí,<br>recorriendo el mismo cielo que contemplaron nuestros antepasados.</p>
-            <p class="inscripcion-biblioteca secundaria">He pasado incontables noches observando el firmamento.<br>No pretendo comprenderlo; me basta con contemplarlo.</p>
+        <p id="narracionBiblioteca" class="narracion-biblioteca">Una antigua placa de piedra llama tu atención.</p>
+
+        <header id="placaBiblioteca" class="placa-biblioteca" tabindex="0" aria-label="Placa de piedra">
+            <span class="brillo-placa" aria-hidden="true"></span>
+            <p class="inscripcion-biblioteca">
+                <span class="linea-inscripcion" style="--linea: 0">Cuando la noche cae sobre estas murallas,</span>
+                <span class="linea-inscripcion" style="--linea: 1">el hombre alza los ojos hacia lo alto.</span>
+                <span class="linea-inscripcion" style="--linea: 2">Ni la espada ni la corona guardan lo que allí se oculta.</span>
+            </p>
+            <p class="inscripcion-biblioteca secundaria">
+                <span class="linea-inscripcion" style="--linea: 3">Los sabios quisieron medir los astros y darles nombre.</span>
+                <span class="linea-inscripcion" style="--linea: 4">Yo solo aprendí que el firmamento guarda más preguntas que respuestas.</span>
+            </p>
         </header>
+
+        <span class="ayuda-placa">E / ESPACIO / ENTER para continuar</span>
 
         <div class="biblioteca-contenido">
             <aside class="lista-libros" aria-label="Libros de la biblioteca">

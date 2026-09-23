@@ -718,6 +718,7 @@ function mostrarDialogo() {
     }
 
     caja.style.display = "flex";
+    reproducirEfecto("dialogo");
 
     nombre.textContent =
         dialogo.personaje;

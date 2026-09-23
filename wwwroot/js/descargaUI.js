@@ -152,6 +152,7 @@ function abrirPanelDescarga() {
         return;
     }
 
+    reproducirEfecto("interactuar");
     panelDescargaAbierto = true;
     mostrarIndicadorPanelDescarga = false;
     limpiarTeclasDescarga();
@@ -268,6 +269,7 @@ function finalizarPanelDescarga() {
     cancelarArrastreDescarga();
 
     document.getElementById("panelDescarga")?.classList.add("resuelto");
+    reproducirEfecto("puzzleCompletado");
 
     completarDesafioDescarga();
 
@@ -449,6 +451,7 @@ function soltarArrastreDescarga(evento) {
     // Un clic sin arrastre rota la pieza (solo si ya está en el tablero).
     if (!arrastre.activo) {
         if (rotarPieza(pieza)) {
+            reproducirEfecto("mecanismo");
             angulosVisualesDescarga[pieza.id] =
                 (angulosVisualesDescarga[pieza.id] ?? pieza.rotacion - 90) + 90;
 
@@ -459,11 +462,15 @@ function soltarArrastreDescarga(evento) {
     }
 
     if (destino?.tipo === "celda") {
-        if (!colocarPiezaEnCelda(pieza, destino.fila, destino.columna)) {
+        if (colocarPiezaEnCelda(pieza, destino.fila, destino.columna)) {
+            reproducirEfecto("mecanismo");
+        } else {
+            reproducirEfecto("puzzleError");
             rechazarDestinoDescarga(destino.elemento);
         }
     }
     else if (destino?.tipo === "bandeja") {
+        reproducirEfecto("mecanismo");
         devolverPiezaABandeja(pieza);
     }
 

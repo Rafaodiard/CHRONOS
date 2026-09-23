@@ -37,6 +37,7 @@ function normalizarRutaMapa(ruta) {
 async function cargarMapa(nuevaRuta = rutaMapa) {
     rutaMapa = normalizarRutaMapa(nuevaRuta);
     actualizarMusicaMapa(rutaMapa);
+    actualizarAmbienteMapa(rutaMapa);
 
     try {
         const respuesta = await fetch(rutaMapa);

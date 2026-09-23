@@ -61,6 +61,7 @@ function abrirMenuPalancas(panel) {
         return;
     }
 
+    reproducirEfecto("interactuar");
     panelPalancasActual = panel;
     palancasAbierto = true;
     menu.style.display = "flex";
@@ -111,6 +112,7 @@ function alternarPalanca(indice) {
 
     const clave = obtenerClavePanel(panelPalancasActual);
     estadosPaneles[clave][indice] = !estadosPaneles[clave][indice];
+    reproducirEfecto("mecanismo");
     if (typeof marcarEstadoModificado === "function") {
         marcarEstadoModificado();
     }
@@ -126,6 +128,7 @@ function comprobarMecanismo() {
 
     if (mecanismoCorrecto && !progreso.palancasResueltas) {
         progreso.palancasResueltas = true;
+        reproducirEfecto("puzzleCompletado");
         if (typeof marcarEstadoModificado === "function") {
             marcarEstadoModificado();
         }

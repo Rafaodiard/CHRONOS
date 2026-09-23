@@ -234,6 +234,7 @@ function resolverPuzzleEngranajes() {
         marcarEstadoModificado();
     }
 
+    reproducirEfecto("puzzleCompletado");
     cerrarMenuEngranajes();
     abrirDialogoMensaje("La máquina quedó sincronizada.");
 }
@@ -294,6 +295,7 @@ function moverEngranaje(engranaje, sentido) {
         return;
     }
 
+    reproducirEfecto("mecanismo");
     const estadoSiguiente = aplicarMovimientoEngranaje(estadoActual, engranaje, sentido);
     progreso.engranajesFabrica = { ...estadoSiguiente, resuelto: false };
 
@@ -314,6 +316,7 @@ function abrirPuzzleEngranajes(objeto = reguladorMaquinaObjeto) {
         return;
     }
 
+    reproducirEfecto("interactuar");
     reguladorMaquinaObjeto = objeto;
     obtenerEstadoEngranajesActual();
     engranajesAbierto = true;

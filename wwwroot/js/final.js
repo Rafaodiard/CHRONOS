@@ -30,6 +30,7 @@ function iniciarFinalJuego(opciones = {}) {
 
     finalJuegoActivo = true;
     detenerMusica();
+    detenerAmbiente();
     finalPermiteSaltar = Boolean(opciones.permitirSaltar);
     document.getElementById("finalAvisoSaltar").hidden = !finalPermiteSaltar;
     contenedor.classList.add("visible");

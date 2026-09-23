@@ -178,7 +178,7 @@
     <property name="MapaDestino" value="/Maps/mapasJson/SalaElectricidad.tmj"/>
     <property name="Requisito" value="llave_electricidad"/>
     <property name="SpawnX" type="float" value="128"/>
-    <property name="SpawnY" type="float" value="65"/>
+    <property name="SpawnY" type="float" value="623"/>
    </properties>
   </object>
  </objectgroup>
