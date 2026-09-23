@@ -1449,13 +1449,12 @@ function renderizarDesafioB() {
     `;
 }
 
-// Versión 3: controles reversibles con efectos secundarios ocultos. Las partidas con una versión
-// anterior sin resolver se reinician.
-const VERSION_DESAFIO_D = 3;
+// Versión 4: zonas seguras más amplias (40–60) y un inicio más cercano a ellas. Las partidas con una
+// versión anterior sin resolver se reinician.
+const VERSION_DESAFIO_D = 4;
 
 // Cada control mueve 10 su variable principal y 5 otras dos. "+" aplica el efecto y "−" lo revierte,
-// así que cualquier estado puede volver a la zona segura (verificado: los 194.481 estados de la grilla
-// de 5 en 5 tienen solución; desde el inicio hacen falta al menos 10 clics usando los 4 controles).
+// así que cualquier estado puede volver a la zona segura (desde el inicio hacen falta al menos 5 clics).
 // Al jugador solo se le muestra el efecto principal; los secundarios los descubre observando.
 const CONTROLES_D = {
     ventilacion: {
@@ -1483,11 +1482,11 @@ const CONTROLES_D = {
 function crearDesafioD() {
     return {
         version: VERSION_DESAFIO_D,
-        temperatura: 80,
-        presion: 25,
-        flujo: 20,
-        carga: 80,
-        zonaSegura: { temperatura: [40, 55], presion: [45, 60], flujo: [40, 55], carga: [45, 60] },
+        temperatura: 70,
+        presion: 30,
+        flujo: 30,
+        carga: 70,
+        zonaSegura: { temperatura: [40, 60], presion: [40, 60], flujo: [40, 60], carga: [40, 60] },
         mensaje: "Ajustá las variables para volver al margen seguro.",
         resuelto: false
     };

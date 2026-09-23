@@ -14,6 +14,7 @@ function mostrarGraciasFinal() {
     video.hidden = true;
     botonIniciar.hidden = true;
     gracias.hidden = false;
+    reproducirMusica("Home");
 }
 
 // opciones.permitirSaltar: con Escape se saltea el video (solo en los créditos).
@@ -28,6 +29,7 @@ function iniciarFinalJuego(opciones = {}) {
     }
 
     finalJuegoActivo = true;
+    detenerMusica();
     finalPermiteSaltar = Boolean(opciones.permitirSaltar);
     document.getElementById("finalAvisoSaltar").hidden = !finalPermiteSaltar;
     contenedor.classList.add("visible");

@@ -14,7 +14,9 @@
       "Bash(dotnet --list-runtimes)",
       "Bash(netstat -ano)",
       "Bash(awk '{print $5}')",
-      "Bash(xargs -I{} taskkill //PID {} //F)"
+      "Bash(xargs -I{} taskkill //PID {} //F)",
+      "Bash(grep -v -E \"\\\\.\\(png|jpg|zip|aseprite|tsx|tmx|tsj\\)$\")",
+      "Bash(node \"C:/Users/49758734/AppData/Local/Temp/claude/c--Users-49758734-EscapeRoom/2d118a25-dac4-4725-9189-18aff7b85353/scratchpad/bfsD.js\")"
     ]
   }
 }
