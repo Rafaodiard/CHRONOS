@@ -8,8 +8,8 @@ using EscapeRoom.Models;
     public static class DB 
     { 
         private static string _connectionString =
-        //@"Server=localhost;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True";
-        @"Server=.\SQLEXPRESS;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True;";
+        @"Server=localhost;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True";
+        //@"Server=.\SQLEXPRESS;Database=SalaEscape;Integrated Security=True;TrustServerCertificate=True;";
 
         public static Usuarios? Login(LogInViewModel l)
         {
@@ -148,6 +148,38 @@ using EscapeRoom.Models;
             connection.Execute(
                 @"DELETE FROM Partidas
                   WHERE IDUsuario = @idUsuario",
+                new { idUsuario });
+        }
+
+        // Crea la columna JuegoCompletado en Usuarios si la base todavía no la tiene.
+        private static void AsegurarColumnaJuegoCompletado(SqlConnection connection)
+        {
+            connection.Execute(
+                @"IF COL_LENGTH('Usuarios', 'JuegoCompletado') IS NULL
+                  ALTER TABLE Usuarios ADD JuegoCompletado BIT NOT NULL CONSTRAINT DF_Usuarios_JuegoCompletado DEFAULT 0");
+        }
+
+        public static void MarcarJuegoCompletado(int idUsuario)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            AsegurarColumnaJuegoCompletado(connection);
+
+            connection.Execute(
+                @"UPDATE Usuarios
+                  SET JuegoCompletado = 1
+                  WHERE ID = @idUsuario",
+                new { idUsuario });
+        }
+
+        public static bool UsuarioCompletoJuego(int idUsuario)
+        {
+            using var connection = new SqlConnection(_connectionString);
+            AsegurarColumnaJuegoCompletado(connection);
+
+            return connection.ExecuteScalar<bool>(
+                @"SELECT JuegoCompletado
+                  FROM Usuarios
+                  WHERE ID = @idUsuario",
                 new { idUsuario });
         }
 

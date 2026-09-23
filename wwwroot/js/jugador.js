@@ -12,7 +12,7 @@ const jugador = {
     y: 944,
     ancho: 84,
     alto: 84,
-    velocidad: 2,
+    velocidad: 4,
     direccion: "abajo",
     moviendose: false
 };

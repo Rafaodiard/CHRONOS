@@ -62,6 +62,32 @@ public async Task<IActionResult> GuardarEstado()
 
     return Ok();
 }
+    [HttpPost]
+    public IActionResult Completar()
+    {
+        int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+        if (usuarioId == null)
+        {
+            return Unauthorized();
+        }
+
+        DB.MarcarJuegoCompletado(usuarioId.Value);
+        return Ok();
+    }
+
+    public IActionResult Creditos()
+    {
+        int? usuarioId = HttpContext.Session.GetInt32("UsuarioId");
+
+        if (usuarioId == null || !DB.UsuarioCompletoJuego(usuarioId.Value))
+        {
+            return RedirectToAction("Index", "Home");
+        }
+
+        return View("~/Views/Juego/Creditos.cshtml");
+    }
+
     [HttpGet]
     public IActionResult ObtenerEstado()
     {

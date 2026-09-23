@@ -159,6 +159,13 @@ function ejecutarTransicion(transicion) {
 
     transicionEnCurso = true;
 
+    // Con el último fragmento, la máquina del tiempo lleva al final del juego.
+    if (obtenerPropiedadTransicion(transicion, "Requisito") === "fragmento_temporal3") {
+        fetch("/Juego/Completar", { method: "POST" }).catch(() => {});
+        iniciarFinalJuego();
+        return;
+    }
+
     const esCambioDeEpoca = obtenerPropiedadTransicion(transicion, "Dialogo") === "maquina1"
         && obtenerPropiedadTransicion(transicion, "Requisito")?.startsWith("fragmento_temporal");
 

@@ -1,0 +1,25 @@
+<link rel="stylesheet" href="~/css/final.css" />
+
+<div id="finalJuego" class="final-juego" aria-hidden="true">
+    <video id="videoFinal"
+           class="final-video"
+           src="~/ending%20sala%20escape.mp4"
+           preload="auto"
+           playsinline
+           disablepictureinpicture
+           disableremoteplayback
+           controlslist="nodownload nofullscreen noplaybackrate noremoteplayback"
+           tabindex="-1"></video>
+
+    <span id="finalAvisoSaltar" class="final-aviso-saltar" hidden>ESC para saltar</span>
+
+    <button id="finalIniciarVideo" class="final-boton final-iniciar" type="button" hidden>REPRODUCIR</button>
+
+    <section id="finalGracias" class="final-gracias" hidden>
+        <p class="final-etiqueta">CHRONOS</p>
+        <h1>Gracias por jugar</h1>
+        <a class="final-boton" href="/Home/Index">VOLVER AL MENÚ</a>
+    </section>
+</div>
+
+<script src="~/js/final.js"></script>

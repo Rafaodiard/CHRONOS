@@ -15,6 +15,10 @@ if (!app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+// Sirve wwwroot con soporte correcto de rangos (necesario para reproducir el video del final).
+app.UseStaticFiles();
+
 app.UseRouting();
 
 app.UseSession();

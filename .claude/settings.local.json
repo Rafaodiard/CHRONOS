@@ -1,0 +1,20 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sc query *)",
+      "Bash(reg query *)",
+      "Bash(sqllocaldb info *)",
+      "Bash(sqlcmd -S localhost -E -C -Q \"SELECT name FROM sys.databases WHERE name='SalaEscape'\")",
+      "Bash(sqlcmd -S localhost -E -C -d SalaEscape -Q \"SELECT TOP 1 ID, Usuario FROM Usuarios\")",
+      "Bash(curl -s -o /dev/null -w \"final.js %{http_code}\\\\n\" http://localhost:5007/js/final.js)",
+      "Bash(curl -s http://localhost:5007/js/interacciones.js)",
+      "Bash(curl -s -o /dev/null -w \"final.css %{http_code}\\\\n\" http://localhost:5007/css/final.css)",
+      "Bash(curl -s -D - -o /dev/null -H \"Range: bytes=0-1000\" \"http://localhost:5007/ending%20sala%20escape.mp4\")",
+      "Bash(curl -s -D - -o /dev/null -H \"Range: bytes=0-1000\" \"http://localhost:5007/favicon.ico\")",
+      "Bash(dotnet --list-runtimes)",
+      "Bash(netstat -ano)",
+      "Bash(awk '{print $5}')",
+      "Bash(xargs -I{} taskkill //PID {} //F)"
+    ]
+  }
+}

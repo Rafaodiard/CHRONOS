@@ -31,6 +31,7 @@ public class HomeController : Controller
 
         ViewBag.UsuarioLogueado = usuarioLogueado;
         ViewBag.TienePartidaGuardada = tienePartidaGuardada;
+        ViewBag.JuegoCompletado = usuarioId != null && DB.UsuarioCompletoJuego(usuarioId.Value);
         return View();
     }
 
