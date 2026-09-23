@@ -40,5 +40,6 @@ const progreso = {
     fragmentoSecuenciaIniciada: false,
     fragmentoDescargaRealizada: false,
     dialogoPostDescargaCompletado: false,
-    llaveElectricidadEntregada: false
+    llaveElectricidadEntregada: false,
+    panelDescargaCompletado: false
 };

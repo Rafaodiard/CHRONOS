@@ -95,7 +95,7 @@ function loop() {
         canvas.height
     );
 
-    if (!modoIntroduccion && !transicionEnCurso && !dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto && !menuPausaAbierto) {
+    if (!modoIntroduccion && !transicionEnCurso && !dialogoAbierto && !acertijoAbierto && !bibliotecaAbierta && !palancasAbierto && !panelDescargaAbierto && !menuPausaAbierto) {
 
         if (!bloqueoFragmentoActivo && !fragmentoSecuenciaActiva) {
             moverJugador();
@@ -105,6 +105,7 @@ function loop() {
             comprobarObjetos(); 
             comprobarInteractuables();
             comprobarReguladorMaquina();
+            comprobarPanelDescarga();
             comprobarPalancas();
             comprobarAcertijos();
             actualizarInteraccion();
@@ -115,7 +116,8 @@ function loop() {
                 mostrarIndicadorObjeto ||     
                 mostrarIndicadorInteractuable ||
                 mostrarIndicadorAcertijo ||
-                mostrarIndicadorPalanca
+                mostrarIndicadorPalanca ||
+                mostrarIndicadorPanelDescarga
 
             );
         } else {

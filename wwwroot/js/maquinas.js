@@ -41,16 +41,44 @@ function obtenerInfoMaquina(id) {
     };
 }
 
+// El título y la descripción van en la cabecera del panel (ver renderizarPanelMaquina).
 function renderizarCabeceraMaquina(id) {
     const info = obtenerInfoMaquina(id);
+    return `<p class="maquina-instruccion">${info.explicacion}</p>`;
+}
+
+function renderizarFichaMaquina(objetivo, parrafos) {
     return `
-        <div class="maquina-panel-wrap">
-            <div class="maquina-panel-cabecera">
-                <span class="maquina-badge">SISTEMA</span>
-                <h2>${info.titulo}</h2>
+        <div class="maquina-ficha">
+            <div>
+                <span class="maquina-label">OBJETIVO</span>
+                <p class="maquina-objetivo">${objetivo}</p>
             </div>
-            <p class="maquina-subtitulo">${info.descripcion}</p>
-            <p class="maquina-instruccion">${info.explicacion}</p>
+            <div>
+                <span class="maquina-label">¿CÓMO FUNCIONA?</span>
+                <div class="maquina-como-funciona">
+                    ${parrafos.map(parrafo => `<p>${parrafo}</p>`).join("")}
+                </div>
+            </div>
+        </div>
+    `;
+}
+
+// estado: "estable" (verde), "proceso" (ámbar) o "alerta" (rojo).
+function renderizarEstadoMaquina(estado, mensaje, submensaje = "") {
+    return `
+        <div class="maquina-estado" data-estado="${estado}" role="status" aria-live="polite">
+            <strong>${mensaje}</strong>
+            ${submensaje ? `<span>${submensaje}</span>` : ""}
+        </div>
+    `;
+}
+
+function renderizarMaquinaApagada(id, detalle) {
+    return `
+        ${estiloMaquinas()}
+        <div class="maquina-shell">
+            ${renderizarEstadoMaquina("estable", `✓ MÁQUINA ${id} APAGADA`, detalle)}
         </div>
     `;
 }
@@ -61,113 +89,250 @@ function estiloMaquinas() {
             .maquina-shell {
                 display: flex;
                 flex-direction: column;
-                gap: 16px;
-                width: min(100%, 980px);
-                color: #f3f7ff;
+                gap: 18px;
+                color: #f5f0e4;
+                font-family: Arial, Helvetica, sans-serif;
             }
-            .maquina-layout-doble {
-                display: grid;
-                grid-template-columns: minmax(0, 1.4fr) minmax(240px, 0.8fr);
-                gap: 16px;
-            }
-            .maquina-panel-section {
-                background: rgba(13, 20, 35, 0.9);
-                border: 1px solid rgba(125, 181, 255, 0.35);
-                border-radius: 12px;
-                padding: 14px 16px;
-                box-shadow: inset 0 0 0 1px rgba(255,255,255,0.03);
+            .maquina-instruccion {
+                margin: 16px 0 0;
+                color: #b8c3d0;
+                font-size: 14px;
+                line-height: 1.5;
             }
             .maquina-label {
-                font-size: 10px;
-                letter-spacing: 0.18em;
-                color: #7eb1ff;
-                text-transform: uppercase;
                 display: block;
                 margin-bottom: 8px;
+                color: #e3bb68;
+                font-size: 10px;
+                font-weight: bold;
+                letter-spacing: 0.18em;
+                text-transform: uppercase;
+            }
+            .maquina-ficha {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) minmax(0, 1.4fr);
+                gap: 18px;
+                padding: 12px 16px;
+                background: #0c1420;
+                border-left: 3px solid #e3bb68;
             }
             .maquina-objetivo {
+                margin: 0;
+                color: #f5f0e4;
                 font-size: 13px;
                 line-height: 1.5;
-                color: #e5f0ff;
-                margin: 0;
             }
             .maquina-como-funciona {
                 display: grid;
-                gap: 6px;
+                gap: 4px;
+                color: #b8c3d0;
                 font-size: 12px;
                 line-height: 1.5;
-                color: #cfe3ff;
             }
             .maquina-como-funciona p {
                 margin: 0;
             }
+            .maquina-cuerpo {
+                display: grid;
+                grid-template-columns: minmax(0, 1fr) 280px;
+                gap: 20px;
+                align-items: start;
+            }
+            /* Controles en fila debajo del estado (todas menos la máquina B). */
+            .maquina-cuerpo.horizontal {
+                grid-template-columns: minmax(0, 1fr);
+                gap: 14px;
+            }
+            .maquina-cuerpo.horizontal .maquina-controles {
+                display: flex;
+                flex-wrap: wrap;
+            }
+            .maquina-cuerpo.horizontal .maquina-boton-accion {
+                flex: 1 1 150px;
+                width: auto;
+                text-align: center;
+            }
+            .maquina-control-doble {
+                display: flex;
+                flex: 1 1 200px;
+                flex-direction: column;
+                gap: 6px;
+                padding: 10px;
+                background: #0d1623;
+                border: 1px solid rgba(143, 164, 190, 0.22);
+                border-radius: 6px;
+            }
+            .maquina-control-nombre {
+                color: #d6dee7;
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 0.08em;
+            }
+            .maquina-control-detalle {
+                flex: 1;
+                color: #8fa4be;
+                font-size: 11px;
+                line-height: 1.4;
+            }
+            .maquina-control-botones {
+                display: flex;
+                gap: 6px;
+            }
+            .maquina-cuerpo.horizontal .maquina-control-botones .maquina-boton-accion {
+                flex: 1 1 0;
+                padding: 6px 0;
+                font-size: 18px;
+            }
+            .maquina-tablero {
+                padding: 14px;
+                background:
+                    radial-gradient(circle at 50% 50%, rgba(126, 177, 255, 0.05), transparent 70%),
+                    #0a111c;
+                border: 1px solid rgba(143, 164, 190, 0.35);
+                border-radius: 8px;
+            }
+            .maquina-zona-controles {
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                padding: 14px;
+                background: #0c1420;
+                border: 1px solid rgba(143, 164, 190, 0.3);
+                border-radius: 8px;
+            }
+            .maquina-zona-controles > .maquina-label {
+                margin: 4px 0 0;
+            }
+            .maquina-controles {
+                display: grid;
+                gap: 8px;
+            }
+            .maquina-boton-accion {
+                appearance: none;
+                width: 100%;
+                padding: 10px 12px;
+                background: #182536;
+                border: 1px solid #405064;
+                border-radius: 6px;
+                color: #d6dee7;
+                font-family: Arial, Helvetica, sans-serif;
+                font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 0.08em;
+                text-align: left;
+                cursor: pointer;
+                transition: transform 120ms ease, border-color 120ms ease, color 120ms ease;
+            }
+            .maquina-boton-accion:hover:not([disabled]) {
+                transform: translateY(-1px);
+                border-color: #e3bb68;
+                color: #fff2c8;
+            }
+            .maquina-boton-accion[disabled] {
+                opacity: 0.4;
+                cursor: not-allowed;
+            }
+            .maquina-boton-accion strong {
+                display: block;
+                margin-top: 3px;
+                color: #8fa4be;
+                font-size: 11px;
+                letter-spacing: 0.12em;
+            }
+            .maquina-boton-accion.principal {
+                background: #2a200b;
+                border-color: #ffd766;
+                color: #ffe9a8;
+                text-align: center;
+                letter-spacing: 0.14em;
+                box-shadow: 0 0 14px rgba(255, 215, 102, 0.3);
+            }
             .maquina-grid-estado {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-                gap: 12px;
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 10px;
             }
-            .maquina-card {
-                background: rgba(20, 31, 49, 0.9);
-                border: 1px solid rgba(144, 198, 255, 0.28);
-                border-radius: 10px;
+            .maquina-card,
+            .maquina-variable-card {
+                display: grid;
+                gap: 8px;
+                min-width: 0;
                 padding: 12px;
+                background: #0d1623;
+                border: 1px solid rgba(143, 164, 190, 0.22);
+                border-radius: 6px;
+            }
+            .maquina-variable-card.segura {
+                border-color: rgba(127, 224, 168, 0.55);
+            }
+            .maquina-variable-card.fuera {
+                border-color: rgba(224, 118, 107, 0.55);
+            }
+            .maquina-variable-card > strong {
+                color: #fff2c8;
+                font-family: Georgia, "Times New Roman", serif;
+                font-size: 24px;
             }
             .maquina-card-header {
                 display: flex;
-                justify-content: space-between;
+                flex-wrap: wrap;
                 align-items: center;
-                margin-bottom: 8px;
-                color: #dfeaff;
-                font-weight: 700;
-                font-size: 12px;
+                justify-content: space-between;
+                gap: 8px;
+                color: #d6dee7;
+                font-size: 11px;
+                font-weight: bold;
+                letter-spacing: 0.12em;
             }
             .maquina-safebox {
-                padding: 6px 8px;
-                border-radius: 8px;
-                background: rgba(94, 164, 255, 0.12);
-                border: 1px solid rgba(94, 164, 255, 0.15);
+                color: #8fa4be;
                 font-size: 11px;
-                color: #b9d8ff;
             }
             .maquina-meter {
                 position: relative;
-                width: 100%;
-                height: 12px;
+                height: 10px;
+                background: #060a11;
+                border: 1px solid rgba(143, 164, 190, 0.25);
                 border-radius: 999px;
-                background: rgba(255,255,255,0.08);
                 overflow: hidden;
-                border: 1px solid rgba(255,255,255,0.08);
-                margin-top: 8px;
             }
             .maquina-meter-fill {
                 position: absolute;
                 inset: 0 auto 0 0;
                 border-radius: 999px;
+                transition: width 250ms ease;
             }
-            .maquina-controles {
+            .maquina-estado-row {
                 display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
+                align-items: baseline;
+                justify-content: space-between;
+                gap: 8px;
+                color: #8fa4be;
+                font-size: 12px;
             }
-            .maquina-boton-accion {
-                appearance: none;
-                border: 1px solid rgba(146, 208, 255, 0.4);
-                background: linear-gradient(180deg, rgba(26, 87, 168, 0.8), rgba(15, 39, 66, 0.8));
-                color: #f2f7ff;
-                border-radius: 8px;
-                padding: 9px 12px;
-                font-weight: 700;
-                cursor: pointer;
-                transition: transform 0.12s ease, border-color 0.12s ease;
+            .maquina-estado-row strong {
+                color: #fff2c8;
+                font-family: Georgia, "Times New Roman", serif;
+                font-size: 22px;
             }
-            .maquina-boton-accion:hover {
-                transform: translateY(-1px);
-                border-color: rgba(187, 225, 255, 0.9);
+            .maquina-badge-estado {
+                padding: 3px 7px;
+                border: 1px solid;
+                border-radius: 4px;
+                font-size: 9px;
+                font-weight: bold;
+                letter-spacing: 0.12em;
+                white-space: nowrap;
             }
-            .maquina-boton-accion[disabled] {
-                opacity: 0.45;
-                cursor: not-allowed;
-                transform: none;
+            .maquina-badge-estado.seguro {
+                color: #7fe0a8;
+                border-color: rgba(127, 224, 168, 0.5);
+                background: rgba(127, 224, 168, 0.1);
+            }
+            .maquina-badge-estado.fuera {
+                color: #e0766b;
+                border-color: rgba(224, 118, 107, 0.5);
+                background: rgba(224, 118, 107, 0.1);
             }
             .maquina-circuito {
                 display: grid;
@@ -175,144 +340,173 @@ function estiloMaquinas() {
             }
             .maquina-linea {
                 display: grid;
-                grid-template-columns: minmax(100px, 1fr) 64px minmax(100px, 1fr);
-                gap: 10px;
+                grid-template-columns: minmax(80px, 1fr) minmax(40px, 1.2fr) minmax(80px, 1fr);
                 align-items: center;
             }
             .maquina-punto-nodo {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                min-height: 46px;
-                border-radius: 8px;
-                border: 1px solid rgba(158, 202, 255, 0.2);
-                background: rgba(12, 22, 34, 0.9);
+                min-height: 44px;
+                background: #0d1623;
+                border: 1px solid rgba(143, 164, 190, 0.3);
+                border-radius: 6px;
+                color: #d6dee7;
+                font-family: Arial, Helvetica, sans-serif;
                 font-size: 12px;
-                color: #dfeeff;
+                font-weight: bold;
+                letter-spacing: 0.1em;
                 cursor: pointer;
+                transition: border-color 120ms ease, background 120ms ease;
+            }
+            .maquina-punto-nodo:hover {
+                border-color: #e3bb68;
             }
             .maquina-punto-nodo.activo {
-                border-color: #7fe7c1;
-                box-shadow: 0 0 0 1px rgba(127, 231, 193, 0.5);
-                background: rgba(13, 57, 50, 0.8);
+                background: #2a200b;
+                border-color: #ffd766;
+                color: #ffe9a8;
+                box-shadow: 0 0 12px rgba(255, 215, 102, 0.35);
             }
             .maquina-punto-conexion {
-                height: 2px;
-                background: linear-gradient(90deg, rgba(103, 167, 255, 0.8), rgba(103, 167, 255, 0.2));
-                border-radius: 99px;
+                height: 8px;
+                background: #7d6246;
+                border-top: 3px solid #060a11;
+                border-bottom: 3px solid #060a11;
             }
             .maquina-medicion-box {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-                gap: 10px;
+                grid-template-columns: 1fr 1fr;
+                gap: 8px;
             }
             .maquina-medicion {
-                padding: 12px;
-                border-radius: 10px;
-                border: 1px solid rgba(148, 190, 255, 0.24);
-                background: rgba(9, 17, 28, 0.8);
+                padding: 10px;
+                background: #0d1623;
+                border: 1px solid rgba(143, 164, 190, 0.22);
+                border-radius: 6px;
             }
             .maquina-medicion label {
                 display: block;
-                color: #8bb5f5;
-                font-size: 10px;
+                margin-bottom: 4px;
+                color: #8fa4be;
+                font-size: 9px;
                 letter-spacing: 0.14em;
-                text-transform: uppercase;
-                margin-bottom: 6px;
             }
             .maquina-medicion strong {
-                font-size: 17px;
-                color: #f0f5ff;
+                color: #ffe9a8;
+                font-size: 16px;
             }
             .maquina-mediciones-lista {
                 display: grid;
-                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
-                gap: 8px;
+                gap: 6px;
             }
             .maquina-item-valor {
-                border: 1px solid rgba(156, 198, 255, 0.24);
-                border-radius: 8px;
-                background: rgba(14, 24, 37, 0.8);
-                padding: 8px 10px;
-                font-size: 12px;
-                color: #dce9ff;
+                padding: 6px 8px;
+                background: #0d1623;
+                border: 1px solid rgba(143, 164, 190, 0.18);
+                border-radius: 4px;
+                color: #b8c3d0;
+                font-size: 11px;
             }
-            .maquina-badge-estado {
-                display: inline-block;
-                padding: 4px 8px;
-                border-radius: 999px;
-                font-size: 10px;
-                letter-spacing: 0.12em;
-                text-transform: uppercase;
-                font-weight: 700;
-            }
-            .maquina-badge-estado.seguro {
-                background: rgba(60, 146, 92, 0.2);
-                color: #9ae8ba;
-                border: 1px solid rgba(60, 146, 92, 0.5);
-            }
-            .maquina-badge-estado.fuera {
-                background: rgba(186, 73, 73, 0.18);
-                color: #ffb0a8;
-                border: 1px solid rgba(186, 73, 73, 0.45);
-            }
-            .maquina-estado-row {
+            .maquina-contador {
                 display: flex;
-                align-items: center;
                 justify-content: space-between;
-                gap: 8px;
+                gap: 10px;
+                margin-bottom: 12px;
+                color: #b8c3d0;
+                font-size: 12px;
+            }
+            .maquina-contador strong {
+                color: #fff2c8;
             }
             .maquina-transmision {
                 display: flex;
-                flex-wrap: wrap;
-                gap: 10px;
                 align-items: center;
                 justify-content: center;
+                gap: 4px;
             }
             .maquina-transmision-node {
-                min-width: 110px;
-                padding: 10px 12px;
-                border-radius: 10px;
-                background: rgba(14, 24, 37, 0.8);
-                border: 1px solid rgba(141, 198, 255, 0.22);
-                text-align: center;
+                flex: 1 1 0;
+                min-width: 0;
+                padding: 10px 6px;
+                background: #0d1623;
+                border: 1px solid rgba(143, 164, 190, 0.3);
+                border-radius: 6px;
+                color: #d6dee7;
                 font-size: 12px;
+                font-weight: bold;
+                letter-spacing: 0.06em;
+                text-align: center;
             }
             .maquina-transmision-arrow {
-                color: #7dc2ff;
-                font-size: 20px;
+                color: #e3bb68;
+                font-size: 18px;
             }
             .maquina-diagrama {
                 display: grid;
-                gap: 8px;
-                color: #dfeeff;
+                gap: 2px;
+                color: #8fa4be;
+                font-family: Consolas, "Courier New", monospace;
                 font-size: 14px;
+                white-space: pre;
             }
-            .maquina-diagrama .nivel {
-                padding-left: 12px;
-                border-left: 1px solid rgba(140, 180, 255, 0.3);
+            .maquina-diagrama strong {
+                color: #fff2c8;
             }
-            .maquina-diagrama .nivel strong {
-                color: #fff;
-            }
-            .maquina-variable-card {
+            .maquina-status-lista {
                 display: grid;
                 gap: 8px;
-                border: 1px solid rgba(159, 204, 255, 0.24);
-                border-radius: 10px;
-                padding: 12px;
-                background: rgba(14, 22, 32, 0.8);
+                margin-top: 14px;
             }
-            .maquina-variable-card strong {
-                font-size: 22px;
+            .maquina-status-item {
+                display: flex;
+                justify-content: space-between;
+                gap: 10px;
+                padding: 8px 10px;
+                background: #0d1623;
+                border: 1px solid rgba(143, 164, 190, 0.22);
+                border-radius: 6px;
+                color: #d6dee7;
+                font-size: 12px;
             }
-            .maquina-variable-card.fuera {
-                border-color: rgba(255, 120, 120, 0.5);
-                background: rgba(50, 18, 18, 0.4);
+            .maquina-status-item strong {
+                color: #e3bb68;
+                letter-spacing: 0.1em;
             }
-            .maquina-variable-card.segura {
-                border-color: rgba(120, 255, 180, 0.45);
-                background: rgba(15, 46, 33, 0.55);
+            .maquina-status-item.apagada strong {
+                color: #7fe0a8;
+            }
+            .maquina-estado {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+                padding: 12px 16px;
+                background: #0c1420;
+                border-left: 4px solid #e3bb68;
+                color: #e3bb68;
+                font-size: 14px;
+                font-weight: bold;
+                letter-spacing: 0.06em;
+            }
+            .maquina-estado span {
+                color: #b8c3d0;
+                font-size: 12px;
+                font-weight: normal;
+                letter-spacing: 0;
+            }
+            .maquina-estado[data-estado="alerta"] {
+                border-color: #e0766b;
+                color: #e0766b;
+            }
+            .maquina-estado[data-estado="estable"] {
+                border-color: #7fe0a8;
+                color: #7fe0a8;
+            }
+            @media (max-width: 680px) {
+                .maquina-ficha,
+                .maquina-cuerpo {
+                    grid-template-columns: 1fr;
+                }
+                .maquina-transmision {
+                    flex-wrap: wrap;
+                }
             }
         </style>
     `;
@@ -749,13 +943,9 @@ function apagarMaquina(id) {
 
 function panelContenidoPlaceholder(titulo, subtitulo) {
     return `
-        <div class="maquina-panel-wrap">
-            <div class="maquina-panel-cabecera">
-                <span class="maquina-badge">SISTEMA</span>
-                <h2>${titulo}</h2>
-                <button type="button" class="maquina-cerrar" onclick="cerrarPanelMaquina()">Cerrar</button>
-            </div>
-            <p class="maquina-subtitulo">${subtitulo}</p>
+        ${estiloMaquinas()}
+        <div class="maquina-shell">
+            ${renderizarEstadoMaquina("proceso", titulo, subtitulo)}
         </div>
     `;
 }
@@ -859,21 +1049,16 @@ function renderizarDesafioC() {
     const estado = obtenerEstadoMaquina("C");
 
     if (estado.apagada) {
-        return `
-            ${estiloMaquinas()}
-            <div class="maquina-shell">
-                <div class="maquina-panel-section">
-                    <h3>Máquina C apagada</h3>
-                    <p>El sistema de equilibrio está desactivado.</p>
-                </div>
-            </div>
-        `;
+        return renderizarMaquinaApagada("C", "El sistema de equilibrio está desactivado.");
     }
+
+    let todasDentro = true;
 
     const presiones = Object.entries(desafio.presiones).map(([camara, valor]) => {
         const [min, max] = desafio.zonaSegura[camara];
         const dentro = valor >= min && valor <= max;
         const porcentaje = Math.max(0, Math.min(100, ((valor - min) / (max - min || 1)) * 100));
+        todasDentro = todasDentro && dentro;
         return `
             <div class="maquina-card">
                 <div class="maquina-card-header">
@@ -882,9 +1067,9 @@ function renderizarDesafioC() {
                 </div>
                 <div class="maquina-safebox">Zona segura: ${min}–${max}</div>
                 <div class="maquina-meter">
-                    <div class="maquina-meter-fill" style="width:${porcentaje}%; background:${dentro ? "linear-gradient(90deg, #6fe8ad, #b6f7cc)" : "linear-gradient(90deg, #ff8b6f, #ffc28f)"};"></div>
+                    <div class="maquina-meter-fill" style="width:${porcentaje}%; background:${dentro ? "#7fe0a8" : "#e0766b"};"></div>
                 </div>
-                <div class="maquina-estado-row" style="margin-top: 10px;">
+                <div class="maquina-estado-row">
                     <strong>${valor}</strong>
                     <span>${dentro ? "Dentro del rango" : "Requiere ajuste"}</span>
                 </div>
@@ -899,41 +1084,41 @@ function renderizarDesafioC() {
     ];
 
     const accionApagar = desafio.resuelto
-        ? `<button type="button" class="maquina-boton-accion" onclick="apagarMaquina('C')">Apagar C</button>`
+        ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('C')">Apagar C</button>`
         : "";
+
+    const estadoMensaje = desafio.resuelto ? "estable" : todasDentro ? "proceso" : "alerta";
 
     return `
         ${estiloMaquinas()}
-        ${renderizarCabeceraMaquina("C")}
         <div class="maquina-shell">
-            <div class="maquina-panel-section">
-                <span class="maquina-label">OBJETIVO</span>
-                <p class="maquina-objetivo">Estabilizá las tres cámaras de presión para poder apagar la máquina.</p>
+            ${renderizarCabeceraMaquina("C")}
+            ${renderizarFichaMaquina(
+                "Estabilizá las tres cámaras de presión para poder apagar la máquina.",
+                [
+                    "Las tres cámaras están conectadas entre sí.",
+                    "Las válvulas modifican la presión de más de una cámara al mismo tiempo.",
+                    "Observá cómo cambia el sistema después de cada ajuste y mantené todas las cámaras dentro de sus zonas seguras."
+                ]
+            )}
+            <div class="maquina-cuerpo horizontal">
+                <section class="maquina-tablero">
+                    <span class="maquina-label">ESTADO DEL SISTEMA</span>
+                    <div class="maquina-grid-estado">${presiones}</div>
+                </section>
+                <aside class="maquina-zona-controles">
+                    <span class="maquina-label">CONTROLES</span>
+                    <div class="maquina-controles">
+                        ${botones.map(boton => `
+                            <button type="button" class="maquina-boton-accion" onclick="cambianPresionesC(${boton.numero})">
+                                ${boton.label}
+                            </button>
+                        `).join("")}
+                        ${accionApagar}
+                    </div>
+                </aside>
             </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">¿CÓMO FUNCIONA?</span>
-                <div class="maquina-como-funciona">
-                    <p>Las tres cámaras están conectadas entre sí.</p>
-                    <p>Las válvulas modifican la presión de más de una cámara al mismo tiempo.</p>
-                    <p>Observá cómo cambia el sistema después de cada ajuste y mantené todas las cámaras dentro de sus zonas seguras.</p>
-                </div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">ESTADO DEL SISTEMA</span>
-                <div class="maquina-grid-estado">${presiones}</div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">CONTROLES</span>
-                <div class="maquina-controles">
-                    ${botones.map(boton => `
-                        <button type="button" class="maquina-boton-accion" onclick="cambianPresionesC(${boton.numero})">
-                            ${boton.label}
-                        </button>
-                    `).join("")}
-                    ${accionApagar}
-                </div>
-                <p style="margin: 12px 0 0; color: #ddeaff; font-weight: 700;">${desafio.mensaje}</p>
-            </div>
+            ${renderizarEstadoMaquina(estadoMensaje, desafio.mensaje)}
         </div>
     `;
 }
@@ -985,15 +1170,7 @@ function renderizarDesafioE() {
     const estado = obtenerEstadoMaquina("E");
 
     if (estado.apagada) {
-        return `
-            ${estiloMaquinas()}
-            <div class="maquina-shell">
-                <div class="maquina-panel-section">
-                    <h3>Máquina E apagada</h3>
-                    <p>La transmisión mecánica está inactiva.</p>
-                </div>
-            </div>
-        `;
+        return renderizarMaquinaApagada("E", "La transmisión mecánica está inactiva.");
     }
 
     const componentes = [
@@ -1006,48 +1183,50 @@ function renderizarDesafioE() {
 
     const lista = componentes.map(item => `
         <button type="button" class="maquina-boton-accion" onclick="diagnosticarComponenteE('${item.clave}')">
-            <span>${item.label}</span><br>
+            <span>${item.label}</span>
             <strong>${desafio[item.clave]}</strong>
         </button>
     `).join("");
 
     const accionApagar = desafio.resuelto
-        ? `<button type="button" class="maquina-boton-accion" onclick="apagarMaquina('E')">Apagar E</button>`
+        ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('E')">Apagar E</button>`
         : "";
+
+    const colorComponente = valor => valor === "OK"
+        ? "#7fe0a8"
+        : valor === "BLOQUEADO" || valor === "SIN MOVIMIENTO" ? "#e0766b" : "#e3bb68";
 
     return `
         ${estiloMaquinas()}
-        ${renderizarCabeceraMaquina("E")}
         <div class="maquina-shell">
-            <div class="maquina-panel-section">
-                <span class="maquina-label">OBJETIVO</span>
-                <p class="maquina-objetivo">Localizá la falla de la transmisión y conseguí que el movimiento llegue correctamente a la salida.</p>
+            ${renderizarCabeceraMaquina("E")}
+            ${renderizarFichaMaquina(
+                "Localizá la falla de la transmisión y conseguí que el movimiento llegue correctamente a la salida.",
+                [
+                    "El motor transmite movimiento a través de varios componentes hasta llegar a la salida.",
+                    "Uno de los componentes presenta una falla.",
+                    "Utilizá los indicadores para seguir el recorrido del movimiento y determinar dónde está el problema."
+                ]
+            )}
+            <div class="maquina-cuerpo horizontal">
+                <section class="maquina-tablero">
+                    <span class="maquina-label">ESTADO DEL SISTEMA</span>
+                    <div class="maquina-transmision">
+                        ${componentes.map((item, index) => `
+                            <div class="maquina-transmision-node" style="border-color: ${colorComponente(desafio[item.clave])};">
+                                <div>${item.label}</div>
+                                <div style="margin-top: 6px; font-size: 11px; color: ${colorComponente(desafio[item.clave])};">${desafio[item.clave]}</div>
+                            </div>
+                            ${index < componentes.length - 1 ? '<div class="maquina-transmision-arrow">→</div>' : ''}
+                        `).join("")}
+                    </div>
+                </section>
+                <aside class="maquina-zona-controles">
+                    <span class="maquina-label">CONTROLES</span>
+                    <div class="maquina-controles">${lista}${accionApagar}</div>
+                </aside>
             </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">¿CÓMO FUNCIONA?</span>
-                <div class="maquina-como-funciona">
-                    <p>El motor transmite movimiento a través de varios componentes hasta llegar a la salida.</p>
-                    <p>Uno de los componentes presenta una falla.</p>
-                    <p>Utilizá los indicadores para seguir el recorrido del movimiento y determinar dónde está el problema.</p>
-                </div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">ESTADO DEL SISTEMA</span>
-                <div class="maquina-transmision">
-                    ${componentes.map((item, index) => `
-                        <div class="maquina-transmision-node">
-                            <div>${item.label}</div>
-                            <div style="margin-top: 6px; font-size: 11px; color: ${desafio[item.clave] === "OK" ? "#8be8bc" : desafio[item.clave] === "BLOQUEADO" || desafio[item.clave] === "SIN MOVIMIENTO" ? "#ffbf99" : "#ffd87d"};">${desafio[item.clave]}</div>
-                        </div>
-                        ${index < componentes.length - 1 ? '<div class="maquina-transmision-arrow">→</div>' : ''}
-                    `).join("")}
-                </div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">CONTROLES</span>
-                <div class="maquina-controles">${lista}${accionApagar}</div>
-                <p style="margin: 12px 0 0; color: #ddeaff; font-weight: 700;">${desafio.diagnostico}</p>
-            </div>
+            ${renderizarEstadoMaquina(desafio.resuelto ? "estable" : "proceso", desafio.diagnostico)}
         </div>
     `;
 }
@@ -1193,15 +1372,7 @@ function renderizarDesafioB() {
     const estado = obtenerEstadoMaquina("B");
 
     if (estado.apagada) {
-        return `
-            ${estiloMaquinas()}
-            <div class="maquina-shell">
-                <div class="maquina-panel-section">
-                    <h3>Máquina B apagada</h3>
-                    <p>La línea eléctrica está aislada.</p>
-                </div>
-            </div>
-        `;
+        return renderizarMaquinaApagada("B", "La línea eléctrica está aislada.");
     }
 
     const lineas = [
@@ -1224,40 +1395,35 @@ function renderizarDesafioB() {
     `).join("") || `<div class="maquina-item-valor">Todavía no hay mediciones registradas.</div>`;
 
     const accionApagar = desafio.resuelto
-        ? `<button type="button" class="maquina-boton-accion" onclick="apagarMaquina('B')">Apagar B</button>`
+        ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('B')">Apagar B</button>`
         : "";
 
     const estadoFalla = desafio.resuelto ? "LISTA PARA APAGAR" : "DETECTADA";
+    const estadoMensaje = desafio.resuelto || desafio.aislada ? "estable" : "proceso";
 
     return `
         ${estiloMaquinas()}
-        ${renderizarCabeceraMaquina("B")}
         <div class="maquina-shell">
-            <div class="maquina-panel-section">
-                <span class="maquina-label">DIAGNÓSTICO DEL CIRCUITO</span>
-                <div class="maquina-como-funciona">
-                    <p>Fallas aisladas: ${desafio.fallasAisladas} / ${desafio.totalFallas}</p>
-                    <p>Falla actual: ${estadoFalla}</p>
-                </div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">OBJETIVO</span>
-                <p class="maquina-objetivo">Localizá y aislá cada interrupción del circuito para estabilizar la alimentación.</p>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">¿CÓMO FUNCIONA?</span>
-                <div class="maquina-como-funciona">
-                    <p>La energía debe circular por cada tramo del circuito sin interrupciones.</p>
-                    <p>Utilizá el voltímetro para comprobar cada punto y localizar la zona donde la energía se corta.</p>
-                    <p>Cuando identifiques la falla actual, aislá esa sección y espera a que el sistema redistribuya la energía.</p>
-                </div>
-            </div>
-            <div class="maquina-layout-doble">
-                <div class="maquina-panel-section">
+            ${renderizarCabeceraMaquina("B")}
+            ${renderizarFichaMaquina(
+                "Localizá y aislá cada interrupción del circuito para estabilizar la alimentación.",
+                [
+                    "La energía debe circular por cada tramo del circuito sin interrupciones.",
+                    "Utilizá el voltímetro para comprobar cada punto y localizar la zona donde la energía se corta.",
+                    "Cuando identifiques la falla actual, aislá esa sección y espera a que el sistema redistribuya la energía."
+                ]
+            )}
+            <div class="maquina-cuerpo">
+                <section class="maquina-tablero">
+                    <span class="maquina-label">DIAGNÓSTICO DEL CIRCUITO</span>
+                    <div class="maquina-contador">
+                        <span>Fallas aisladas: <strong>${desafio.fallasAisladas} / ${desafio.totalFallas}</strong></span>
+                        <span>Falla actual: <strong>${estadoFalla}</strong></span>
+                    </div>
                     <span class="maquina-label">ESTADO DEL CIRCUITO</span>
                     <div class="maquina-circuito">${circuito}</div>
-                </div>
-                <div class="maquina-panel-section">
+                </section>
+                <aside class="maquina-zona-controles">
                     <span class="maquina-label">MEDICIÓN ACTUAL</span>
                     <div class="maquina-medicion-box">
                         <div class="maquina-medicion">
@@ -1269,63 +1435,88 @@ function renderizarDesafioB() {
                             <strong>${desafio.seleccion ? `${desafio.puntos[desafio.seleccion]} V` : "--"}</strong>
                         </div>
                     </div>
-                    <div style="margin-top: 12px;">
-                        <span class="maquina-label" style="margin-bottom: 8px;">MEDICIONES</span>
-                        <div class="maquina-mediciones-lista">${mediciones}</div>
+                    <span class="maquina-label">MEDICIONES</span>
+                    <div class="maquina-mediciones-lista">${mediciones}</div>
+                    <span class="maquina-label">CONTROLES</span>
+                    <div class="maquina-controles">
+                        <button type="button" class="maquina-boton-accion" ${desafio.resuelto ? "disabled" : ""} onclick="aislarFallaB()">Aislar falla</button>
+                        ${accionApagar}
                     </div>
-                </div>
+                </aside>
             </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">CONTROLES</span>
-                <div class="maquina-controles">
-                    <button type="button" class="maquina-boton-accion" ${desafio.resuelto ? "disabled" : ""} onclick="aislarFallaB()">Aislar falla</button>
-                    ${accionApagar}
-                </div>
-                <p style="margin: 12px 0 0; color: #ddeaff; font-weight: 700;">${desafio.mensaje}</p>
-                <p style="margin: 4px 0 0; color: #b9d4ff;">${desafio.submensaje}</p>
-            </div>
+            ${renderizarEstadoMaquina(estadoMensaje, desafio.mensaje, desafio.submensaje)}
         </div>
     `;
 }
 
-function obtenerDesafioD() {
-    const estado = obtenerEstadoMaquina("D");
-    estado.desafio ??= {
+// Versión 3: controles reversibles con efectos secundarios ocultos. Las partidas con una versión
+// anterior sin resolver se reinician.
+const VERSION_DESAFIO_D = 3;
+
+// Cada control mueve 10 su variable principal y 5 otras dos. "+" aplica el efecto y "−" lo revierte,
+// así que cualquier estado puede volver a la zona segura (verificado: los 194.481 estados de la grilla
+// de 5 en 5 tienen solución; desde el inicio hacen falta al menos 10 clics usando los 4 controles).
+// Al jugador solo se le muestra el efecto principal; los secundarios los descubre observando.
+const CONTROLES_D = {
+    ventilacion: {
+        nombre: "Ventilación",
+        detalle: "+ enfría el sistema.",
+        efecto: { temperatura: -10, presion: 5, flujo: -5 }
+    },
+    bomba: {
+        nombre: "Bomba",
+        detalle: "+ aumenta el flujo.",
+        efecto: { flujo: 10, temperatura: 5, presion: -5 }
+    },
+    carga: {
+        nombre: "Carga",
+        detalle: "+ aumenta la carga.",
+        efecto: { carga: 10, flujo: -5, temperatura: 5 }
+    },
+    alivio: {
+        nombre: "Válvula de alivio",
+        detalle: "+ libera presión.",
+        efecto: { presion: -10, carga: 5, flujo: 5 }
+    }
+};
+
+function crearDesafioD() {
+    return {
+        version: VERSION_DESAFIO_D,
         temperatura: 80,
-        presion: 28,
-        flujo: 76,
-        carga: 26,
-        zonaSegura: { temperatura: [40, 60], presion: [40, 60], flujo: [40, 60], carga: [40, 60] },
+        presion: 25,
+        flujo: 20,
+        carga: 80,
+        zonaSegura: { temperatura: [40, 55], presion: [45, 60], flujo: [40, 55], carga: [45, 60] },
         mensaje: "Ajustá las variables para volver al margen seguro.",
         resuelto: false
     };
+}
+
+function obtenerDesafioD() {
+    const estado = obtenerEstadoMaquina("D");
+
+    if (estado.desafio && estado.desafio.version !== VERSION_DESAFIO_D && !estado.desafio.resuelto) {
+        estado.desafio = null;
+    }
+
+    estado.desafio ??= crearDesafioD();
 
     return estado.desafio;
 }
 
-function aplicarAccionD(accion) {
+function aplicarAccionD(accion, sentido = 1) {
     const desafio = obtenerDesafioD();
-    const cargaAlta = desafio.carga >= 60;
+    const control = CONTROLES_D[accion];
 
-    const acciones = {
-        ventilacion: { temperatura: -12, presion: 10, flujo: -8, carga: 0 },
-        bomba: { temperatura: 8, presion: -8, flujo: 14, carga: 0 },
-        carga: {
-            temperatura: 0,
-            presion: cargaAlta ? -10 : 8,
-            flujo: cargaAlta ? 8 : -8,
-            carga: cargaAlta ? -18 : 18
-        }
-    };
-
-    const efecto = acciones[accion];
-    if (!efecto) {
+    if (!control) {
         return;
     }
 
-    Object.entries(efecto).forEach(([clave, delta]) => {
-        const materia = clave === "temperatura" ? "temperatura" : clave === "presion" ? "presion" : clave === "flujo" ? "flujo" : "carga";
-        desafio[materia] = Math.max(0, Math.min(100, Number(desafio[materia]) + Number(delta)));
+    const signo = sentido < 0 ? -1 : 1;
+
+    Object.entries(control.efecto).forEach(([variable, delta]) => {
+        desafio[variable] = Math.max(0, Math.min(100, Number(desafio[variable]) + signo * delta));
     });
 
     const fueraDeZona = Object.keys(desafio.zonaSegura).some(variable => {
@@ -1351,15 +1542,7 @@ function renderizarDesafioD() {
     const estado = obtenerEstadoMaquina("D");
 
     if (estado.apagada) {
-        return `
-            ${estiloMaquinas()}
-            <div class="maquina-shell">
-                <div class="maquina-panel-section">
-                    <h3>Máquina D apagada</h3>
-                    <p>El sistema de seguridad está inactivo.</p>
-                </div>
-            </div>
-        `;
+        return renderizarMaquinaApagada("D", "El sistema de seguridad está inactivo.");
     }
 
     const variables = Object.entries({
@@ -1378,45 +1561,55 @@ function renderizarDesafioD() {
                 </div>
                 <div class="maquina-safebox">Zona segura: ${min}–${max}</div>
                 <strong>${valor}</strong>
+                <div class="maquina-meter">
+                    <div class="maquina-meter-fill" style="width:${Math.max(0, Math.min(100, valor))}%; background:${seguro ? "#7fe0a8" : "#e0766b"};"></div>
+                </div>
             </div>
         `;
     }).join("");
 
     const accionApagar = desafio.resuelto
-        ? `<button type="button" class="maquina-boton-accion" onclick="apagarMaquina('D')">Apagar D</button>`
+        ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('D')">Apagar D</button>`
         : "";
+
+    const controles = Object.entries(CONTROLES_D).map(([clave, control]) => `
+        <div class="maquina-control-doble">
+            <span class="maquina-control-nombre">${control.nombre}</span>
+            <span class="maquina-control-detalle">${control.detalle}</span>
+            <div class="maquina-control-botones">
+                <button type="button" class="maquina-boton-accion" aria-label="${control.nombre} menos" onclick="aplicarAccionD('${clave}', -1)">−</button>
+                <button type="button" class="maquina-boton-accion" aria-label="${control.nombre} más" onclick="aplicarAccionD('${clave}', 1)">+</button>
+            </div>
+        </div>
+    `).join("");
 
     return `
         ${estiloMaquinas()}
-        ${renderizarCabeceraMaquina("D")}
         <div class="maquina-shell">
-            <div class="maquina-panel-section">
-                <span class="maquina-label">OBJETIVO</span>
-                <p class="maquina-objetivo">Estabilizá todas las variables dentro de sus límites seguros.</p>
+            ${renderizarCabeceraMaquina("D")}
+            ${renderizarFichaMaquina(
+                "Estabilizá todas las variables dentro de sus límites seguros.",
+                [
+                    "El sistema controla cuatro parámetros y cada uno tiene su propia zona segura.",
+                    "Cada control cambia mucho una variable, pero también altera un poco otras dos.",
+                    "El botón + aplica el efecto y el botón − hace lo contrario, así que cualquier ajuste se puede deshacer.",
+                    "Observá qué más cambia con cada control antes de corregir."
+                ]
+            )}
+            <div class="maquina-cuerpo horizontal">
+                <section class="maquina-tablero">
+                    <span class="maquina-label">ESTADO DEL SISTEMA</span>
+                    <div class="maquina-grid-estado">${variables}</div>
+                </section>
+                <aside class="maquina-zona-controles">
+                    <span class="maquina-label">CONTROLES</span>
+                    <div class="maquina-controles">
+                        ${controles}
+                        ${accionApagar}
+                    </div>
+                </aside>
             </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">¿CÓMO FUNCIONA?</span>
-                <div class="maquina-como-funciona">
-                    <p>El sistema controla cuatro parámetros.</p>
-                    <p>Cada control puede modificar más de una variable.</p>
-                    <p>La carga se ajusta según el valor actual: si está alta, la acción la baja; si está baja, la sube.</p>
-                    <p>Observá cómo responde el sistema después de cada modificación y mantené todos los valores dentro de sus zonas seguras.</p>
-                </div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">ESTADO DEL SISTEMA</span>
-                <div class="maquina-grid-estado">${variables}</div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">CONTROLES</span>
-                <div class="maquina-controles">
-                    <button type="button" class="maquina-boton-accion" onclick="aplicarAccionD('ventilacion')">Ventilar</button>
-                    <button type="button" class="maquina-boton-accion" onclick="aplicarAccionD('bomba')">Recalibrar bomba</button>
-                    <button type="button" class="maquina-boton-accion" onclick="aplicarAccionD('carga')">Ajustar carga</button>
-                    ${accionApagar}
-                </div>
-                <p style="margin: 12px 0 0; color: #ddeaff; font-weight: 700;">${desafio.mensaje}</p>
-            </div>
+            ${renderizarEstadoMaquina(desafio.resuelto ? "estable" : "alerta", desafio.mensaje)}
         </div>
     `;
 }
@@ -1440,7 +1633,7 @@ function renderizarDesafioA() {
         const estadoMaquina = obtenerEstadoMaquina(id);
         const activo = estadoMaquina && estadoMaquina.apagada ? "APAGADA" : "ENCENDIDA";
         return `
-            <div class="maquina-status-item" style="display:flex;justify-content:space-between;gap:10px;padding:8px 10px;border:1px solid rgba(146,203,255,0.2);border-radius:8px;">
+            <div class="maquina-status-item ${activo === "APAGADA" ? "apagada" : ""}">
                 <span>Máquina ${id}</span>
                 <strong>${activo}</strong>
             </div>
@@ -1451,37 +1644,32 @@ function renderizarDesafioA() {
 
     return `
         ${estiloMaquinas()}
-        ${renderizarCabeceraMaquina("A")}
         <div class="maquina-shell">
-            <div class="maquina-panel-section">
-                <span class="maquina-label">OBJETIVO</span>
-                <p class="maquina-objetivo">Prepará el sistema para realizar el corte final.</p>
+            ${renderizarCabeceraMaquina("A")}
+            ${renderizarFichaMaquina(
+                "Prepará el sistema para realizar el corte final.",
+                [
+                    "Esta máquina controla la alimentación principal de la fábrica.",
+                    "No puede apagarse mientras alguna máquina dependiente continúe funcionando."
+                ]
+            )}
+            <div class="maquina-cuerpo horizontal">
+                <section class="maquina-tablero">
+                    <span class="maquina-label">ESTADO DEL SISTEMA</span>
+                    <div class="maquina-diagrama"><div><strong>A</strong></div><div>├── <strong>B</strong></div><div>│   └── <strong>C</strong></div><div>└── <strong>D</strong></div><div>    └── <strong>E</strong></div></div>
+                    <div class="maquina-status-lista">${lista}</div>
+                </section>
+                <aside class="maquina-zona-controles">
+                    <span class="maquina-label">CONTROLES</span>
+                    <div class="maquina-controles">
+                        <button type="button" class="maquina-boton-accion principal" ${centralDisponible ? "" : "disabled"} onclick="apagarMaquina('A')">Cortar alimentación</button>
+                    </div>
+                </aside>
             </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">¿CÓMO FUNCIONA?</span>
-                <div class="maquina-como-funciona">
-                    <p>Esta máquina controla la alimentación principal de la fábrica.</p>
-                    <p>No puede apagarse mientras alguna máquina dependiente continúe funcionando.</p>
-                </div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">ESTADO DEL SISTEMA</span>
-                <div class="maquina-diagrama">
-                    <div><strong>A</strong></div>
-                    <div class="nivel">├── <strong>B</strong></div>
-                    <div class="nivel">│   └── <strong>C</strong></div>
-                    <div class="nivel">└── <strong>D</strong></div>
-                    <div class="nivel">    └── <strong>E</strong></div>
-                </div>
-                <div style="margin-top: 12px; display: grid; gap: 8px;">${lista}</div>
-            </div>
-            <div class="maquina-panel-section">
-                <span class="maquina-label">CONTROLES</span>
-                <div class="maquina-controles">
-                    <button type="button" class="maquina-boton-accion" ${centralDisponible ? "" : "disabled"} onclick="apagarMaquina('A')">Cortar alimentación</button>
-                </div>
-                <p style="margin: 12px 0 0; color: #ddeaff; font-weight: 700;">${centralDisponible ? "SISTEMA PREPARADO" : "Se requieren B, C, D y E apagadas para habilitar el corte final."}</p>
-            </div>
+            ${renderizarEstadoMaquina(
+                centralDisponible ? "estable" : "proceso",
+                centralDisponible ? "SISTEMA PREPARADO" : "Se requieren B, C, D y E apagadas para habilitar el corte final."
+            )}
         </div>
     `;
 }
@@ -1495,6 +1683,18 @@ function renderizarPanelMaquina() {
     const estado = obtenerEstadoMaquina(maquinaActualId);
     if (!estado) {
         return;
+    }
+
+    const info = obtenerInfoMaquina(maquinaActualId);
+    const titulo = document.getElementById("tituloMaquina");
+    const subtitulo = document.getElementById("subtituloMaquina");
+
+    if (titulo) {
+        titulo.textContent = info.titulo;
+    }
+
+    if (subtitulo) {
+        subtitulo.textContent = info.descripcion;
     }
 
     let inner = "";

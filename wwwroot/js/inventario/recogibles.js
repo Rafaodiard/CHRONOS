@@ -108,7 +108,7 @@ function recogerObjeto(objeto) {
         return;
     }
 
-    if (idObjeto === "fragmento_temporal3") {
+    if (idObjeto === "fragmento_temporal3" && !puedeRecogerFragmentoTemporal3()) {
         return;
     }
 
@@ -147,8 +147,11 @@ function comprobarObjetos() {
     const esFragmento =
         objetoCercano && obtenerIdObjeto(objetoCercano) === "fragmento_temporal3";
 
+    const fragmentoRecogible =
+        esFragmento && puedeRecogerFragmentoTemporal3();
+
     mostrarIndicadorObjeto =
-        objetoCercano !== null && (!esFragmento || puedeInteractuarConFragmento());
+        objetoCercano !== null && (!esFragmento || fragmentoRecogible || puedeInteractuarConFragmento());
 
     if (
         objetoCercano &&
@@ -157,7 +160,7 @@ function comprobarObjetos() {
 
         teclas["e"] = false;
 
-        if (esFragmento) {
+        if (esFragmento && !fragmentoRecogible) {
             if (!puedeInteractuarConFragmento()) {
                 return;
             }

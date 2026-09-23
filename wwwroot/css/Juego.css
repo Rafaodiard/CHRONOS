@@ -321,8 +321,8 @@
     color: #f5f0e4;
 }
 
-#menuMaquinas .panel-palancas {
-    width: min(94vw, 980px);
+#menuMaquinas .panel-descarga {
+    width: min(96vw, 1200px);
 }
 
 #contenidoMaquina {
