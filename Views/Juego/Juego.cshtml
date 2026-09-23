@@ -7,12 +7,21 @@
         StringComparison.OrdinalIgnoreCase
     );
 }
-<link rel="stylesheet" href="~/css/juego.css" />
-<link rel="stylesheet" href="~/css/Inventario.css" />
-<link rel="stylesheet" href="~/css/Descarga.css" />
+<link rel="stylesheet" href="~/css/juego.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Inventario.css" asp-append-version="true" />
+<link rel="stylesheet" href="~/css/Descarga.css" asp-append-version="true" />
 
 
 <canvas id="juego" style="background-color: green; image-rendering: pixelated;"></canvas>
+<aside id="controlesJuego" class="controles-juego" aria-label="Controles">
+    <span class="etiqueta-controles">CONTROLES</span>
+    <ul>
+        <li><span class="tecla-control">W</span><span class="tecla-control">A</span><span class="tecla-control">S</span><span class="tecla-control">D</span> Moverse</li>
+        <li><span class="tecla-control">E</span> Interactuar</li>
+        <li><span class="tecla-control">TAB</span> Inventario</li>
+        <li><span class="tecla-control">ESC</span> Pausa</li>
+    </ul>
+</aside>
 <div id="introduccionAnio" class="introduccion-anio @(esIntroduccion ? "visible" : "")" aria-hidden="true">Año 2147</div>
 <div id="transicionEpoca" class="transicion-epoca" aria-hidden="true">
     <p id="transicionEpocaAnio" class="transicion-epoca-anio"></p>

@@ -60,6 +60,61 @@
     letter-spacing: 0.04em;
 }
 
+.controles-juego {
+    position: fixed;
+    top: 16px;
+    left: 16px;
+    /* Debajo del diálogo y de todas las UIs */
+    z-index: 4;
+    padding: 10px 14px 12px;
+    background: rgba(10, 17, 29, 0.82);
+    border: 1px solid rgba(229, 190, 103, 0.55);
+    border-radius: 6px;
+    color: #f5f0e4;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    pointer-events: none;
+    user-select: none;
+}
+
+.etiqueta-controles {
+    display: block;
+    margin-bottom: 8px;
+    color: #e3bb68;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+}
+
+.controles-juego ul {
+    display: grid;
+    gap: 6px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+.controles-juego li {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.tecla-control {
+    display: inline-block;
+    min-width: 20px;
+    padding: 2px 5px;
+    margin-right: 2px;
+    background: rgba(217, 181, 92, 0.12);
+    border: 1px solid rgba(214, 222, 231, 0.35);
+    border-bottom-width: 2px;
+    border-radius: 3px;
+    color: #fff2c8;
+    font-size: 11px;
+    font-weight: 700;
+    text-align: center;
+}
+
 .menu-pausa {
     position: fixed;
     inset: 0;
