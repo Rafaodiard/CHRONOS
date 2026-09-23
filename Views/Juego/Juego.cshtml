@@ -12,7 +12,7 @@
 <link rel="stylesheet" href="~/css/Descarga.css" />
 
 
-<canvas id="juego" style="background-color: green;"></canvas>
+<canvas id="juego" style="background-color: green; image-rendering: pixelated;"></canvas>
 <div id="introduccionAnio" class="introduccion-anio @(esIntroduccion ? "visible" : "")" aria-hidden="true">Año 2147</div>
 <div id="transicionEpoca" class="transicion-epoca" aria-hidden="true">
     <p id="transicionEpocaAnio" class="transicion-epoca-anio"></p>
@@ -172,29 +172,29 @@
 <partial name="_FinalJuego" />
 
 @section Scripts {
-    <script src="~/js/inventario/objetos.js"></script>
-    <script src="~/js/inventario/recogibles.js"></script>
-    <script src="~/js/dialogos.js"></script>
-    <script src="~/js/palancas.js"></script>
-    <script src="~/js/inventario/libros.js"></script>
+    <script src="~/js/inventario/objetos.js" asp-append-version="true"></script>
+    <script src="~/js/inventario/recogibles.js" asp-append-version="true"></script>
+    <script src="~/js/dialogos.js" asp-append-version="true"></script>
+    <script src="~/js/palancas.js" asp-append-version="true"></script>
+    <script src="~/js/inventario/libros.js" asp-append-version="true"></script>
 
-    <script src="~/js/inventario/inventario.js"></script>
-    <script src="~/js/inventario/inventarioUI.js"></script>
-    <script src="~/js/interactuables.js"></script>
-    <script src="~/js/progreso.js"></script>
-    <script src="~/js/engranajes.js"></script>
-    <script src="~/js/maquinas.js"></script>
-    <script src="~/js/descarga.js"></script>
-    <script src="~/js/descargaUI.js"></script>
-    <script src="~/js/acertijos.js"></script>
-    <script src="~/js/colisiones.js"></script>
-    <script src="~/js/jugador.js"></script>
-    <script src="~/js/mapa.js"></script>
-    <script src="~/js/npc.js"></script>
-    <script src="~/js/camara.js"></script>
-    <script src="~/js/interacciones.js"></script>
-    <script src="~/js/indicadores.js"></script>
-    <script src="~/js/juego.js"></script>
+    <script src="~/js/inventario/inventario.js" asp-append-version="true"></script>
+    <script src="~/js/inventario/inventarioUI.js" asp-append-version="true"></script>
+    <script src="~/js/interactuables.js" asp-append-version="true"></script>
+    <script src="~/js/progreso.js" asp-append-version="true"></script>
+    <script src="~/js/engranajes.js" asp-append-version="true"></script>
+    <script src="~/js/maquinas.js" asp-append-version="true"></script>
+    <script src="~/js/descarga.js" asp-append-version="true"></script>
+    <script src="~/js/descargaUI.js" asp-append-version="true"></script>
+    <script src="~/js/acertijos.js" asp-append-version="true"></script>
+    <script src="~/js/colisiones.js" asp-append-version="true"></script>
+    <script src="~/js/jugador.js" asp-append-version="true"></script>
+    <script src="~/js/mapa.js" asp-append-version="true"></script>
+    <script src="~/js/npc.js" asp-append-version="true"></script>
+    <script src="~/js/camara.js" asp-append-version="true"></script>
+    <script src="~/js/interacciones.js" asp-append-version="true"></script>
+    <script src="~/js/indicadores.js" asp-append-version="true"></script>
+    <script src="~/js/juego.js" asp-append-version="true"></script>
     <script>
         document.getElementById("cerrarPalancas").addEventListener("click", cerrarMenuPalancas);
         document.getElementById("cerrarEngranajes").addEventListener("click", cerrarMenuEngranajes);

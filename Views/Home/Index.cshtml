@@ -16,7 +16,11 @@
             <nav class="actions">
                 <a id="btnNuevoJuego" class="primary" href="@Url.Action("NewGame","Home")" data-tiene-partida="@(tienePartidaGuardada ? "true" : "false")">Nuevo Juego</a>
 
-                @if (usuarioLogueado)
+                @if (usuarioLogueado && !tienePartidaGuardada)
+                {
+                    <a class="secondary" href="@Url.Action("NewGame", "Home")">CONTINUAR</a>
+                }
+                else if (usuarioLogueado)
                 {
                     <a class="secondary" href="@Url.Action("Index", "Juego")">CONTINUAR</a>
                 }

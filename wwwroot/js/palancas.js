@@ -169,9 +169,3 @@ function dibujarPalancas() {
     });
 }
 
-document.addEventListener("keydown", function (evento) {
-    if (palancasAbierto && evento.key === "Escape") {
-        evento.preventDefault();
-        cerrarMenuPalancas();
-    }
-});

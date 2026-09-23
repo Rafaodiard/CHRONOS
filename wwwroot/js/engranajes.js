@@ -351,9 +351,3 @@ function comprobarReguladorMaquina() {
     }
 }
 
-document.addEventListener("keydown", function (evento) {
-    if (engranajesAbierto && evento.key === "Escape") {
-        evento.preventDefault();
-        cerrarMenuEngranajes();
-    }
-});

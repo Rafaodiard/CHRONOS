@@ -201,11 +201,6 @@ document.addEventListener("keydown", function (evento) {
         return;
     }
 
-    if (evento.key === "Escape") {
-        evento.preventDefault();
-        cerrarAcertijo();
-    }
-
     if (evento.key === "Enter") {
         evento.preventDefault();
         comprobarAcertijo();

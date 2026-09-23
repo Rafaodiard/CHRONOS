@@ -33,24 +33,46 @@ if (modoIntroduccion) {
 }
 
 
+// Cierra la UI que esté abierta. Devuelve true si cerró alguna.
+function cerrarUIAbierta() {
+    if (inventarioAbierto) { cerrarInventario(); return true; }
+    if (acertijoAbierto) { cerrarAcertijo(); return true; }
+    if (bibliotecaAbierta) { cerrarBiblioteca(); return true; }
+    if (palancasAbierto) { cerrarMenuPalancas(); return true; }
+    if (engranajesAbierto) { cerrarMenuEngranajes(); return true; }
+    if (panelDescargaAbierto) { cerrarPanelDescarga(); return true; }
+    if (maquinaPanelAbierto) { cerrarPanelMaquina(); return true; }
+    return false;
+}
+
+// Escape se maneja acá en fase de captura, antes que cualquier otro listener,
+// para que cerrar una UI no termine abriendo también el menú de pausa.
 document.addEventListener("keydown", function (e) {
-    const tecla = e.key.toLowerCase();
-
-    if (e.key === "Escape") {
-        e.preventDefault();
-
-        if (menuPausaAbierto) {
-            cerrarMenuPausa();
-            return;
-        }
-
-        if (dialogoAbierto || bibliotecaAbierta || palancasAbierto || acertijoAbierto) {
-            return;
-        }
-
-        abrirMenuPausa();
+    if (e.key !== "Escape") {
         return;
     }
+
+    e.preventDefault();
+    e.stopImmediatePropagation();
+
+    if (menuPausaAbierto) {
+        cerrarMenuPausa();
+        return;
+    }
+
+    if (dialogoAbierto) {
+        return;
+    }
+
+    if (cerrarUIAbierta()) {
+        return;
+    }
+
+    abrirMenuPausa();
+}, true);
+
+document.addEventListener("keydown", function (e) {
+    const tecla = e.key.toLowerCase();
 
     if ((dialogoAbierto || bibliotecaAbierta || palancasAbierto) && tecla === "e") {
         return;

@@ -51,7 +51,7 @@ function cargarNPCs() {
                 alto: 64,
                 tamañoVisual: 160,
                 nombre: "Trabajador",
-                imagen: "/sprites/npcs/stranger.png",
+                imagen: "/sprites/npcs/Trabajador.png",
                 dialogoInicial: "TrabajadorFabrica",
                 dialogos: [
                     {
@@ -107,7 +107,7 @@ function cargarNPCs() {
                 alto: 64,
                 tamañoVisual: 160,
                 nombre: "Ingeniero",
-                imagen: "/sprites/npcs/stranger.png",
+                imagen: "/sprites/npcs/Ingeniero.png",
                 dialogoInicial: "IngenieroSalaMaquinas",
                 dialogos: [
                     {
@@ -548,13 +548,14 @@ function dibujarNPCs() {
             return;
         }
 
+        // Posición entera y sin suavizado para que el pixel art se vea nítido
         const pantallaX =
-            npc.x * escala -
-            camara.x;
+            Math.round(npc.x * escala - camara.x);
 
         const pantallaY =
-            npc.y * escala -
-            camara.y;
+            Math.round(npc.y * escala - camara.y);
+
+        ctx.imageSmoothingEnabled = false;
 
         ctx.drawImage(
 

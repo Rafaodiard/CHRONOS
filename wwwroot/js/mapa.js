@@ -568,6 +568,10 @@ function dibujarMapa() {
     }
 
 
+    // Sin suavizado para que no se mezclen los bordes de los tiles
+    ctx.imageSmoothingEnabled = false;
+
+
     mapa.layers.forEach(
         function (capa) {
 

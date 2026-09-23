@@ -1721,15 +1721,6 @@ function renderizarPanelMaquina() {
     contenido.innerHTML = inner;
 }
 
-function cerrarMenuMaquinasConEscape(evento) {
-    if (maquinaPanelAbierto && evento.key === "Escape") {
-        evento.preventDefault();
-        cerrarPanelMaquina();
-    }
-}
-
-document.addEventListener("keydown", cerrarMenuMaquinasConEscape);
-
 window.cambiarPresionMaquinaC = cambianPresionesC;
 window.diagnosticarComponenteE = diagnosticarComponenteE;
 window.medirPuntoB = medirPuntoB;

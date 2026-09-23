@@ -123,4 +123,12 @@ function actualizarCamara() {
 
     }
 
+
+    // Posiciones enteras para que los tiles no dejen líneas entre ellos
+    camara.x =
+        Math.round(camara.x);
+
+    camara.y =
+        Math.round(camara.y);
+
 }

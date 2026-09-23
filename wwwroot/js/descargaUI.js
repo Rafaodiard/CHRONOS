@@ -472,20 +472,5 @@ function soltarArrastreDescarga(evento) {
 }
 
 
-// =========================================================
-// TECLADO
-// =========================================================
-
-document.addEventListener("keydown", function (evento) {
-    if (!panelDescargaAbierto || evento.key !== "Escape") {
-        return;
-    }
-
-    // Evita que juego.js abra el menú de pausa con la misma tecla.
-    evento.preventDefault();
-    evento.stopImmediatePropagation();
-    cerrarPanelDescarga();
-});
-
 window.abrirPanelDescarga = abrirPanelDescarga;
 window.cerrarPanelDescarga = cerrarPanelDescarga;
