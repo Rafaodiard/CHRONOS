@@ -654,7 +654,8 @@ function abrirDialogo(nombre, npc = null) {
 
     npcDialogoActual = npc;
 
-    if (nombre === "IngenieroPostDescarga") {
+    // Normalmente ya viene activa desde el fundido del fragmento; no se reinicia para no cortarla.
+    if (nombre === "IngenieroPostDescarga" && !animacionDespertarActiva) {
         animacionDespertarActiva = true;
         frameAnimacion = 0;
         tiempoAnimacion = 0;

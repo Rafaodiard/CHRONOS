@@ -12,7 +12,7 @@ const jugador = {
     y: 944,
     ancho: 84,
     alto: 84,
-    velocidad: 2,
+    velocidad: 4,
     direccion: "abajo",
     moviendose: false
 };
@@ -223,13 +223,20 @@ function dibujarJugador() {
     const usaAnimacionDespertar = animacionDespertarActiva || (modoIntroduccion && !introAnimacionNormal);
     const fila = usaAnimacionDespertar ? 4 : filas[jugador.direccion];
 
+    // Mientras lo electrocuta el fragmento, el sprite tiembla.
+    const electrocutado = typeof electrocucionActiva === "function" && electrocucionActiva();
+    const temblorX = electrocutado ? (Math.random() * 2 - 1) * 3 : 0;
+    const temblorY = electrocutado ? (Math.random() * 2 - 1) * 2 : 0;
+
     const pantallaX =
         jugador.x * escala -
-        camara.x;
+        camara.x +
+        temblorX;
 
     const pantallaY =
         jugador.y * escala -
-        camara.y;
+        camara.y +
+        temblorY;
 
     const debeAnimarCaminata = jugador.moviendose || usaAnimacionDespertar;
 

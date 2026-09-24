@@ -857,11 +857,44 @@ function iniciarSecuenciaFragmento() {
 
     activarDescargaVisual();
 
+    // Primero la descarga eléctrica sobre el jugador y, cuando termina, se desmaya (fundido a negro).
+    const DURACION_ELECTROCUCION_S = 1.4;
+
+    if (typeof iniciarElectrocucion === "function") {
+        iniciarElectrocucion(DURACION_ELECTROCUCION_S);
+    }
+
+    if (typeof reproducirElectrocucion === "function") {
+        reproducirElectrocucion(DURACION_ELECTROCUCION_S);
+    }
+
+    setTimeout(fundidoDesmayoFragmento, DURACION_ELECTROCUCION_S * 1000 - 250);
+
+    if (typeof marcarEstadoModificado === "function") {
+        marcarEstadoModificado();
+    }
+}
+
+function fundidoDesmayoFragmento() {
     const negro = setInterval(() => {
         fragmentoFadeOpacity = Math.min(1, fragmentoFadeOpacity + 0.09);
 
         if (fragmentoFadeOpacity >= 1) {
             clearInterval(negro);
+
+            // Con la pantalla todavía en negro: el jugador ya está tirado en el piso y el
+            // ingeniero a su lado, así al aclararse no se ve ni un frame del jugador parado.
+            animacionDespertarActiva = true;
+            frameAnimacion = 0;
+            tiempoAnimacion = 0;
+
+            if (Array.isArray(npcs)) {
+                const ingeniero = npcs.find(npc => npc.nombre === "Ingeniero");
+                if (ingeniero) {
+                    ingeniero.x = jugador.x + 40;
+                    ingeniero.y = jugador.y + 30;
+                }
+            }
 
             setTimeout(() => {
                 const salida = setInterval(() => {
@@ -873,14 +906,6 @@ function iniciarSecuenciaFragmento() {
                         fragmentoSecuenciaActiva = false;
                         bloqueoFragmentoActivo = false;
 
-                        if (Array.isArray(npcs)) {
-                            const ingeniero = npcs.find(npc => npc.nombre === "Ingeniero");
-                            if (ingeniero) {
-                                ingeniero.x = jugador.x + 40;
-                                ingeniero.y = jugador.y + 30;
-                            }
-                        }
-
                         if (typeof abrirDialogo === "function") {
                             abrirDialogo("IngenieroPostDescarga", {
                                 alTerminar: entregarLlaveElectricidadPostDescarga
@@ -891,10 +916,6 @@ function iniciarSecuenciaFragmento() {
             }, 1800);
         }
     }, 25);
-
-    if (typeof marcarEstadoModificado === "function") {
-        marcarEstadoModificado();
-    }
 }
 
 function apagarMaquina(id) {

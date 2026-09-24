@@ -44,6 +44,7 @@ const efectosVisuales = {
     ultimaPosJugador: null,
     temblor: { intensidad: 0, inicio: 0, duracion: 0 },
     destello: { inicio: 0, duracion: 0 },
+    electrocucion: { inicio: 0, duracion: 0, proximaChispa: 0 },
     vineta: null,
     vinetaTamaño: ""
 };
@@ -351,6 +352,17 @@ function crearBrillo(x, y) {
     };
 }
 
+function crearChispa(x, y) {
+    const angulo = azar(0, Math.PI * 2);
+    const velocidad = azar(120, 320);
+    const vida = azar(0.25, 0.6);
+    return {
+        tipo: "chispa", x, y,
+        vx: Math.cos(angulo) * velocidad, vy: Math.sin(angulo) * velocidad - 60,
+        radio: azar(1, 2.2), vida, vidaTotal: vida
+    };
+}
+
 // =========================================================
 // ACTUALIZAR Y DIBUJAR PARTÍCULAS
 // =========================================================
@@ -407,6 +419,12 @@ function actualizarParticula(p, dt, t) {
             p.y += p.vy * dt;
             p.vx *= 0.94;
             p.vy *= 0.94;
+            break;
+        case "chispa":
+            p.x += p.vx * dt;
+            p.y += p.vy * dt;
+            p.vx *= 0.92;
+            p.vy = p.vy * 0.92 + 420 * dt;
             break;
     }
 
@@ -554,6 +572,18 @@ function dibujarParticula(p, t) {
             ctx.beginPath();
             ctx.arc(x, y, p.radio, 0, Math.PI * 2);
             ctx.fill();
+            ctx.globalCompositeOperation = "source-over";
+            break;
+        }
+        case "chispa": {
+            const vida = vidaRestante(p);
+            ctx.globalCompositeOperation = "lighter";
+            ctx.strokeStyle = `rgba(150, 210, 255, ${vida})`;
+            ctx.lineWidth = p.radio;
+            ctx.beginPath();
+            ctx.moveTo(x, y);
+            ctx.lineTo(x - p.vx * 0.03, y - p.vy * 0.03);
+            ctx.stroke();
             ctx.globalCompositeOperation = "source-over";
             break;
         }
@@ -859,6 +889,111 @@ function dibujarDestello(t) {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 }
 
+// Descarga eléctrica sobre el jugador: rayos que salen del cuerpo, brillo azul,
+// chispas y fogonazos de pantalla. El jugador tiembla mientras dura (ver dibujarJugador).
+function iniciarElectrocucion(segundos) {
+    efectosVisuales.electrocucion = {
+        inicio: performance.now() / 1000,
+        duracion: segundos,
+        proximaChispa: 0
+    };
+}
+
+function electrocucionActiva() {
+    const e = efectosVisuales.electrocucion;
+    const transcurrido = performance.now() / 1000 - e.inicio;
+    return e.duracion > 0 && transcurrido >= 0 && transcurrido < e.duracion;
+}
+
+function dibujarRayo(x1, y1, x2, y2, desvio, grosor, alfa) {
+    const puntos = [[x1, y1]];
+    const tramos = 7;
+
+    for (let i = 1; i < tramos; i++) {
+        const f = i / tramos;
+        puntos.push([
+            x1 + (x2 - x1) * f + azar(-desvio, desvio),
+            y1 + (y2 - y1) * f + azar(-desvio, desvio)
+        ]);
+    }
+
+    puntos.push([x2, y2]);
+
+    const trazar = () => {
+        ctx.beginPath();
+        ctx.moveTo(puntos[0][0], puntos[0][1]);
+        puntos.slice(1).forEach(([px, py]) => ctx.lineTo(px, py));
+        ctx.stroke();
+    };
+
+    ctx.strokeStyle = `rgba(90, 170, 255, ${alfa * 0.5})`;
+    ctx.lineWidth = grosor * 4;
+    trazar();
+    ctx.strokeStyle = `rgba(235, 248, 255, ${alfa})`;
+    ctx.lineWidth = grosor;
+    trazar();
+}
+
+function dibujarElectrocucion(t) {
+    const e = efectosVisuales.electrocucion;
+    const progreso = (t - e.inicio) / e.duracion;
+
+    if (!e.duracion || progreso >= 1 || progreso < 0) {
+        return;
+    }
+
+    const centro = posicionJugadorMapa();
+    const x = centro.x - camara.x;
+    const y = centro.y - camara.y;
+    const tamaño = Math.max(jugador.ancho, jugador.alto);
+    // Fuerte al principio, se va apagando hacia el final.
+    const fuerza = 1 - progreso * 0.6;
+
+    ctx.globalCompositeOperation = "lighter";
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
+
+    // Brillo azul que parpadea alrededor del jugador.
+    const pulso = fuerza * (0.45 + Math.random() * 0.4);
+    const brillo = ctx.createRadialGradient(x, y, 0, x, y, tamaño * 2.2);
+    brillo.addColorStop(0, `rgba(170, 215, 255, ${pulso})`);
+    brillo.addColorStop(0.4, `rgba(70, 140, 255, ${pulso * 0.5})`);
+    brillo.addColorStop(1, "rgba(70, 140, 255, 0)");
+    ctx.fillStyle = brillo;
+    ctx.fillRect(x - tamaño * 2.2, y - tamaño * 2.2, tamaño * 4.4, tamaño * 4.4);
+
+    // Rayos nuevos cada frame para que chisporroteen.
+    const cantidad = 2 + Math.floor(Math.random() * 4 * fuerza);
+    for (let i = 0; i < cantidad; i++) {
+        const angulo = azar(0, Math.PI * 2);
+        const largo = tamaño * azar(0.7, 1.8);
+        const origenX = x + azar(-0.25, 0.25) * jugador.ancho;
+        const origenY = y + azar(-0.3, 0.3) * jugador.alto;
+        dibujarRayo(
+            origenX, origenY,
+            x + Math.cos(angulo) * largo, y + Math.sin(angulo) * largo,
+            tamaño * 0.18, azar(1.2, 2.5), fuerza
+        );
+    }
+
+    ctx.globalCompositeOperation = "source-over";
+
+    // Chispas que saltan del cuerpo.
+    if (t >= e.proximaChispa) {
+        e.proximaChispa = t + azar(0.04, 0.12);
+        const cantidadChispas = 3 + Math.floor(Math.random() * 5);
+        for (let i = 0; i < cantidadChispas; i++) {
+            efectosVisuales.particulas.push(crearChispa(centro.x, centro.y));
+        }
+    }
+
+    // Fogonazos de pantalla blanco azulado, más seguidos al principio.
+    if (Math.random() < 0.18 * fuerza) {
+        ctx.fillStyle = `rgba(200, 225, 255, ${azar(0.15, 0.4) * fuerza})`;
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+    }
+}
+
 // =========================================================
 // GENERAR PARTÍCULAS SEGÚN EL MAPA
 // =========================================================
@@ -1005,6 +1140,7 @@ function actualizarYDibujarEfectosVisuales() {
     }
 
     dibujarDestello(t);
+    dibujarElectrocucion(t);
 
     ctx.restore();
 }

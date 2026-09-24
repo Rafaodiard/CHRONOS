@@ -255,6 +255,108 @@ function reproducirEfecto(nombre, opciones = {}) {
     reproducir();
 }
 
+// Descarga eléctrica sintetizada (no hay archivo): zumbido grave que tiembla y chasquidos
+// de ruido al azar, con un golpe fuerte al principio. duracion en segundos.
+let contextoAudioSintetizado = null;
+
+function reproducirElectrocucion(duracion = 1.4) {
+    const Contexto = window.AudioContext || window.webkitAudioContext;
+
+    if (!Contexto) {
+        return;
+    }
+
+    try {
+        contextoAudioSintetizado = contextoAudioSintetizado || new Contexto();
+    }
+    catch {
+        return;
+    }
+
+    const ctxAudio = contextoAudioSintetizado;
+
+    if (ctxAudio.state === "suspended") {
+        ctxAudio.resume().catch(() => { });
+    }
+
+    const inicio = ctxAudio.currentTime;
+    const fin = inicio + duracion;
+    const volumen = VOLUMENES.efectos;
+
+    const salida = ctxAudio.createGain();
+    salida.gain.setValueAtTime(0.0001, inicio);
+    salida.gain.exponentialRampToValueAtTime(volumen * 0.9, inicio + 0.02);
+    salida.gain.setValueAtTime(volumen * 0.9, fin - 0.35);
+    salida.gain.exponentialRampToValueAtTime(0.0001, fin);
+    salida.connect(ctxAudio.destination);
+
+    // Zumbido: dos sierras levemente desafinadas, con un LFO que las hace vibrar.
+    const filtroZumbido = ctxAudio.createBiquadFilter();
+    filtroZumbido.type = "lowpass";
+    filtroZumbido.frequency.value = 1800;
+    filtroZumbido.connect(salida);
+
+    const gananciaZumbido = ctxAudio.createGain();
+    gananciaZumbido.gain.value = 0.35;
+    gananciaZumbido.connect(filtroZumbido);
+
+    const lfo = ctxAudio.createOscillator();
+    const profundidadLfo = ctxAudio.createGain();
+    lfo.frequency.value = 23;
+    profundidadLfo.gain.value = 0.3;
+    lfo.connect(profundidadLfo);
+    profundidadLfo.connect(gananciaZumbido.gain);
+    lfo.start(inicio);
+    lfo.stop(fin);
+
+    [110, 116.5].forEach(frecuencia => {
+        const osc = ctxAudio.createOscillator();
+        osc.type = "sawtooth";
+        osc.frequency.setValueAtTime(frecuencia, inicio);
+        osc.frequency.linearRampToValueAtTime(frecuencia * 0.8, fin);
+        osc.connect(gananciaZumbido);
+        osc.start(inicio);
+        osc.stop(fin);
+    });
+
+    // Chasquidos: un buffer de ruido blanco que se abre en ráfagas cortas.
+    const muestras = Math.floor(ctxAudio.sampleRate * duracion);
+    const buffer = ctxAudio.createBuffer(1, muestras, ctxAudio.sampleRate);
+    const datos = buffer.getChannelData(0);
+    for (let i = 0; i < muestras; i++) {
+        datos[i] = Math.random() * 2 - 1;
+    }
+
+    const ruido = ctxAudio.createBufferSource();
+    ruido.buffer = buffer;
+
+    const filtroRuido = ctxAudio.createBiquadFilter();
+    filtroRuido.type = "highpass";
+    filtroRuido.frequency.value = 1200;
+
+    const gananciaRuido = ctxAudio.createGain();
+    gananciaRuido.gain.setValueAtTime(0, inicio);
+
+    // Golpe inicial fuerte y después chasquidos irregulares.
+    gananciaRuido.gain.linearRampToValueAtTime(1, inicio + 0.01);
+    gananciaRuido.gain.exponentialRampToValueAtTime(0.05, inicio + 0.18);
+
+    let tiempo = inicio + 0.2;
+    while (tiempo < fin - 0.05) {
+        const largo = 0.015 + Math.random() * 0.05;
+        gananciaRuido.gain.setValueAtTime(0.05, tiempo);
+        gananciaRuido.gain.linearRampToValueAtTime(0.4 + Math.random() * 0.6, tiempo + 0.004);
+        gananciaRuido.gain.linearRampToValueAtTime(0.05, tiempo + largo);
+        tiempo += largo + 0.02 + Math.random() * 0.09;
+    }
+
+    ruido.connect(filtroRuido);
+    filtroRuido.connect(gananciaRuido);
+    gananciaRuido.connect(salida);
+    ruido.start(inicio);
+    ruido.stop(fin);
+}
+
 // Se precargan al entrar al juego para que el primer uso no tenga demora.
 function precargarEfectos() {
     if (efectosPrecargados) {
