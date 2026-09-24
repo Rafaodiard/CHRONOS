@@ -843,6 +843,8 @@ function iniciarSecuenciaFragmento() {
     }
 
     reproducirEfecto("fragmento");
+    sacudirCamara(10, 1.6);
+    destelloFragmento();
     progreso.fragmentoSecuenciaIniciada = true;
     progreso.fragmentoDescargaRealizada = true;
     fragmentoSecuenciaActiva = true;
@@ -932,6 +934,7 @@ function apagarMaquina(id) {
     estado.resuelta = true;
     estado.desafio = estado.desafio || {};
     reproducirEfecto("maquinaApagada");
+    sacudirCamara(6, 0.5);
 
     if (typeof marcarEstadoModificado === "function") {
         marcarEstadoModificado();

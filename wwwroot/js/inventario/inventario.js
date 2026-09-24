@@ -20,7 +20,12 @@ function agregarObjeto(idObjeto, cantidad = 1) {
     if (typeof marcarEstadoModificado === "function") {
         marcarEstadoModificado();
     }
-    reproducirEfecto(String(idObjeto).startsWith("fragmento_temporal") ? "fragmento" : "objeto");
+    const esFragmento = String(idObjeto).startsWith("fragmento_temporal");
+    reproducirEfecto(esFragmento ? "fragmento" : "objeto");
+
+    if (esFragmento && typeof destelloFragmento === "function") {
+        destelloFragmento();
+    }
     mostrarMensajeObjetoRecibido(idObjeto);
 }
 

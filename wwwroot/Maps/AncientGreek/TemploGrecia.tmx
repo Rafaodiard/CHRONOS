@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="21" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="52">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="21" height="25" tilewidth="32" tileheight="32" infinite="0" nextlayerid="11" nextobjectid="53">
  <editorsettings>
   <export target="../mapasJson/TemploGrecia.tmj" format="json"/>
  </editorsettings>
@@ -195,6 +195,7 @@
   <object id="44" x="671.75" y="223" width="95" height="376.5"/>
   <object id="45" x="-140.667" y="162.667" width="140" height="409.333"/>
   <object id="46" x="930.667" y="348" height="2.66667"/>
+  <object id="52" x="345" y="416" width="15" height="59.5"/>
  </objectgroup>
  <objectgroup id="8" name="Transiciones">
   <object id="47" x="288.667" y="703" width="95" height="31.6667">

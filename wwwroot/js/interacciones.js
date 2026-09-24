@@ -216,7 +216,7 @@ function obtenerDatosEpoca(rutaDestino) {
         return { nombre: "Edad Media", anio: "Año 1348" };
     }
 
-    if (ruta.includes("fabrica")) {
+    if (ruta.includes("fabrica") || ruta.includes("introrev")) {
         return { nombre: "Revolución Industrial", anio: "Año 1889" };
     }
 

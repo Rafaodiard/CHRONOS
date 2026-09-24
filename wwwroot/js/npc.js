@@ -78,7 +78,7 @@ function cargarNPCs() {
 
         npcs = [
             {
-                x: 150,
+                x: 50,
                 y: 120,
                 ancho: 64,
                 alto: 64,

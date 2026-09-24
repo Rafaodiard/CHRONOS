@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="21">
+<map version="1.10" tiledversion="1.12.2" orientation="orthogonal" renderorder="right-down" width="15" height="10" tilewidth="32" tileheight="32" infinite="0" nextlayerid="9" nextobjectid="22">
  <editorsettings>
   <export target="../mapasJson/IntroRev.tmj" format="json"/>
  </editorsettings>
@@ -123,5 +123,6 @@
     <property name="SpawnY" type="float" value="900"/>
    </properties>
   </object>
+  <object id="21" x="435" y="192.75" width="18.5" height="60"/>
  </objectgroup>
 </map>

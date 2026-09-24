@@ -151,6 +151,7 @@ function loop() {
     }
 
     actualizarCamara();
+    aplicarTemblorCamara();
 
     dibujarMapa();
 
@@ -163,6 +164,8 @@ function loop() {
     dibujarJugador();
 
     dibujarEstructurasDelante();
+
+    actualizarYDibujarEfectosVisuales();
 
     dibujarIndicadorE();
 
