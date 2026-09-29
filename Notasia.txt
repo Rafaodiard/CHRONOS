@@ -1,0 +1,5 @@
+Uso de Inteligencia Artificial
+
+La IA nos ayudó principalmente con tareas complejas del desarrollo, como renderizar el mapa y programar la lógica de algunos desafíos que requerían algoritmos más difíciles. También la usamos para mejorar partes del diseño de la interfaz, agregando detalles visuales como partículas y pájaros, y para implementar la música correspondiente a cada zona.
+
+Hubo casos en los que el código generado no funcionaba como esperábamos o no se adaptaba bien al proyecto, por lo que tuvimos que modificarlo y probar distintas soluciones.
