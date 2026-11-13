@@ -115,6 +115,86 @@
     text-align: center;
 }
 
+/* ---------- Panel de misión ---------- */
+
+.panel-mision {
+    position: fixed;
+    top: 16px;
+    left: 50%;
+    /* Debajo del diálogo y de todas las UIs, igual que los controles */
+    z-index: 4;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    width: max-content;
+    max-width: min(560px, calc(100vw - 440px));
+    padding: 8px 20px 10px;
+    transform: translateX(-50%);
+    background: rgba(10, 17, 29, 0.88);
+    border: 1px solid rgba(229, 190, 103, 0.7);
+    border-radius: 6px;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    color: #f5f0e4;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: center;
+    pointer-events: none;
+    user-select: none;
+}
+
+.panel-mision[hidden] {
+    display: none;
+}
+
+.etiqueta-mision {
+    color: #e3bb68;
+    font-size: 10px;
+    font-weight: bold;
+    letter-spacing: 0.2em;
+}
+
+.epoca-mision {
+    color: #8fa4be;
+    letter-spacing: 0.16em;
+}
+
+.texto-mision {
+    margin: 0;
+    color: #fff2c8;
+    font-family: Georgia, "Times New Roman", serif;
+    font-size: clamp(15px, 1.5vw, 19px);
+    line-height: 1.3;
+}
+
+.panel-mision.actualizada {
+    animation: mision-actualizada 1.4s ease;
+}
+
+@keyframes mision-actualizada {
+    0% {
+        border-color: rgba(229, 190, 103, 0.7);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+    20% {
+        border-color: #ffd766;
+        box-shadow: 0 0 24px 4px rgba(255, 215, 102, 0.55);
+    }
+    100% {
+        border-color: rgba(229, 190, 103, 0.7);
+        box-shadow: 0 6px 18px rgba(0, 0, 0, 0.35);
+    }
+}
+
+/* En pantallas angostas pasa a la derecha para no tapar los controles. */
+@media (max-width: 900px) {
+    .panel-mision {
+        left: auto;
+        right: 16px;
+        max-width: calc(100vw - 230px);
+        transform: none;
+    }
+}
+
 .menu-pausa {
     position: fixed;
     inset: 0;
@@ -519,6 +599,50 @@
 
 .palanca-control.inactiva .palanca-control-estado {
     color: #ffb0a6;
+}
+
+.estado-palancas {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 16px;
+    padding: 10px 14px;
+    background: #0c1420;
+    border-left: 4px solid #e3bb68;
+    color: #e3bb68;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+}
+
+.estado-palancas[data-correcto="true"] {
+    border-color: #7fe0a8;
+    color: #9ce5a9;
+}
+
+.estado-palancas span {
+    color: #b8c3d0;
+    font-size: 12px;
+}
+
+.pistas-panel-palancas {
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #0c1420;
+    border: 1px solid rgba(143, 164, 190, 0.25);
+    border-radius: 4px;
+    color: #d6dee7;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 13px;
+    line-height: 1.5;
+}
+
+.pistas-panel-palancas ul,
+.pistas-panel-palancas p {
+    margin: 6px 0 0;
+}
+
+.pistas-panel-palancas ul {
+    padding-left: 18px;
 }
 
 @media (max-width: 560px) {

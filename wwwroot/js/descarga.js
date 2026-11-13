@@ -5,12 +5,12 @@
 const ID_PANEL_DESCARGA = "PanelDescarga";
 const TIPO_DESAFIO_DESCARGA = "descarga";
 
-const FILAS_DESCARGA = 4;
-const COLUMNAS_DESCARGA = 6;
+const FILAS_DESCARGA = 3;
+const COLUMNAS_DESCARGA = 4;
 
 // Celda y lado por donde la FUENTE entra al tablero y por donde sale hacia la DESCARGA.
-const FUENTE_DESCARGA = { fila: 0, columna: 2, lado: "top" };
-const SALIDA_DESCARGA = { fila: FILAS_DESCARGA - 1, columna: 3, lado: "bottom" };
+const FUENTE_DESCARGA = { fila: 0, columna: 1, lado: "top" };
+const SALIDA_DESCARGA = { fila: FILAS_DESCARGA - 1, columna: 2, lado: "bottom" };
 
 const LADOS_DESCARGA = ["top", "right", "bottom", "left"];
 
@@ -36,28 +36,21 @@ const CONECTORES_BASE_DESCARGA = {
     T: ["top", "left", "right"]
 };
 
+// Versión simplificada: un solo camino en serie con dos rectos y dos curvas.
 const PIEZAS_INICIALES_DESCARGA = [
     { id: "A", tipo: "recto" },
     { id: "B", tipo: "curva" },
-    { id: "C", tipo: "curva" },
-    { id: "D", tipo: "T" },
-    { id: "E", tipo: "recto" },
-    { id: "F", tipo: "curva" },
-    { id: "G", tipo: "T" },
-    { id: "H", tipo: "curva" }
+    { id: "C", tipo: "recto" },
+    { id: "D", tipo: "curva" }
 ];
 
-// Configuración correcta fija. No se muestra al jugador.
-// Es un circuito en paralelo: D divide la energía en dos ramas que G vuelve a unir.
+// Una de las configuraciones correctas (hay varias: el panel valida las reglas, no esta posición).
+// Solo se usa para comprobar al cargar que el desafío tiene solución.
 const SOLUCION_DESCARGA = {
-    D: { fila: 0, columna: 2, rotacion: 90 },
-    B: { fila: 0, columna: 3, rotacion: 180 },
-    E: { fila: 1, columna: 2, rotacion: 90 },
-    A: { fila: 1, columna: 3, rotacion: 90 },
-    G: { fila: 2, columna: 2, rotacion: 90 },
-    C: { fila: 2, columna: 3, rotacion: 270 },
-    F: { fila: 3, columna: 2, rotacion: 0 },
-    H: { fila: 3, columna: 3, rotacion: 180 }
+    B: { fila: 0, columna: 1, rotacion: 0 },
+    D: { fila: 0, columna: 2, rotacion: 180 },
+    A: { fila: 1, columna: 2, rotacion: 90 },
+    C: { fila: 2, columna: 2, rotacion: 90 }
 };
 
 const ESTADOS_CIRCUITO = {

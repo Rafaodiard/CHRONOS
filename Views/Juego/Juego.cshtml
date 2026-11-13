@@ -22,6 +22,10 @@
         <li><span class="tecla-control">ESC</span> Pausa</li>
     </ul>
 </aside>
+<aside id="panelMision" class="panel-mision" aria-live="polite" aria-label="Misión actual" hidden>
+    <span class="etiqueta-mision">MISIÓN<span id="epocaMision" class="epoca-mision"></span></span>
+    <p id="textoMision" class="texto-mision"></p>
+</aside>
 <div id="introduccionAnio" class="introduccion-anio @(esIntroduccion ? "visible" : "")" aria-hidden="true">Año 2147</div>
 <div id="transicionEpoca" class="transicion-epoca" aria-hidden="true">
     <p id="transicionEpocaAnio" class="transicion-epoca-anio"></p>
@@ -44,8 +48,10 @@
             </div>
             <button id="cerrarPalancas" class="boton-cerrar-palancas" type="button">Cerrar</button>
         </div>
-        <p class="instruccion-palancas">Ajustá cada palanca en la posición correcta.</p>
+        <p class="instruccion-palancas">Hay un panel como este en cada una de las cuatro salas del castillo. Activá en cada uno las palancas que corresponden a su sala.</p>
         <div id="listaPalancas" class="lista-palancas"></div>
+        <div id="estadoPalancas" class="estado-palancas" role="status" aria-live="polite"></div>
+        <div id="pistasPanelPalancas" class="pistas-panel-palancas"></div>
     </section>
 </div>
 
@@ -117,7 +123,7 @@
             </div>
             <button id="cerrarDescarga" class="boton-cerrar-descarga" type="button">Cerrar</button>
         </header>
-        <p class="instruccion-descarga">Arrastrá los tramos al tablero y hacé clic sobre un tramo colocado para girarlo. La descarga solo es estable si todos los tramos forman parte del circuito.</p>
+        <p class="instruccion-descarga">Arrastrá los 4 tramos al tablero para unir la FUENTE con la DESCARGA. Hacé clic sobre un tramo colocado para girarlo. Tenés que usar todos los tramos.</p>
         <div class="cuerpo-descarga">
             <div class="circuito-descarga">
                 <div class="terminales-descarga terminales-superior">
@@ -216,6 +222,7 @@
     <script src="~/js/ambienteVisual.js" asp-append-version="true"></script>
     <script src="~/js/interacciones.js" asp-append-version="true"></script>
     <script src="~/js/indicadores.js" asp-append-version="true"></script>
+    <script src="~/js/mision.js" asp-append-version="true"></script>
     <script src="~/js/juego.js" asp-append-version="true"></script>
     <script>
         document.getElementById("cerrarPalancas").addEventListener("click", cerrarMenuPalancas);

@@ -282,6 +282,13 @@ function cargarNPCs() {
                     }
                 ],
                 alTerminar: () => {
+                    if (!progreso.puedeEntrarTemplo && !progreso.sacerdoteExplicoAcertijo) {
+                        progreso.sacerdoteExplicoAcertijo = true;
+                        if (typeof marcarEstadoModificado === "function") {
+                            marcarEstadoModificado();
+                        }
+                    }
+
                     if (
                         progreso.puedeEntrarTemplo &&
                         !tieneObjeto("llave_templo")
@@ -364,6 +371,7 @@ function cargarNPCs() {
                 alTerminar: () => {
                     progreso.habloConGuardia = true;
                     if (progreso.tienePermisoEscriba) {
+                        progreso.guardiaAutorizo = true;
                         iniciarDesbloqueoGuardia();
                     }
                     if (typeof marcarEstadoModificado === "function") {

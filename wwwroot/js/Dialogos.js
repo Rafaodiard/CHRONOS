@@ -189,15 +189,14 @@ const dialogos =
     IngenieroSalaMaquinas:
     [
         { tipo: "dialogo", personaje: "Ingeniero", texto: "Hay cinco máquinas funcionando y el fragmento sigue recibiendo energía." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Pero están conectadas entre sí. A mantiene funcionando a B y D; B mantiene a C; y D mantiene a E." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "No podés cortar una de las líneas mientras todavía haya otra máquina dependiendo de ella. Podrías provocar un corte brusco y dañar el sistema." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Primero hay que liberar las máquinas que están al final de cada conexión y después ir subiendo." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Así que acordate: C, después B, después E, después D y finalmente A." }
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Para liberarlo hay que apagar las cinco: A, B, C, D y E. Podés hacerlo en el orden que quieras." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cada máquina tiene su propio panel de control. Acercate, presioná E y seguí las instrucciones del panel." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cuando la estabilices, vas a poder apagarla." }
     ],
     IngenieroSalaMaquinasDespues:
     [
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cada máquina tiene su propio sistema de control, así que vas a tener que resolverlas por separado." },
-        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cuando una esté estable, podés apagarla. Pero no te olvides de las conexiones entre ellas." }
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Tenés que apagar las cinco máquinas, en el orden que quieras." },
+        { tipo: "dialogo", personaje: "Ingeniero", texto: "Cada panel explica qué hacer para estabilizar su máquina antes de apagarla." }
     ],
     IngenieroPostDescarga:
     [
@@ -563,14 +562,16 @@ AlfareroConVasija:
     [
         { tipo: "dialogo", personaje: "Escriba", texto: "¿Buscás algo?" },
         { tipo: "dialogo", personaje: "Escriba", texto: "Si querés acceder a las habitaciones superiores, necesitás mi autorización." },
-        { tipo: "dialogo", personaje: "Escriba", texto: "Pero antes tengo que encontrar un documento que desapareció de mi escritorio." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Pero antes tengo que recuperar un documento muy importante que perdí." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Lo perdí en la biblioteca de la sala de armas, la que está al sureste del castillo." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Probablemente quedó guardado entre uno de los libros de ahí." },
         { tipo: "dialogo", personaje: "Escriba", texto: "Si lo encontrás, traémelo." }
     ],
 
     EscribaSinDocumento:
     [
         { tipo: "dialogo", personaje: "Escriba", texto: "¿Encontraste el documento?" },
-        { tipo: "dialogo", personaje: "Escriba", texto: "Estoy seguro de que lo dejé aquí, pero no aparece por ninguna parte." },
+        { tipo: "dialogo", personaje: "Escriba", texto: "Lo perdí en la biblioteca de la sala de armas. Probablemente esté entre uno de los libros de ahí." },
         { tipo: "dialogo", personaje: "Escriba", texto: "Sin ese registro no puedo darte la autorización." }
     ],
 
@@ -616,12 +617,14 @@ AlfareroConVasija:
     ],
     PistasPalancas:
     [
-        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "El mecanismo que protege las catacumbas fue creado hace siglos." },
-        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Cuatro salas esconden parte de la combinación." },
-        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Donde descansa el acero, la segunda y la cuarta deben permanecer levantadas." },
-        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "La cámara olvidada solo responde a la primera." },
-        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Entre los libros, las últimas dos deben despertar." },
-        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Entre las Estatuas, la primera y la tercera deben permanecer en pie." }
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "El mecanismo que protege el pasaje secreto fue creado hace siglos." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Cada una de las cuatro salas del castillo tiene su propio PANEL DE PALANCAS: tres en la planta baja y uno en este piso." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Para abrir el pasaje tenés que ir a cada sala y activar las palancas correctas de su panel. Las palancas que no se nombran deben quedar inactivas." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "En la sala de armas, donde descansa el acero: activá la segunda y la cuarta." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "En la cámara olvidada, al final del pasillo norte: activá solo la primera." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "En la sala del escriba, entre los libros: activá las dos últimas." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Aquí arriba, entre las estatuas: activá la primera y la tercera." },
+        { tipo: "dialogo", personaje: "Escrito Antiguo", texto: "Cuando los cuatro paneles estén en orden, el pasaje se abrirá en este piso." }
     ]
 
 

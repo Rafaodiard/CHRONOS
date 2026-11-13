@@ -9,6 +9,7 @@ const progreso = {
     encontroSimboloMar: false,
     encontroSimboloTiempo: false,
     habloConSacerdote: false,
+    sacerdoteExplicoAcertijo: false,
     puedeEntrarTemplo: false,
 
     habloConAldeano: false,
@@ -31,8 +32,10 @@ const progreso = {
     ,
     // bandera para indicar que el guardia llegó y desbloqueó la puerta
     guardiaLlegado: false,
+    guardiaAutorizo: false,
     guardiaX: null,
     guardiaY: null,
+    pistasPalancasLeidas: false,
     palancasResueltas: false,
     placaBibliotecaLeida: false,
     palancasEstado: {},

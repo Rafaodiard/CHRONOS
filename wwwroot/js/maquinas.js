@@ -4,27 +4,27 @@ const infoMaquinas = {
     A: {
         titulo: "MÁQUINA A",
         descripcion: "Unidad central",
-        explicacion: "El volante de la máquina principal gira tan fuerte que el piso tiembla bajo tus pies. De ella salen los ramales que alimentan al resto de la sala, y en su tablero de latón una hilera de indicadores muestra qué máquinas siguen tomando fuerza."
+        explicacion: "El volante de la máquina principal gira tan fuerte que el piso tiembla bajo tus pies. En su tablero de latón, una hilera de indicadores muestra qué máquinas de la sala siguen en marcha."
     },
     B: {
         titulo: "MÁQUINA B",
         descripcion: "Distribución eléctrica",
-        explicacion: "El cuadro de distribución zumba y huele a cable recalentado. Cinco cuchillas de cobre idénticas reparten la corriente de la fábrica, pero alguien arrancó las chapas que decían qué alimenta cada una."
+        explicacion: "El cuadro de distribución zumba y huele a cable recalentado. Tres cuchillas de cobre reparten la corriente de la fábrica, pero alguien arrancó las chapas que decían qué alimenta cada una."
     },
     C: {
         titulo: "MÁQUINA C",
         descripcion: "Regulador de presión",
-        explicacion: "Las agujas de los manómetros tiemblan y el metal cruje cada vez que la presión sube. El vapor quedó encerrado: para detener el regulador hay que darle salida hacia el condensador por la cañería, sin reventar nada en el camino."
+        explicacion: "Las agujas de los manómetros tiemblan y el metal cruje. El vapor quedó encerrado: para detener el regulador hay que darle salida hasta el condensador, sin pasar por el caño roto."
     },
     D: {
         titulo: "MÁQUINA D",
         descripcion: "Sistema de seguridad",
-        explicacion: "Una campanilla de alarma suena sin descanso. Esta es la sala de calderas que da vapor a la línea: cuatro calderas en batería, cada una con su tubo de nivel, su manómetro y su válvula de seguridad. El fogonero de guardia no está por ningún lado."
+        explicacion: "Una campanilla de alarma suena sin descanso. Tres calderas en batería esperan que alguien revise su agua y su presión antes de apagar la sala."
     },
     E: {
         titulo: "MÁQUINA E",
         descripcion: "Transmisión mecánica",
-        explicacion: "Una correa de cuero baja del motor hasta tres ejes que deberían llevar la fuerza al telar. El motor ruge, pero los ejes giran en vacío: les faltan las ruedas dentadas."
+        explicacion: "Una correa de cuero baja del motor hasta el telar. El motor ruge, pero el eje de salida gira en vacío: le falta la rueda dentada."
     }
 };
 
@@ -590,57 +590,6 @@ function obtenerMaquinaPorId(id) {
     }) || null;
 }
 
-function obtenerMaquinasDependientes(id) {
-    const maquina = obtenerMaquinaPorId(id);
-    if (!maquina) {
-        return [];
-    }
-
-    const dependencias = String(obtenerPropiedadInteractuable(maquina, "dependencias") || "")
-        .split(",")
-        .map(item => item.trim())
-        .filter(Boolean);
-
-    return dependencias;
-}
-
-function verificarOrdenApagado(id) {
-    const dependencias = obtenerMaquinasDependientes(id);
-
-    return dependencias.every(dependencia => {
-        const estado = obtenerEstadoMaquina(dependencia);
-        return !estado || estado.apagada;
-    });
-}
-
-function hayDependenciasActivas(id) {
-    const estado = obtenerEstadoMaquina(id);
-    if (!estado || estado.apagada) {
-        return false;
-    }
-
-    const dependencias = obtenerMaquinasDependientes(id);
-    return dependencias.some(dependencia => {
-        const estadoDependencia = obtenerEstadoMaquina(dependencia);
-        return Boolean(estadoDependencia) && !estadoDependencia.apagada;
-    });
-}
-
-function mostrarMensajeNoApagado() {
-    const mensaje = "La palanca se traba a mitad de recorrido. Algo conectado a esta máquina todavía está tomando fuerza de ella; cortarla ahora podría dañar el sistema.";
-
-    reproducirEfecto("puzzleError");
-
-    if (typeof abrirDialogoMensaje === "function") {
-        abrirDialogoMensaje(mensaje);
-        return;
-    }
-
-    if (typeof alert === "function") {
-        alert(mensaje);
-    }
-}
-
 function actualizarEstadoMaquinaDesdeMapa() {
     maquinasMapa.forEach(maquina => {
         const id = String(obtenerPropiedadInteractuable(maquina, "Id") || "").toUpperCase();
@@ -753,21 +702,6 @@ function guardarResultadoMaquina(id, patch) {
         marcarEstadoModificado();
     }
     actualizarEstadoMaquinaDesdeMapa();
-}
-
-function comprobarPreparacionCentral() {
-    const idsRequeridos = ["C", "B", "E", "D"];
-    const preparada = idsRequeridos.every(id => {
-        const estado = obtenerEstadoMaquina(id);
-        return estado && estado.apagada;
-    });
-
-    const central = obtenerEstadoMaquina("A");
-    if (central) {
-        central.preparado = preparada;
-    }
-
-    return preparada;
 }
 
 let fragmentoSecuenciaActiva = false;
@@ -929,27 +863,8 @@ function apagarMaquina(id) {
         return false;
     }
 
-    const bloqueadoPorDependencia = hayDependenciasActivas(id);
-    const ordenBloqueado = id !== "C" && !verificarOrdenApagado(id);
-
-    if (bloqueadoPorDependencia || ordenBloqueado) {
-        mostrarMensajeNoApagado();
-        return false;
-    }
-
-    if (id === "A") {
-        const centrales = ["C", "B", "E", "D"];
-        const preparado = centrales.every(maqId => {
-            const maquinaEstado = obtenerEstadoMaquina(maqId);
-            return maquinaEstado && maquinaEstado.apagada;
-        });
-
-        if (!preparado) {
-            mostrarMensajeNoApagado();
-            return false;
-        }
-    }
-
+    // Las máquinas son independientes: se pueden apagar en cualquier orden.
+    // En B, C, D y E el botón de apagado solo aparece cuando su desafío está resuelto.
     estado.apagada = true;
     estado.encendida = false;
     estado.resuelta = true;
@@ -986,30 +901,12 @@ function panelContenidoPlaceholder(titulo, subtitulo) {
 }
 
 // =========================================================
-// DESAFÍOS B, C Y E
+// DESAFÍOS B, C, D Y E
 // =========================================================
-// Igual que D: el jugador observa, interpreta y confirma una decisión. Hay una sola respuesta
-// deducible con la información de la propia máquina. Si se equivoca, la máquina no dice qué
-// falló y hay que esperar antes de volver a intentar (así no conviene probar al azar).
+// Versión corta para la exposición: cada máquina tiene un desafío sencillo con toda la
+// información a la vista. Si el jugador se equivoca, la máquina explica qué falló y se puede
+// volver a intentar enseguida, sin esperas.
 // Las partidas con versiones anteriores sin resolver se reinician; las resueltas se conservan.
-
-const ESPERA_INTENTO_MAQUINA_MS = 6000;
-const esperaIntentoMaquina = { B: 0, C: 0, E: 0 };
-
-function maquinaEnEspera(id) {
-    return Date.now() < (esperaIntentoMaquina[id] || 0);
-}
-
-function iniciarEsperaMaquina(id, desafio) {
-    esperaIntentoMaquina[id] = Date.now() + ESPERA_INTENTO_MAQUINA_MS;
-
-    window.setTimeout(() => {
-        if (maquinaActualId === id) {
-            desafio.submensaje = "";
-            renderizarPanelMaquina();
-        }
-    }, ESPERA_INTENTO_MAQUINA_MS);
-}
 
 // Crea o migra el desafío guardado de una máquina según su versión.
 function obtenerDesafioVersionado(id, version, crear, marcarResuelto) {
@@ -1040,7 +937,7 @@ function estiloDesafiosBCE() {
                 border: 6px solid #5b4430;
                 color: #30271d;
                 font-family: Georgia, "Times New Roman", serif;
-                font-size: 13px;
+                font-size: 14px;
                 line-height: 1.45;
             }
             .maquina-libro-guardia p {
@@ -1104,7 +1001,7 @@ function estiloDesafiosBCE() {
                 border-radius: 3px;
                 color: #f3d995;
                 font-family: Georgia, "Times New Roman", serif;
-                font-size: 12px;
+                font-size: 13px;
             }
             .maquina-selector:disabled {
                 opacity: 0.8;
@@ -1125,13 +1022,13 @@ function estiloDesafiosBCE() {
                 gap: 6px;
             }
             .maquina-opcion {
-                padding: 7px 10px;
+                padding: 8px 12px;
                 background: #121c2a;
                 border: 1px solid #405064;
                 border-radius: 4px;
                 color: #b8c3d0;
                 font-family: Arial, Helvetica, sans-serif;
-                font-size: 11px;
+                font-size: 12px;
                 font-weight: bold;
                 letter-spacing: 0.06em;
                 cursor: pointer;
@@ -1145,12 +1042,16 @@ function estiloDesafiosBCE() {
                 border-color: #ffd766;
                 color: #ffe9a8;
             }
+            .maquina-opcion.rota {
+                border-color: rgba(224, 118, 107, 0.6);
+                color: #f0a49b;
+            }
             .maquina-opcion[disabled] {
                 cursor: default;
             }
             .maquina-tren {
                 display: grid;
-                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto minmax(0, 1fr);
+                grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
                 gap: 10px;
                 align-items: center;
             }
@@ -1166,12 +1067,6 @@ function estiloDesafiosBCE() {
             .maquina-par-flecha {
                 color: #e3bb68;
                 font-size: 20px;
-            }
-            .maquina-par.ok .maquina-par-estado {
-                color: #7fe0a8;
-            }
-            .maquina-par.mal .maquina-par-estado {
-                color: #e0766b;
             }
             .maquina-eje {
                 display: grid;
@@ -1193,12 +1088,6 @@ function estiloDesafiosBCE() {
                 font-family: Georgia, "Times New Roman", serif;
                 font-size: 20px;
             }
-            .maquina-marca-tiza {
-                color: #e9e4d6;
-                font-family: "Comic Sans MS", "Segoe Print", cursive;
-                font-size: 13px;
-                text-align: center;
-            }
             @media (max-width: 680px) {
                 .maquina-tren {
                     grid-template-columns: 1fr;
@@ -1215,36 +1104,26 @@ function estiloDesafiosBCE() {
 // =========================================================
 // MÁQUINA C — RED DE VAPOR
 // =========================================================
-// La caldera empuja vapor a 9 atm. Hay que abrir un único recorrido hasta el condensador:
-//   - ningún caño puede recibir más presión que la de su prueba;
-//   - la reductora entrega 4 atm, reciba lo que reciba;
-//   - el caño que pierde (colector inferior -> condensador) no se abre;
-//   - no puede quedar ningún tramo abierto sin salida.
-// Única solución: V1 (caldera -> colector superior), V4 (colector superior -> reductora),
-// V5 (reductora -> condensador). Las trampas: V3 es el camino corto pero su prueba es de 6 atm;
-// V6 lleva directo pero es el caño que pierde; V7 llega a la reductora con 9 atm en un caño de 6.
-const VERSION_DESAFIO_C = 2;
-const PRESION_CALDERA_C = 9;
+// Hay que abrir un camino de la caldera al condensador sin abrir el caño roto.
+// Solución: V1 (caldera -> colector superior) y V3 (colector superior -> condensador).
+// V2 lleva al colector inferior, cuya única salida es el caño roto (V4).
+const VERSION_DESAFIO_C = 3;
 
 const NODOS_C = {
-    caldera: { nombre: "Caldera", nota: "empuja a 9 atm", x: 50, y: 120 },
-    superior: { nombre: "Colector superior", x: 185, y: 45 },
-    inferior: { nombre: "Colector inferior", x: 185, y: 195 },
-    reductora: { nombre: "Reductora", nota: "sale a 4 atm", x: 345, y: 45 },
-    condensador: { nombre: "Condensador", x: 500, y: 120 }
+    caldera: { nombre: "Caldera", x: 60, y: 120 },
+    superior: { nombre: "Colector superior", x: 275, y: 45 },
+    inferior: { nombre: "Colector inferior", x: 275, y: 195 },
+    condensador: { nombre: "Condensador", x: 490, y: 120 }
 };
 
 const VALVULAS_C = [
-    { id: "V1", desde: "caldera", hasta: "superior", prueba: 12 },
-    { id: "V2", desde: "caldera", hasta: "inferior", prueba: 12 },
-    { id: "V3", desde: "superior", hasta: "condensador", prueba: 6 },
-    { id: "V4", desde: "superior", hasta: "reductora", prueba: 12 },
-    { id: "V5", desde: "reductora", hasta: "condensador", prueba: 5 },
-    { id: "V6", desde: "inferior", hasta: "condensador", prueba: 12 },
-    { id: "V7", desde: "inferior", hasta: "reductora", prueba: 6 }
+    { id: "V1", desde: "caldera", hasta: "superior" },
+    { id: "V2", desde: "caldera", hasta: "inferior" },
+    { id: "V3", desde: "superior", hasta: "condensador" },
+    { id: "V4", desde: "inferior", hasta: "condensador", rota: true }
 ];
 
-const SOLUCION_C = ["V1", "V4", "V5"];
+const SOLUCION_C = ["V1", "V3"];
 
 function crearDesafioC() {
     return {
@@ -1278,33 +1157,32 @@ function alternarValvulaC(id) {
 function abrirPasoC() {
     const desafio = obtenerDesafioC();
 
-    if (desafio.resuelto || maquinaEnEspera("C")) {
+    if (desafio.resuelto || !VALVULAS_C.some(valvula => desafio.abiertas[valvula.id])) {
         return;
     }
 
-    const abiertas = VALVULAS_C.filter(valvula => desafio.abiertas[valvula.id]).map(valvula => valvula.id);
-
-    if (abiertas.length === 0) {
+    if (desafio.abiertas.V4) {
+        reproducirEfecto("puzzleError");
+        desafio.abiertas.V4 = false;
+        desafio.mensaje = "¡El caño roto revienta en una nube de vapor! El regulador lo cierra de golpe.";
+        desafio.submensaje = "Ese caño no se puede usar: buscá otro camino hasta el condensador.";
+        renderizarPanelMaquina();
         return;
     }
 
-    const correcta = abiertas.length === SOLUCION_C.length && SOLUCION_C.every(id => abiertas.includes(id));
-
-    if (correcta) {
+    if (SOLUCION_C.every(id => desafio.abiertas[id])) {
         reproducirEfecto("puzzleCompletado");
         desafio.resuelto = true;
         desafio.mensaje = "EL VAPOR CORRE HACIA EL CONDENSADOR";
-        desafio.submensaje = "Las agujas bajan despacio hasta asentarse.";
+        desafio.submensaje = "Las agujas bajan despacio hasta asentarse. Ya podés apagar la máquina.";
         guardarResultadoMaquina("C", { resuelta: true, desafio });
         renderizarPanelMaquina();
         return;
     }
 
     reproducirEfecto("puzzleError");
-    desafio.abiertas = {};
-    desafio.mensaje = "Un golpe de vapor sacude la cañería y el regulador cierra todas las válvulas de un portazo.";
-    desafio.submensaje = "Hay que esperar a que la presión vuelva a asentarse...";
-    iniciarEsperaMaquina("C", desafio);
+    desafio.mensaje = "El vapor no llega al condensador: al camino le falta un tramo.";
+    desafio.submensaje = "Seguí los caños desde la caldera y abrí cada tramo hasta el condensador.";
     renderizarPanelMaquina();
 }
 
@@ -1315,12 +1193,15 @@ function renderizarEsquemaC(desafio) {
         const abierta = Boolean(desafio.abiertas[valvula.id]);
         const mx = (a.x + b.x) / 2;
         const my = (a.y + b.y) / 2;
+        const colorLinea = valvula.rota ? "#b5524a" : abierta ? "#e3bb68" : "#4a5663";
+        const colorBorde = valvula.rota ? "#e0766b" : abierta ? "#ffd766" : "#5a6b7d";
+        const detalle = valvula.rota ? "ROTO · PIERDE" : abierta ? "abierta" : "cerrada";
         return `
-            <line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${abierta ? "#e3bb68" : "#4a5663"}" stroke-width="${abierta ? 7 : 5}" stroke-linecap="round" />
+            <line x1="${a.x}" y1="${a.y}" x2="${b.x}" y2="${b.y}" stroke="${colorLinea}" stroke-width="${abierta ? 7 : 5}" stroke-linecap="round" ${valvula.rota ? `stroke-dasharray="10 7"` : ""} />
             <g>
-                <rect x="${mx - 38}" y="${my - 17}" width="76" height="34" rx="4" fill="#0a111c" stroke="${abierta ? "#ffd766" : "#5a6b7d"}" />
+                <rect x="${mx - 44}" y="${my - 17}" width="88" height="34" rx="4" fill="#0a111c" stroke="${colorBorde}" />
                 <text x="${mx}" y="${my - 2}" text-anchor="middle" fill="#fff2c8" font-size="12" font-weight="bold">${valvula.id}</text>
-                <text x="${mx}" y="${my + 12}" text-anchor="middle" fill="#b8c3d0" font-size="10">prueba ${valvula.prueba} atm</text>
+                <text x="${mx}" y="${my + 12}" text-anchor="middle" fill="${valvula.rota ? "#f0a49b" : "#b8c3d0"}" font-size="10">${detalle}</text>
             </g>
         `;
     }).join("");
@@ -1328,7 +1209,6 @@ function renderizarEsquemaC(desafio) {
     const nodos = Object.values(NODOS_C).map(nodo => `
         <circle cx="${nodo.x}" cy="${nodo.y}" r="15" fill="#2a200b" stroke="#b08a45" stroke-width="2" />
         <text x="${nodo.x}" y="${nodo.y + (nodo.y < 120 ? -22 : 34)}" text-anchor="middle" fill="#e9d28f" font-size="12">${nodo.nombre}</text>
-        ${nodo.nota ? `<text x="${nodo.x}" y="${nodo.y + (nodo.y < 120 ? -36 : 48)}" text-anchor="middle" fill="#ffd766" font-size="11" font-weight="bold">${nodo.nota}</text>` : ""}
     `).join("");
 
     return `
@@ -1348,17 +1228,16 @@ function renderizarDesafioC() {
     }
 
     const hayAbiertas = VALVULAS_C.some(valvula => desafio.abiertas[valvula.id]);
-    const enEspera = maquinaEnEspera("C");
 
     const valvulas = VALVULAS_C.map(valvula => `
-        <button type="button" class="maquina-opcion ${desafio.abiertas[valvula.id] ? "elegida" : ""}" ${desafio.resuelto || enEspera ? "disabled" : ""} onclick="alternarValvulaC('${valvula.id}')">
-            ${valvula.id} · ${desafio.abiertas[valvula.id] ? "ABIERTA" : "CERRADA"}
+        <button type="button" class="maquina-opcion ${desafio.abiertas[valvula.id] ? "elegida" : ""} ${valvula.rota ? "rota" : ""}" ${desafio.resuelto ? "disabled" : ""} onclick="alternarValvulaC('${valvula.id}')">
+            ${valvula.id} · ${desafio.abiertas[valvula.id] ? "ABIERTA" : "CERRADA"}${valvula.rota ? " (ROTO)" : ""}
         </button>
     `).join("");
 
     const accion = desafio.resuelto
         ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('C')">Apagar C</button>`
-        : `<button type="button" class="maquina-boton-accion principal" ${hayAbiertas && !enEspera ? "" : "disabled"} onclick="abrirPasoC()">Soltar el vapor</button>`;
+        : `<button type="button" class="maquina-boton-accion principal" ${hayAbiertas ? "" : "disabled"} onclick="abrirPasoC()">Soltar el vapor</button>`;
 
     return `
         ${estiloMaquinas()}
@@ -1366,13 +1245,13 @@ function renderizarDesafioC() {
         <div class="maquina-shell">
             ${renderizarCabeceraMaquina("C")}
             ${renderizarFichaMaquina(
-                `El vapor sale de la caldera a ${PRESION_CALDERA_C} atm y conserva esa fuerza por toda la cañería: recorrer caños no la baja. Lo único que la baja es la válvula reductora: le entre lo que le entre, todo lo que sale de ella va a 4 atm. Ningún caño debe recibir más presión que la de su prueba. Un caño que pierde no se abre. Todo tramo abierto tiene que llevar el vapor hasta el condensador: un tramo abierto sin salida es una bomba.`,
+                "Abrí un camino para que el vapor vaya de la caldera al condensador.",
                 [
-                    "Cada caño tiene grabada la presión con la que fue probado en el taller.",
-                    "Hay un siseo constante y el fieltro del aislante chorrea en la bajada que une el colector inferior con el condensador.",
-                    "Las válvulas de paso están numeradas sobre el esquema pintado en la pared."
+                    "Hacé clic en las válvulas para abrirlas o cerrarlas. Los caños abiertos se ven dorados en el esquema.",
+                    "El caño marcado en rojo está roto y pierde: <b>no lo abras</b>.",
+                    "Cuando el camino esté completo, presioná «Soltar el vapor»."
                 ],
-                { objetivo: "PLACA DEL REGULADOR", detalle: "LO QUE OBSERVÁS" }
+                { objetivo: "OBJETIVO", detalle: "CÓMO HACERLO" }
             )}
             <section class="maquina-tablero">
                 <span class="maquina-label">ESQUEMA DE LA CAÑERÍA</span>
@@ -1390,28 +1269,22 @@ function renderizarDesafioC() {
 
 
 // =========================================================
-// MÁQUINA E — TREN DE ENGRANAJES
+// MÁQUINA E — TRANSMISIÓN
 // =========================================================
-// Hay que montar tres ruedas (motor, intermedio, salida) sacadas de un cajón, una de cada una.
-//   - Marcas de tiza: las ruedas motor + intermedio deben sumar 54 dientes; intermedio + salida, 66.
-//   - La intermedia no cambia la velocidad. Salida = motor (240) × dientes motor ÷ dientes salida.
-//   - El telar pide 120 vueltas por minuto.
-// Única solución: 12 – 42 – 24. Las otras combinaciones que respetan las marcas de tiza dan
-// 144, 160, 171 o 180 vueltas.
-const VERSION_DESAFIO_E = 2;
-const RUEDAS_E = [12, 18, 24, 30, 36, 42, 48];
-const EJES_E = [
-    { clave: "motor", nombre: "EJE DEL MOTOR" },
-    { clave: "intermedio", nombre: "EJE INTERMEDIO" },
-    { clave: "salida", nombre: "EJE DE SALIDA" }
-];
-const SOLUCION_E = { motor: 12, intermedio: 42, salida: 24 };
+// La rueda del motor (12 dientes) gira a 240 vueltas por minuto y el telar necesita 120.
+// La rueda de salida tiene que tener el doble de dientes que la del motor: 24.
+const VERSION_DESAFIO_E = 3;
+const DIENTES_MOTOR_E = 12;
+const VUELTAS_MOTOR_E = 240;
+const VUELTAS_TELAR_E = 120;
+const RUEDAS_E = [12, 24, 48];
+const SOLUCION_E = 24;
 
 function crearDesafioE() {
     return {
         version: VERSION_DESAFIO_E,
-        ruedas: {},
-        mensaje: "El telar está quieto: los ejes de la transmisión no tienen ruedas.",
+        rueda: null,
+        mensaje: "El telar está quieto: al eje de salida le falta la rueda dentada.",
         submensaje: "",
         resuelto: false
     };
@@ -1419,64 +1292,51 @@ function crearDesafioE() {
 
 function obtenerDesafioE() {
     return obtenerDesafioVersionado("E", VERSION_DESAFIO_E, crearDesafioE, desafio => {
-        desafio.ruedas = { ...SOLUCION_E };
+        desafio.rueda = SOLUCION_E;
         desafio.mensaje = "EL TELAR RETOMA SU MARCHA";
     });
 }
 
-function elegirRuedaE(eje, dientes) {
+function elegirRuedaE(dientes) {
     const desafio = obtenerDesafioE();
     const valor = Number(dientes);
 
-    if (desafio.resuelto || !EJES_E.some(item => item.clave === eje)) {
+    if (desafio.resuelto) {
         return;
     }
 
     reproducirEfecto("mecanismo");
-
-    // Cada rueda existe una sola vez: si ya estaba en otro eje, vuelve al cajón.
-    EJES_E.forEach(item => {
-        if (item.clave !== eje && desafio.ruedas[item.clave] === valor) {
-            delete desafio.ruedas[item.clave];
-        }
-    });
-
-    if (RUEDAS_E.includes(valor)) {
-        desafio.ruedas[eje] = valor;
-    } else {
-        delete desafio.ruedas[eje];
-    }
-
+    desafio.rueda = RUEDAS_E.includes(valor) ? valor : null;
     renderizarPanelMaquina();
 }
 
 function arrancarTransmisionE() {
     const desafio = obtenerDesafioE();
 
-    if (desafio.resuelto || maquinaEnEspera("E")) {
+    if (desafio.resuelto || !desafio.rueda) {
         return;
     }
 
-    if (!EJES_E.every(item => desafio.ruedas[item.clave])) {
-        return;
-    }
-
-    const correcta = EJES_E.every(item => desafio.ruedas[item.clave] === SOLUCION_E[item.clave]);
-
-    if (correcta) {
+    if (desafio.rueda === SOLUCION_E) {
         reproducirEfecto("puzzleCompletado");
         desafio.resuelto = true;
         desafio.mensaje = "EL TELAR RETOMA SU MARCHA";
-        desafio.submensaje = "Las lanzaderas vuelven a cruzar a buen ritmo.";
+        desafio.submensaje = `Gira justo a ${VUELTAS_TELAR_E} vueltas por minuto. Ya podés apagar la máquina.`;
         guardarResultadoMaquina("E", { resuelta: true, desafio });
         renderizarPanelMaquina();
         return;
     }
 
+    const vueltas = Math.round(VUELTAS_MOTOR_E * DIENTES_MOTOR_E / desafio.rueda);
+    const muyRapido = vueltas > VUELTAS_TELAR_E;
+
     reproducirEfecto("puzzleError");
-    desafio.mensaje = "Las ruedas crujen, la correa patina y el motor se ahoga. Hay que parar antes de que salte un diente.";
-    desafio.submensaje = "La transmisión tarda en volver a quedar quieta...";
-    iniciarEsperaMaquina("E", desafio);
+    desafio.mensaje = muyRapido
+        ? `El telar gira a ${vueltas} vueltas por minuto: demasiado rápido, los hilos se cortan.`
+        : `El telar gira a ${vueltas} vueltas por minuto: demasiado lento, no llega a tejer.`;
+    desafio.submensaje = muyRapido
+        ? "Probá con una rueda que tenga más dientes."
+        : "Probá con una rueda que tenga menos dientes.";
     renderizarPanelMaquina();
 }
 
@@ -1485,57 +1345,16 @@ function renderizarDesafioE() {
     const estado = obtenerEstadoMaquina("E");
 
     if (estado.apagada) {
-        return renderizarMaquinaApagada("E", "Las correas quedaron flojas y los engranajes, quietos.");
+        return renderizarMaquinaApagada("E", "La correa quedó floja y los engranajes, quietos.");
     }
 
-    const enEspera = maquinaEnEspera("E");
-    const completa = EJES_E.every(item => desafio.ruedas[item.clave]);
-
-    // Entre cada par de ejes vecinos se ve enseguida si las ruedas engranan (suman lo que marca la tiza).
-    const renderizarPar = (claveA, claveB, marca) => {
-        const a = desafio.ruedas[claveA];
-        const b = desafio.ruedas[claveB];
-        let texto = "esperando ruedas";
-        let clase = "";
-
-        if (a && b) {
-            const suma = a + b;
-            texto = suma === marca ? "✓ engranan" : suma < marca ? "no llegan a tocarse" : "no entran: se trancan";
-            clase = suma === marca ? "ok" : "mal";
-        }
-
-        return `
-            <div class="maquina-par ${clase}">
-                <span class="maquina-marca-tiza">tiza: ${marca}</span>
-                <span class="maquina-par-flecha">⟷</span>
-                <span class="maquina-par-estado">${texto}</span>
-            </div>
-        `;
-    };
-
-    const ejes = EJES_E.map((item, indice) => {
-        const actual = desafio.ruedas[item.clave];
-        const opciones = [`<option value="">— vacío —</option>`]
-            .concat(RUEDAS_E.map(dientes => `<option value="${dientes}" ${actual === dientes ? "selected" : ""}>Rueda de ${dientes} dientes</option>`))
-            .join("");
-        const par = indice === 0 ? renderizarPar("motor", "intermedio", 54)
-            : indice === 1 ? renderizarPar("intermedio", "salida", 66)
-            : "";
-        return `
-            <div class="maquina-eje">
-                <span class="maquina-eje-titulo">${item.nombre}</span>
-                <span class="maquina-eje-rueda">${actual ? `${actual} dientes` : "sin rueda"}</span>
-                ${indice === 0 ? `<span class="maquina-safebox">Tacómetro: 240 vueltas/min</span>` : ""}
-                ${indice === 2 ? `<span class="maquina-safebox">Acoplado al telar</span>` : ""}
-                <select class="maquina-selector" ${desafio.resuelto || enEspera ? "disabled" : ""} onchange="elegirRuedaE('${item.clave}', this.value)">${opciones}</select>
-            </div>
-            ${par}
-        `;
-    }).join("");
+    const opciones = [`<option value="">— elegir rueda —</option>`]
+        .concat(RUEDAS_E.map(dientes => `<option value="${dientes}" ${desafio.rueda === dientes ? "selected" : ""}>Rueda de ${dientes} dientes</option>`))
+        .join("");
 
     const accion = desafio.resuelto
         ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('E')">Apagar E</button>`
-        : `<button type="button" class="maquina-boton-accion principal" ${completa && !enEspera ? "" : "disabled"} onclick="arrancarTransmisionE()">Soltar el freno y arrancar</button>`;
+        : `<button type="button" class="maquina-boton-accion principal" ${desafio.rueda ? "" : "disabled"} onclick="arrancarTransmisionE()">Arrancar el telar</button>`;
 
     return `
         ${estiloMaquinas()}
@@ -1543,17 +1362,33 @@ function renderizarDesafioE() {
         <div class="maquina-shell">
             ${renderizarCabeceraMaquina("E")}
             ${renderizarFichaMaquina(
-                "Telar mecánico n.º 3 — trabaja a 120 vueltas por minuto. Más rápido rompe los hilos; más lento no teje.",
+                `El telar tiene que girar a ${VUELTAS_TELAR_E} vueltas por minuto: la mitad de lo que gira el motor.`,
                 [
-                    "Tres ejes en fila llevan el giro: <b>motor → intermedio → salida</b>. Alguien desmontó las ruedas para engrasarlas y las dejó en el cajón, una de cada tamaño. Cada eje lleva una.",
-                    "Entre cada par de ejes vecinos, el montador anotó con tiza cuántos dientes tienen que <b>sumar las dos ruedas</b> para engranar: si suman menos no llegan a tocarse y si suman más no entran.",
-                    "Regla escrita en la tapa del cajón: «La rueda del medio no cambia la velocidad, solo pasa el giro. <b>Vueltas de la salida = 240 × dientes de la rueda del motor ÷ dientes de la rueda de salida.</b> Por ejemplo: con 12 en el motor y 48 en la salida, 240 × 12 ÷ 48 = 60 vueltas»."
+                    `El motor gira a ${VUELTAS_MOTOR_E} vueltas por minuto con una rueda de ${DIENTES_MOTOR_E} dientes.`,
+                    "Si la rueda de salida tiene <b>la misma cantidad</b> de dientes que la del motor, gira igual de rápido. Si tiene <b>el doble</b> de dientes, gira a la mitad de velocidad.",
+                    "Elegí la rueda del eje de salida y arrancá el telar."
                 ],
-                { objetivo: "PLACA DEL TELAR", detalle: "EN EL BANCO DEL MONTADOR" }
+                { objetivo: "OBJETIVO", detalle: "CÓMO FUNCIONA" }
             )}
             <section class="maquina-tablero">
                 <span class="maquina-label">EJES DE LA TRANSMISIÓN</span>
-                <div class="maquina-tren">${ejes}</div>
+                <div class="maquina-tren">
+                    <div class="maquina-eje">
+                        <span class="maquina-eje-titulo">EJE DEL MOTOR</span>
+                        <span class="maquina-eje-rueda">${DIENTES_MOTOR_E} dientes</span>
+                        <span class="maquina-safebox">Rueda fija · ${VUELTAS_MOTOR_E} vueltas/min</span>
+                    </div>
+                    <div class="maquina-par">
+                        <span class="maquina-par-flecha">⟶</span>
+                        <span>correa</span>
+                    </div>
+                    <div class="maquina-eje">
+                        <span class="maquina-eje-titulo">EJE DE SALIDA</span>
+                        <span class="maquina-eje-rueda">${desafio.rueda ? `${desafio.rueda} dientes` : "sin rueda"}</span>
+                        <span class="maquina-safebox">Acoplado al telar</span>
+                        <select class="maquina-selector" ${desafio.resuelto ? "disabled" : ""} onchange="elegirRuedaE(this.value)">${opciones}</select>
+                    </div>
+                </div>
             </section>
             <div class="maquina-controles">${accion}</div>
             ${renderizarEstadoMaquina(desafio.resuelto ? "estable" : "alerta", desafio.mensaje, desafio.submensaje)}
@@ -1565,23 +1400,19 @@ function renderizarDesafioE() {
 // =========================================================
 // MÁQUINA B — CUADRO SIN ROTULAR
 // =========================================================
-// Las chapas de bronce de las cinco cuchillas están en el piso. Con las anotaciones del libro
-// de guardia se deduce qué circuito corresponde a cada cuchilla:
-//   1. El alumbrado queda inmediatamente a la izquierda de los telares.
-//   2. La bomba no está en ninguno de los extremos.
-//   3. Entre la fragua y los telares hay exactamente una cuchilla.
-//   4. El montacargas está más a la derecha que la bomba.
-//   5. La fragua no está al lado de la bomba.
-// Única solución: 1 Fragua, 2 Alumbrado, 3 Telares, 4 Bomba, 5 Montacargas.
-const VERSION_DESAFIO_B = 2;
-const CHAPAS_B = ["Alumbrado", "Telares", "Bomba de agua", "Montacargas", "Fragua"];
-const SOLUCION_B = ["Fragua", "Alumbrado", "Telares", "Bomba de agua", "Montacargas"];
+// Tres cuchillas sin chapa. Con dos anotaciones del libro de guardia se deduce el orden:
+//   1. La fragua está en la primera cuchilla (la de la izquierda).
+//   2. El alumbrado está justo a la izquierda de los telares.
+// Única solución: 1 Fragua, 2 Alumbrado, 3 Telares.
+const VERSION_DESAFIO_B = 3;
+const CHAPAS_B = ["Alumbrado", "Telares", "Fragua"];
+const SOLUCION_B = ["Fragua", "Alumbrado", "Telares"];
 
 function crearDesafioB() {
     return {
         version: VERSION_DESAFIO_B,
-        chapas: [null, null, null, null, null],
-        mensaje: "Cinco cuchillas iguales y ninguna chapa: nadie sabe qué corta cada una.",
+        chapas: [null, null, null],
+        mensaje: "Tres cuchillas iguales y ninguna chapa: nadie sabe qué corta cada una.",
         submensaje: "",
         resuelto: false
     };
@@ -1613,11 +1444,7 @@ function elegirChapaB(indice, chapa) {
 function atornillarChapasB() {
     const desafio = obtenerDesafioB();
 
-    if (desafio.resuelto || maquinaEnEspera("B")) {
-        return;
-    }
-
-    if (desafio.chapas.some(chapa => !chapa)) {
+    if (desafio.resuelto || desafio.chapas.some(chapa => !chapa)) {
         return;
     }
 
@@ -1627,51 +1454,32 @@ function atornillarChapasB() {
         reproducirEfecto("puzzleCompletado");
         desafio.resuelto = true;
         desafio.mensaje = "CUADRO ROTULADO";
-        desafio.submensaje = "Cada cuchilla vuelve a tener su chapa: ya se puede cortar sin sorpresas.";
+        desafio.submensaje = "Cada cuchilla vuelve a tener su chapa. Ya podés apagar la máquina.";
         guardarResultadoMaquina("B", { resuelta: true, desafio });
         renderizarPanelMaquina();
         return;
     }
 
     reproducirEfecto("puzzleError");
-    desafio.mensaje = "Probás la primera cuchilla con la chapa puesta… y se apaga otra cosa. Las chapas no coinciden con lo que cortan.";
-    desafio.submensaje = "Hay que volver a subir la cuchilla y esperar a que el cuadro se estabilice...";
-    iniciarEsperaMaquina("B", desafio);
+    desafio.mensaje = "Probás la primera cuchilla con la chapa puesta… y se apaga otra cosa. Las chapas no coinciden.";
+    desafio.submensaje = "Revisá las anotaciones marcadas con ✗ y cambiá las chapas.";
     renderizarPanelMaquina();
 }
 
-// Cada anotación sabe comprobarse contra las chapas puestas. Devuelve null mientras falte
-// alguna de las chapas que menciona, para no dar pistas antes de tiempo.
+// Cada anotación sabe comprobarse contra las chapas puestas. No se marca mientras falte
+// alguna de las chapas que menciona.
 const ANOTACIONES_B = [
     {
         dia: "Lunes",
-        texto: "La cuchilla del alumbrado está pegada a la de los telares, justo a su izquierda.",
-        usa: ["Alumbrado", "Telares"],
-        cumple: p => p.Alumbrado + 1 === p.Telares
+        texto: "La fragua está en la primera cuchilla, la de la izquierda.",
+        usa: ["Fragua"],
+        cumple: p => p.Fragua === 1
     },
     {
         dia: "Martes",
-        texto: "La bomba de agua no está ni en la primera ni en la última cuchilla.",
-        usa: ["Bomba de agua"],
-        cumple: p => p["Bomba de agua"] > 1 && p["Bomba de agua"] < 5
-    },
-    {
-        dia: "Miércoles",
-        texto: "Entre la fragua y los telares hay una sola cuchilla en el medio.",
-        usa: ["Fragua", "Telares"],
-        cumple: p => Math.abs(p.Fragua - p.Telares) === 2
-    },
-    {
-        dia: "Jueves",
-        texto: "El montacargas está más a la derecha que la bomba (no hace falta que estén pegados).",
-        usa: ["Montacargas", "Bomba de agua"],
-        cumple: p => p.Montacargas > p["Bomba de agua"]
-    },
-    {
-        dia: "Viernes",
-        texto: "La fragua y la bomba no están una al lado de la otra: se recalentaban juntas y las separamos.",
-        usa: ["Fragua", "Bomba de agua"],
-        cumple: p => Math.abs(p.Fragua - p["Bomba de agua"]) !== 1
+        texto: "El alumbrado está pegado a los telares, justo a su izquierda.",
+        usa: ["Alumbrado", "Telares"],
+        cumple: p => p.Alumbrado + 1 === p.Telares
     }
 ];
 
@@ -1700,7 +1508,6 @@ function renderizarDesafioB() {
         return renderizarMaquinaApagada("B", "El cuadro quedó sin tensión y los bornes, fríos.");
     }
 
-    const enEspera = maquinaEnEspera("B");
     const completo = desafio.chapas.every(Boolean);
 
     const cuchillas = desafio.chapas.map((chapa, indice) => {
@@ -1711,14 +1518,14 @@ function renderizarDesafioB() {
             <div class="maquina-cuchilla">
                 <span class="maquina-eje-titulo">CUCHILLA ${indice + 1}</span>
                 <div class="maquina-cuchilla-dibujo" aria-hidden="true"></div>
-                <select class="maquina-selector" ${desafio.resuelto || enEspera ? "disabled" : ""} onchange="elegirChapaB(${indice}, this.value)">${opciones}</select>
+                <select class="maquina-selector" ${desafio.resuelto ? "disabled" : ""} onchange="elegirChapaB(${indice}, this.value)">${opciones}</select>
             </div>
         `;
     }).join("");
 
     const accion = desafio.resuelto
         ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('B')">Apagar B</button>`
-        : `<button type="button" class="maquina-boton-accion principal" ${completo && !enEspera ? "" : "disabled"} onclick="atornillarChapasB()">Atornillar las chapas</button>`;
+        : `<button type="button" class="maquina-boton-accion principal" ${completo ? "" : "disabled"} onclick="atornillarChapasB()">Atornillar las chapas</button>`;
 
     return `
         ${estiloMaquinas()}
@@ -1726,13 +1533,13 @@ function renderizarDesafioB() {
         <div class="maquina-shell">
             ${renderizarCabeceraMaquina("B")}
             ${renderizarFichaMaquina(
-                "«No se corta ninguna cuchilla de un cuadro sin rotular.»",
+                "Poné cada chapa en la cuchilla que corresponde.",
                 [
-                    "Las cinco chapas de bronce están en el piso: Alumbrado, Telares, Bomba de agua, Montacargas y Fragua. <b>Cada chapa va en una sola cuchilla.</b>",
-                    "Las cuchillas se cuentan <b>de izquierda a derecha</b>: la 1 es la de más a la izquierda y la 5, la de más a la derecha.",
-                    "El libro de guardia del electricista tiene cinco anotaciones. Al ir colocando chapas, podés repasar cada una contra el cuadro: <b>tienen que cumplirse las cinco</b>."
+                    "Las tres chapas de bronce están en el piso: Alumbrado, Telares y Fragua. <b>Cada chapa va en una sola cuchilla.</b>",
+                    "Las cuchillas se cuentan <b>de izquierda a derecha</b>: la 1 es la de la izquierda.",
+                    "Seguí las anotaciones del libro de guardia: cuando una se cumple aparece un ✓."
                 ],
-                { objetivo: "REGLA DEL TALLER ELÉCTRICO", detalle: "EN EL PISO Y EN LA PARED" }
+                { objetivo: "OBJETIVO", detalle: "CÓMO HACERLO" }
             )}
             <section class="maquina-libro-guardia" aria-label="Libro de guardia del electricista">
                 ${renderizarAnotacionesB(desafio)}
@@ -1747,42 +1554,34 @@ function renderizarDesafioB() {
     `;
 }
 
-// Versión 5: la máquina D es la sala de calderas. El jugador inspecciona cuatro calderas, interpreta
-// sus instrumentos según el reglamento y firma una orden con una maniobra por caldera.
-// Las partidas con una versión anterior sin resolver se reinician; las resueltas se conservan.
-const VERSION_DESAFIO_D = 5;
 
-// Si la orden es incorrecta, el capataz no deja volver a firmar hasta que pase este tiempo.
-const ESPERA_ORDEN_D_MS = 6000;
+// =========================================================
+// MÁQUINA D — SALA DE CALDERAS
+// =========================================================
+// Tres calderas. El reglamento dice qué maniobra corresponde en cada caso:
+//   - presión por encima del límite de su placa -> abrir la purga de vapor;
+//   - sin agua en el tubo de nivel -> retirar el fuego;
+//   - todo en orden -> no intervenir.
+// Solución: 1 purga de vapor, 2 retirar el fuego, 3 no intervenir.
+const VERSION_DESAFIO_D = 6;
 
 const MANIOBRAS_D = {
-    alimentarAgua: "Alimentar agua",
-    extraerAgua: "Extraer agua",
-    retirarFuego: "Retirar el fuego",
     purgaVapor: "Abrir purga de vapor",
+    retirarFuego: "Retirar el fuego",
     ninguna: "No intervenir"
 };
 
-// Lectura fija de cada caldera. Los grifos de prueba están sobre el nivel máximo (alto) y bajo el mínimo (bajo).
-// Solución única según el reglamento:
-//   1: tubo sin agua, ambos grifos dan vapor -> seca -> retirar el fuego (dar agua la haría estallar).
-//   2: tubo sin agua, ambos grifos dan agua -> anegada -> extraer agua.
-//   3: nivel normal, presión sobre el timbre, válvula muda -> agarrotada -> purga de vapor a mano.
-//   4: nivel normal, presión sobre el timbre, válvula silbando -> está aliviando sola -> no intervenir.
 const CALDERAS_D = [
-    { id: "1", timbre: 7, presion: 6, tubo: "vacio", valvula: "muda", grifos: { alto: "vapor", bajo: "vapor" }, correcta: "retirarFuego" },
-    { id: "2", timbre: 6, presion: 5, tubo: "vacio", valvula: "muda", grifos: { alto: "agua", bajo: "agua" }, correcta: "extraerAgua" },
-    { id: "3", timbre: 8, presion: 9, tubo: "medio", valvula: "muda", grifos: { alto: "vapor", bajo: "agua" }, correcta: "purgaVapor" },
-    { id: "4", timbre: 6, presion: 7, tubo: "medio", valvula: "silba", grifos: { alto: "vapor", bajo: "agua" }, correcta: "ninguna" }
+    { id: "1", limite: 7, presion: 9, conAgua: true, correcta: "purgaVapor" },
+    { id: "2", limite: 6, presion: 4, conAgua: false, correcta: "retirarFuego" },
+    { id: "3", limite: 8, presion: 6, conAgua: true, correcta: "ninguna" }
 ];
-
-let esperaOrdenDHasta = 0;
 
 function crearDesafioD() {
     return {
         version: VERSION_DESAFIO_D,
-        grifos: {},
         maniobras: {},
+        revisar: [],
         mensaje: "La campanilla de alarma no deja de sonar.",
         submensaje: "",
         resuelto: false
@@ -1790,45 +1589,16 @@ function crearDesafioD() {
 }
 
 function obtenerDesafioD() {
-    const estado = obtenerEstadoMaquina("D");
+    const desafio = obtenerDesafioVersionado("D", VERSION_DESAFIO_D, crearDesafioD, nuevo => {
+        CALDERAS_D.forEach(caldera => {
+            nuevo.maniobras[caldera.id] = caldera.correcta;
+        });
+        nuevo.mensaje = "LA ALARMA SE SILENCIA";
+    });
 
-    if (estado.desafio && estado.desafio.version !== VERSION_DESAFIO_D) {
-        const yaResuelto = Boolean(estado.desafio.resuelto);
-        estado.desafio = crearDesafioD();
-
-        if (yaResuelto) {
-            CALDERAS_D.forEach(caldera => {
-                estado.desafio.maniobras[caldera.id] = caldera.correcta;
-            });
-            estado.desafio.resuelto = true;
-            estado.desafio.mensaje = "LA ALARMA SE SILENCIA";
-        }
-    }
-
-    estado.desafio ??= crearDesafioD();
-    estado.desafio.grifos ??= {};
-    estado.desafio.maniobras ??= {};
-
-    return estado.desafio;
-}
-
-function abrirGrifoD(idCaldera, grifo) {
-    const desafio = obtenerDesafioD();
-    const caldera = CALDERAS_D.find(item => item.id === idCaldera);
-
-    if (desafio.resuelto || !caldera || !caldera.grifos[grifo]) {
-        return;
-    }
-
-    reproducirEfecto("mecanismo");
-    desafio.grifos[idCaldera] ??= {};
-    desafio.grifos[idCaldera][grifo] = caldera.grifos[grifo];
-    desafio.mensaje = caldera.grifos[grifo] === "agua"
-        ? `Del grifo ${grifo} de la caldera ${idCaldera} brota un chorro de agua hirviendo.`
-        : `Del grifo ${grifo} de la caldera ${idCaldera} escapa un silbido de vapor seco.`;
-    desafio.submensaje = "";
-
-    renderizarPanelMaquina();
+    desafio.maniobras ??= {};
+    desafio.revisar ??= [];
+    return desafio;
 }
 
 function elegirManiobraD(idCaldera, maniobra) {
@@ -1840,85 +1610,64 @@ function elegirManiobraD(idCaldera, maniobra) {
 
     reproducirEfecto("mecanismo");
     desafio.maniobras[idCaldera] = maniobra;
+    desafio.revisar = desafio.revisar.filter(id => id !== idCaldera);
     renderizarPanelMaquina();
 }
 
 function firmarOrdenD() {
     const desafio = obtenerDesafioD();
 
-    if (desafio.resuelto || Date.now() < esperaOrdenDHasta) {
+    if (desafio.resuelto || !CALDERAS_D.every(caldera => desafio.maniobras[caldera.id])) {
         return;
     }
 
-    const completa = CALDERAS_D.every(caldera => desafio.maniobras[caldera.id]);
+    const equivocadas = CALDERAS_D
+        .filter(caldera => desafio.maniobras[caldera.id] !== caldera.correcta)
+        .map(caldera => caldera.id);
 
-    if (!completa) {
-        return;
-    }
-
-    const correcta = CALDERAS_D.every(caldera => desafio.maniobras[caldera.id] === caldera.correcta);
-
-    if (correcta) {
+    if (equivocadas.length === 0) {
         reproducirEfecto("puzzleCompletado");
         desafio.resuelto = true;
+        desafio.revisar = [];
         desafio.mensaje = "LA ALARMA SE SILENCIA";
-        desafio.submensaje = "Las cuatro calderas vuelven a un régimen seguro.";
+        desafio.submensaje = "Las tres calderas vuelven a un régimen seguro. Ya podés apagar la máquina.";
         guardarResultadoMaquina("D", { resuelta: true, desafio });
         renderizarPanelMaquina();
         return;
     }
 
     reproducirEfecto("puzzleError");
-    esperaOrdenDHasta = Date.now() + ESPERA_ORDEN_D_MS;
-    desafio.mensaje = "El capataz te arranca la orden de las manos: «¿Querés hacernos volar a todos? Eso no es lo que manda el reglamento.»";
-    desafio.submensaje = "Las calderas siguen rugiendo mientras vuelve a revisar la sala...";
+    desafio.revisar = equivocadas;
+    desafio.mensaje = equivocadas.length === 1
+        ? "El capataz revisa la orden: «Hay una caldera con la maniobra equivocada.»"
+        : `El capataz revisa la orden: «Hay ${equivocadas.length} calderas con la maniobra equivocada.»`;
+    desafio.submensaje = "Las calderas marcadas en rojo no cumplen el reglamento. Volvé a leerlo y corregilas.";
     renderizarPanelMaquina();
-
-    window.setTimeout(() => {
-        if (maquinaActualId === "D") {
-            obtenerDesafioD().submensaje = "";
-            renderizarPanelMaquina();
-        }
-    }, ESPERA_ORDEN_D_MS);
 }
 
 function renderizarCalderaD(caldera, desafio) {
-    const grifosAbiertos = desafio.grifos[caldera.id] || {};
     const elegida = desafio.maniobras[caldera.id];
-
-    const grifos = ["alto", "bajo"].map(grifo => {
-        const resultado = grifosAbiertos[grifo];
-        const texto = resultado === "agua" ? "sale agua" : resultado === "vapor" ? "sale vapor" : "sin probar";
-        return `
-            <button type="button" class="maquina-boton-accion" onclick="abrirGrifoD('${caldera.id}', '${grifo}')">
-                <span>Grifo ${grifo}</span>
-                <strong>${texto}</strong>
-            </button>
-        `;
-    }).join("");
+    const revisar = desafio.revisar.includes(caldera.id);
 
     const maniobras = Object.entries(MANIOBRAS_D).map(([clave, nombre]) => `
         <button type="button" class="maquina-maniobra ${elegida === clave ? "elegida" : ""}" ${desafio.resuelto ? "disabled" : ""} onclick="elegirManiobraD('${caldera.id}', '${clave}')">${nombre}</button>
     `).join("");
 
     return `
-        <div class="maquina-card maquina-caldera">
+        <div class="maquina-card maquina-caldera ${revisar ? "revisar" : ""}">
             <div class="maquina-card-header">
-                <span>CALDERA ${caldera.id}</span>
-                <span class="maquina-placa-timbre">TIMBRE ${caldera.timbre} ATM</span>
+                <span>CALDERA ${caldera.id}${revisar ? ` <span class="maquina-caldera-aviso">✗ REVISAR</span>` : ""}</span>
+                <span class="maquina-placa-timbre">LÍMITE ${caldera.limite} ATM</span>
             </div>
             <div class="maquina-caldera-instrumentos">
                 <div class="maquina-tubo-nivel" title="Tubo de nivel">
-                    <div class="maquina-tubo-agua" style="height:${caldera.tubo === "medio" ? 50 : 0}%;"></div>
+                    <div class="maquina-tubo-agua" style="height:${caldera.conAgua ? 50 : 0}%;"></div>
                 </div>
                 <div class="maquina-caldera-lecturas">
-                    <div><span>Tubo de nivel</span><strong>${caldera.tubo === "medio" ? "agua a media altura" : "no se ve agua en el cristal"}</strong></div>
+                    <div><span>Tubo de nivel</span><strong>${caldera.conAgua ? "agua a media altura" : "no se ve agua"}</strong></div>
                     <div><span>Manómetro</span><strong>${caldera.presion} atm</strong></div>
-                    <div><span>Válvula de seguridad</span><strong>${caldera.valvula === "silba" ? "silba, soltando vapor" : "en silencio"}</strong></div>
                 </div>
             </div>
-            <span class="maquina-label">GRIFOS DE PRUEBA</span>
-            <div class="maquina-grifos">${grifos}</div>
             <span class="maquina-label">MANIOBRA</span>
             <div class="maquina-maniobras">${maniobras}</div>
         </div>
@@ -1932,6 +1681,14 @@ function estiloCalderasD() {
                 display: grid;
                 grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
                 gap: 12px;
+            }
+            .maquina-caldera.revisar {
+                border-color: rgba(224, 118, 107, 0.8);
+                box-shadow: 0 0 0 1px rgba(224, 118, 107, 0.35) inset;
+            }
+            .maquina-caldera-aviso {
+                margin-left: 6px;
+                color: #e0766b;
             }
             .maquina-placa-timbre {
                 padding: 3px 7px;
@@ -1951,7 +1708,7 @@ function estiloCalderasD() {
             .maquina-tubo-nivel {
                 position: relative;
                 flex: 0 0 16px;
-                min-height: 86px;
+                min-height: 70px;
                 background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(255, 255, 255, 0.02) 60%);
                 border: 2px solid #8a6d3b;
                 border-radius: 8px;
@@ -1977,17 +1734,8 @@ function estiloCalderasD() {
             .maquina-caldera-lecturas strong {
                 color: #fff2c8;
                 font-family: Georgia, "Times New Roman", serif;
-                font-size: 13px;
+                font-size: 15px;
                 font-weight: normal;
-            }
-            .maquina-grifos {
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap: 6px;
-            }
-            .maquina-grifos .maquina-boton-accion {
-                padding: 7px 8px;
-                font-size: 11px;
             }
             .maquina-maniobras {
                 display: flex;
@@ -1995,13 +1743,13 @@ function estiloCalderasD() {
                 gap: 5px;
             }
             .maquina-maniobra {
-                padding: 5px 7px;
+                padding: 6px 8px;
                 background: #121c2a;
                 border: 1px solid #405064;
                 border-radius: 4px;
                 color: #b8c3d0;
                 font-family: Arial, Helvetica, sans-serif;
-                font-size: 10px;
+                font-size: 11px;
                 cursor: pointer;
             }
             .maquina-maniobra:hover:not([disabled]) {
@@ -2030,11 +1778,10 @@ function renderizarDesafioD() {
 
     const calderas = CALDERAS_D.map(caldera => renderizarCalderaD(caldera, desafio)).join("");
     const ordenCompleta = CALDERAS_D.every(caldera => desafio.maniobras[caldera.id]);
-    const enEspera = Date.now() < esperaOrdenDHasta;
 
     const accion = desafio.resuelto
         ? `<button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('D')">Apagar D</button>`
-        : `<button type="button" class="maquina-boton-accion principal" ${ordenCompleta && !enEspera ? "" : "disabled"} onclick="firmarOrdenD()">Firmar la orden de maniobra</button>`;
+        : `<button type="button" class="maquina-boton-accion principal" ${ordenCompleta ? "" : "disabled"} onclick="firmarOrdenD()">Firmar la orden de maniobra</button>`;
 
     return `
         ${estiloMaquinas()}
@@ -2042,16 +1789,13 @@ function renderizarDesafioD() {
         <div class="maquina-shell">
             ${renderizarCabeceraMaquina("D")}
             ${renderizarFichaMaquina(
-                "Sobre la mesa del fogonero quedó la orden del turno en blanco: una línea por caldera, a la espera de una maniobra y una firma. Nadie apaga esta sala sin esa orden.",
+                "Elegí una maniobra para cada caldera según el reglamento y firmá la orden.",
                 [
-                    "<b>I.</b> El agua, antes que nada: mientras el nivel de una caldera no esté en orden, el manómetro y la válvula esperan.",
-                    "<b>II.</b> A una caldera seca jamás se le dé agua: la plancha del hogar, al rojo, estallaría. Retírese el fuego.",
-                    "<b>III.</b> Una caldera anegada arrastra agua a los cilindros. Extráigase por el grifo del fondo.",
-                    "<b>IV.</b> El tubo de nivel engaña: vacía o colmada, la caldera se ve igual en el cristal. Los grifos de prueba no engañan: el alto está sobre el nivel máximo y el bajo, por debajo del mínimo.",
-                    "<b>V.</b> Pasado el timbre de su placa, toda caldera debe soplar por su válvula de seguridad. Si sopla, déjesela trabajar. Si calla, está agarrotada: ábrase la purga a mano.",
-                    "<b>VI.</b> Lo que está en orden no se toca."
+                    "<b>I.</b> Si el manómetro marca <b>más</b> que el límite de su placa: <b>abrir la purga de vapor</b>.",
+                    "<b>II.</b> Si no se ve agua en el tubo de nivel: <b>retirar el fuego</b>. A una caldera seca nunca se le da agua.",
+                    "<b>III.</b> Si la caldera está en orden: <b>no intervenir</b>."
                 ],
-                { objetivo: "ORDEN DE MANIOBRA", detalle: "REGLAMENTO DE CALDERAS, CLAVADO EN LA PARED" }
+                { objetivo: "ORDEN DE MANIOBRA", detalle: "REGLAMENTO DE CALDERAS" }
             )}
             <section class="maquina-tablero">
                 <span class="maquina-label">BATERÍA DE CALDERAS</span>
@@ -2063,63 +1807,54 @@ function renderizarDesafioD() {
     `;
 }
 
-function obtenerDesafioA() {
-    const estado = obtenerEstadoMaquina("A");
-    estado.desafio ??= {
-        preparado: false,
-        mensaje: "Sistema central listo para corte."
-    };
 
-    return estado.desafio;
-}
-
+// =========================================================
+// MÁQUINA A — CORTE GENERAL
+// =========================================================
+// Sin desafío: se puede cortar en cualquier momento. Sus indicadores sirven para ver
+// qué máquinas de la sala siguen en marcha.
 function renderizarDesafioA() {
     const estado = obtenerEstadoMaquina("A");
-    const preparado = comprobarPreparacionCentral();
-    const ids = ["B", "C", "D", "E"];
 
-    const lista = ids.map(id => {
-        const estadoMaquina = obtenerEstadoMaquina(id);
-        const activo = estadoMaquina && estadoMaquina.apagada ? "DETENIDA" : "EN MARCHA";
+    if (estado.apagada) {
+        return renderizarMaquinaApagada("A", "El volante se detiene y el piso deja de temblar.");
+    }
+
+    const lista = ["B", "C", "D", "E"].map(id => {
+        const apagada = Boolean(obtenerEstadoMaquina(id)?.apagada);
         return `
-            <div class="maquina-status-item ${activo === "DETENIDA" ? "apagada" : ""}">
+            <div class="maquina-status-item ${apagada ? "apagada" : ""}">
                 <span>Máquina ${id}</span>
-                <strong>${activo}</strong>
+                <strong>${apagada ? "APAGADA" : "EN MARCHA"}</strong>
             </div>
         `;
     }).join("");
-
-    const centralDisponible = preparado && !estado.apagada;
 
     return `
         ${estiloMaquinas()}
         <div class="maquina-shell">
             ${renderizarCabeceraMaquina("A")}
             ${renderizarFichaMaquina(
-                "La palanca de corte general tiene un seguro de hierro que la mantiene trabada.",
+                "Bajá la palanca de corte general para apagar la máquina principal.",
                 [
-                    "El diagrama remachado junto al tablero muestra cómo se reparte la fuerza: cada máquina se alimenta de la que tiene encima.",
-                    "El seguro está conectado a los indicadores: mientras alguno marque una máquina en marcha, no hay forma de moverlo."
+                    "Las cinco máquinas son independientes: podés apagarlas <b>en el orden que quieras</b>.",
+                    "Los indicadores muestran qué otras máquinas de la sala siguen en marcha."
                 ],
-                { objetivo: "TABLERO PRINCIPAL", detalle: "LECTURA DE LOS INDICADORES" }
+                { objetivo: "TABLERO PRINCIPAL", detalle: "INDICADORES" }
             )}
             <div class="maquina-cuerpo horizontal">
                 <section class="maquina-tablero">
-                    <span class="maquina-label">DIAGRAMA E INDICADORES</span>
-                    <div class="maquina-diagrama"><div><strong>A</strong></div><div>├── <strong>B</strong></div><div>│   └── <strong>C</strong></div><div>└── <strong>D</strong></div><div>    └── <strong>E</strong></div></div>
+                    <span class="maquina-label">INDICADORES DE LA SALA</span>
                     <div class="maquina-status-lista">${lista}</div>
                 </section>
                 <aside class="maquina-zona-controles">
                     <span class="maquina-label">PALANCA DE CORTE</span>
                     <div class="maquina-controles">
-                        <button type="button" class="maquina-boton-accion principal" ${centralDisponible ? "" : "disabled"} onclick="apagarMaquina('A')">Cortar alimentación</button>
+                        <button type="button" class="maquina-boton-accion principal" onclick="apagarMaquina('A')">Apagar A</button>
                     </div>
                 </aside>
             </div>
-            ${renderizarEstadoMaquina(
-                centralDisponible ? "estable" : "proceso",
-                centralDisponible ? "EL SEGURO CEDE" : "El seguro no se mueve: todavía hay indicadores marcando máquinas en marcha."
-            )}
+            ${renderizarEstadoMaquina("proceso", "La máquina principal sigue en marcha.")}
         </div>
     `;
 }
@@ -2178,7 +1913,6 @@ window.elegirRuedaE = elegirRuedaE;
 window.arrancarTransmisionE = arrancarTransmisionE;
 window.elegirChapaB = elegirChapaB;
 window.atornillarChapasB = atornillarChapasB;
-window.abrirGrifoD = abrirGrifoD;
 window.elegirManiobraD = elegirManiobraD;
 window.firmarOrdenD = firmarOrdenD;
 window.apagarMaquina = apagarMaquina;

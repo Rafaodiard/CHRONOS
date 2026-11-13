@@ -208,6 +208,18 @@ function interactuarConObjeto(
 
     reproducirEfecto("interactuar");
 
+    if (dialogo === "PistasPalancas") {
+        abrirDialogo(dialogo, {
+            alTerminar: () => {
+                progreso.pistasPalancasLeidas = true;
+                if (typeof marcarEstadoModificado === "function") {
+                    marcarEstadoModificado();
+                }
+            }
+        });
+        return;
+    }
+
     if (dialogo) {
         abrirDialogo(dialogo);
         return;
